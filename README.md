@@ -2,7 +2,7 @@
 
 ## Genel Bakış
 
-🟢 Canlı Demo: [https://seninsiten.com](https://seninsiten.com)
+🟢 Canlı Demo: [https://heuristic-yalow.162-55-2-145.plesk.page](https://heuristic-yalow.162-55-2-145.plesk.page)
 
 **AIpathy**, ses ve yüz mimiklerinden duygu analizi ile psikolojik test sonuçlarını birleştirerek ruh hali değerlendirmesi yapan; hem danışanlara hem de doktorlara özel arayüzler sunan, yenilikçi ve erişilebilir bir psikolojik destek platformudur.
 
