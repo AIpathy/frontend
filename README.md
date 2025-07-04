@@ -16,7 +16,7 @@
 | **Build Tool**    | Vite                                                                                          |
 | **Stil**          | Tailwind CSS                                                                                  |
 | **Yazı Tipi**     | Google Fonts – Montserrat                                                                     |
-| **Renk Paleti**   | ![#1c1c1e] `#1c1c1e` (arka plan), ![#30614F] `#30614F` (yeşil), ![#f5f5f5]`#f5f5f5` (metin) |
+| **Renk Paleti**   | `#1c1c1e` (arka plan), `#30614F` (yeşil), `#f5f5f5` (metin) |
 | **Responsive**    | Tailwind Flex/Grid                                                                            |
 | **Router**        | React Router DOM (giriş, kayıt, dashboard, vs.)                                               |
 | **State Yönetimi**| useState + useEffect<br/>(İleri aşama: Context API)                                           |
