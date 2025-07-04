@@ -1,10 +1,6 @@
 # node modules
 node_modules
 
-# build output
-dist/
-build/
-
 # production envs
 .env
 .env.local
