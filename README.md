@@ -43,6 +43,8 @@
 | `Header.jsx`          | Üst menü, logo, Giriş/Kayıt yönlendirme                |
 | `Hero.jsx`            | Açılış metni, giriş cümlesi ve görsel alan             |
 | `HeroInteractive.jsx` | Etkileşimli ana sayfa içeriği, kullanıcı yönlendirme   |
+| `Auth.jsx`            | UI tasarım, state yönetimi, form ve doğrulama işlemleri|
+| `HeroDemo.jsx`        | Tailwind animasyonu ve ilgili bileşenler               |
 
 ---
 
