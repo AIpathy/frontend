@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import HeroInteractive from "./components/HeroInteractive"; // 👈 yeni bileşeni dahil ettik
+import HeroDemo from "./components/HeroDemo";
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Header />
       <HeroInteractive />
       <Hero />
+      <HeroDemo />
       <Footer />
     </div>
   );
