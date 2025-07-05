@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Home } from "lucide-react";
+import ApiService from "../services/api";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  const [isDoctor, setIsDoctor] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     const newErrors = {};
@@ -49,12 +52,62 @@ function Auth() {
     setErrors({ ...errors, [e.target.name]: undefined });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      // Giriş veya kayıt işlemi burada yapılacak
-      // Başarılı giriş sonrası dashboard'a yönlendir
-      window.location.href = "/dashboard";
+      setLoading(true);
+      try {
+        if (isLogin) {
+          // Giriş işlemi
+          const response = await ApiService.login({
+            email: form.email,
+            password: form.password,
+            userType: isDoctor ? 'doctor' : 'user'
+          });
+          
+          // Token'ı localStorage'a kaydet
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('userType', isDoctor ? 'doctor' : 'user');
+          localStorage.setItem('userData', JSON.stringify(response.user));
+          
+          // Dashboard'a yönlendir
+          if (isDoctor) {
+            window.location.href = "/doctor";
+          } else {
+            window.location.href = "/dashboard";
+          }
+        } else {
+          // Kayıt işlemi
+          const response = await ApiService.register({
+            name: form.name,
+            email: form.email,
+            password: form.password,
+            userType: isDoctor ? 'doctor' : 'user'
+          });
+          
+          // Başarılı kayıt sonrası giriş yap
+          const loginResponse = await ApiService.login({
+            email: form.email,
+            password: form.password,
+            userType: isDoctor ? 'doctor' : 'user'
+          });
+          
+          localStorage.setItem('token', loginResponse.token);
+          localStorage.setItem('userType', isDoctor ? 'doctor' : 'user');
+          localStorage.setItem('userData', JSON.stringify(loginResponse.user));
+          
+          if (isDoctor) {
+            window.location.href = "/doctor";
+          } else {
+            window.location.href = "/dashboard";
+          }
+        }
+      } catch (error) {
+        console.error('Auth error:', error);
+        setErrors({ general: error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.' });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -67,6 +120,33 @@ function Auth() {
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
           {isLogin ? "Giriş Yap" : "Kayıt Ol"}
         </h2>
+        
+        {/* Kullanıcı Tipi Seçimi */}
+        <div className="flex gap-2 mb-6">
+          <button
+            type="button"
+            onClick={() => setIsDoctor(false)}
+            className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
+              !isDoctor
+                ? "bg-[#3CB97F] text-white"
+                : "bg-[#18181b] text-gray-300 hover:bg-[#18181b]/80"
+            }`}
+          >
+            Kullanıcı
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsDoctor(true)}
+            className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
+              isDoctor
+                ? "bg-[#3CB97F] text-white"
+                : "bg-[#18181b] text-gray-300 hover:bg-[#18181b]/80"
+            }`}
+          >
+            Doktor
+          </button>
+        </div>
+
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           {!isLogin && (
             <div>
@@ -116,9 +196,17 @@ function Auth() {
             type="submit"
             className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded transition-colors"
           >
-            {isLogin ? "Giriş Yap" : "Kayıt Ol"}
+            {loading ? "İşleniyor..." : (isLogin ? "Giriş Yap" : "Kayıt Ol")}
           </button>
         </form>
+        
+        {/* Genel hata mesajı */}
+        {errors.general && (
+          <div className="text-red-400 text-sm text-center mt-2">
+            {errors.general}
+          </div>
+        )}
+        
         <div className="text-center mt-4">
           <button
             className="text-green-400 hover:underline text-sm"

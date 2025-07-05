@@ -1,17 +1,62 @@
-import React, { useState } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell, Search } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell } from "lucide-react";
 import Button from "./Button";
+import ApiService from "../services/api";
+import { formatTimestamp, getAnalysisTypeName } from "../utils/helpers";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [user] = useState({
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [user, setUser] = useState({
     name: "Kullanıcı",
     email: "kullanici@example.com",
     lastLogin: "2024-01-15"
   });
+  const [analyses, setAnalyses] = useState([]);
+  const [stats, setStats] = useState({});
+
+  // API'den veri yükleme
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          window.location.href = '/auth';
+          return;
+        }
+
+        // Kullanıcı profilini yükle
+        const profileData = await ApiService.getUserProfile(token);
+        setUser(profileData);
+
+        // Kullanıcı analizlerini yükle
+        const analysesData = await ApiService.getUserAnalyses(token);
+        setAnalyses(analysesData);
+
+        // Dashboard istatistiklerini yükle
+        const statsData = await ApiService.getDashboardStats(token, 'user');
+        setStats(statsData);
+
+      } catch (error) {
+        console.error('Data loading error:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+
 
   const handleLogout = () => {
-    // Çıkış işlemi burada yapılacak
+    localStorage.removeItem('token');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userData');
     window.location.href = "/";
   };
 
@@ -109,7 +154,22 @@ function Dashboard() {
 
         {/* Ana İçerik */}
         <main className="flex-1 p-6">
-          {activeTab === "overview" && (
+          {loading && (
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3CB97F] mx-auto mb-4"></div>
+                <p className="text-gray-400">Veriler yükleniyor...</p>
+              </div>
+            </div>
+          )}
+
+          {error && (
+            <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
+              <p className="text-red-400">Hata: {error}</p>
+            </div>
+          )}
+
+          {!loading && !error && activeTab === "overview" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Genel Bakış</h2>
               
@@ -119,7 +179,7 @@ function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Bu Hafta</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">5 Analiz</p>
+                      <p className="text-2xl font-bold text-[#3CB97F]">{stats.weeklyAnalyses || analyses.length} Analiz</p>
                     </div>
                     <Activity className="w-8 h-8 text-[#3CB97F]" />
                   </div>
@@ -129,10 +189,18 @@ function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Ortalama Skor</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">7.2/10</p>
+                      <p className="text-2xl font-bold text-[#3CB97F]">
+                        {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ? 
+                          `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` : 
+                          '0/10'}
+                      </p>
                     </div>
                     <div className="w-8 h-8 bg-[#3CB97F] rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-bold">7.2</span>
+                      <span className="text-white text-sm font-bold">
+                        {stats.averageScore || (analyses.length > 0 ? 
+                          (analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1) : 
+                          '0')}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -141,7 +209,11 @@ function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Son Güncelleme</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">2 saat önce</p>
+                      <p className="text-2xl font-bold text-[#3CB97F]">
+                        {stats.lastUpdate || (analyses.length > 0 ? 
+                          formatTimestamp(analyses[0].timestamp) : 
+                          'Henüz analiz yok')}
+                      </p>
                     </div>
                     <Bell className="w-8 h-8 text-[#3CB97F]" />
                   </div>
@@ -152,38 +224,32 @@ function Dashboard() {
               <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
                 <h3 className="text-xl font-semibold text-white mb-4">Son Aktiviteler</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
-                    <Mic className="w-5 h-5 text-[#3CB97F]" />
-                    <div className="flex-1">
-                      <p className="text-white font-medium">Ses Analizi Tamamlandı</p>
-                      <p className="text-gray-400 text-sm">2 saat önce</p>
+                  {analyses.slice(0, 5).map((analysis) => (
+                    <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
+                      {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#3CB97F]" /> :
+                       analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#3CB97F]" /> :
+                       <FileText className="w-5 h-5 text-[#3CB97F]" />}
+                      <div className="flex-1">
+                        <p className="text-white font-medium">
+                          {getAnalysisTypeName(analysis.type)} Tamamlandı
+                        </p>
+                        <p className="text-gray-400 text-sm">{formatTimestamp(analysis.timestamp)}</p>
+                      </div>
+                      <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
                     </div>
-                    <span className="text-[#3CB97F] font-semibold">8.5/10</span>
-                  </div>
-
-                  <div className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
-                    <Camera className="w-5 h-5 text-[#3CB97F]" />
-                    <div className="flex-1">
-                      <p className="text-white font-medium">Mimik Analizi Tamamlandı</p>
-                      <p className="text-gray-400 text-sm">1 gün önce</p>
+                  ))}
+                  
+                  {analyses.length === 0 && (
+                    <div className="text-center py-8">
+                      <p className="text-gray-400">Henüz analiz bulunmuyor.</p>
                     </div>
-                    <span className="text-[#3CB97F] font-semibold">7.8/10</span>
-                  </div>
-
-                  <div className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
-                    <FileText className="w-5 h-5 text-[#3CB97F]" />
-                    <div className="flex-1">
-                      <p className="text-white font-medium">PHQ-9 Testi Tamamlandı</p>
-                      <p className="text-gray-400 text-sm">3 gün önce</p>
-                    </div>
-                    <span className="text-[#3CB97F] font-semibold">6.2/10</span>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
           )}
 
-          {activeTab === "voice" && (
+          {!loading && !error && activeTab === "voice" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Ses Analizi</h2>
               
@@ -200,7 +266,7 @@ function Dashboard() {
             </div>
           )}
 
-          {activeTab === "facial" && (
+          {!loading && !error && activeTab === "facial" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Mimik Analizi</h2>
               
@@ -217,7 +283,7 @@ function Dashboard() {
             </div>
           )}
 
-          {activeTab === "tests" && (
+          {!loading && !error && activeTab === "tests" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Psikolojik Testler</h2>
               
