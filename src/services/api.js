@@ -1,6 +1,4 @@
-// API Base URL - Backend arkadaşınızın server URL'ini buraya ekleyecek
-// Vite projelerinde environment variables VITE_ prefix'i ile kullanılır
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 // API Response Handler
 const handleResponse = async (response) => {
@@ -32,6 +30,30 @@ class ApiService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(userData),
+    });
+    return handleResponse(response);
+  }
+
+  // Şifremi unuttum endpoint'i
+  static async forgotPassword(email) {
+    const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    return handleResponse(response);
+  }
+
+  // Şifre sıfırlama endpoint'i
+  static async resetPassword(token, newPassword) {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token, newPassword }),
     });
     return handleResponse(response);
   }
