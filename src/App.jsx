@@ -6,6 +6,7 @@ import HeroInteractive from "./components/HeroInteractive"; // 👈 yeni bileşe
 import HeroDemo from "./components/HeroDemo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
+import Dashboard from "./components/Dashboard";
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
           </>
         } />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

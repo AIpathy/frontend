@@ -53,7 +53,8 @@ function Auth() {
     e.preventDefault();
     if (validate()) {
       // Giriş veya kayıt işlemi burada yapılacak
-      // alert("Başarılı!");
+      // Başarılı giriş sonrası dashboard'a yönlendir
+      window.location.href = "/dashboard";
     }
   };
 
