@@ -206,7 +206,7 @@ class ApiService {
   }
 
   static async updateUserProfile(profileData, token) {
-    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+    const response = await fetch(`${API_BASE_URL}/users/profile`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
