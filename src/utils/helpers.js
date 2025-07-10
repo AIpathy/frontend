@@ -89,3 +89,12 @@ export const getRiskLevelName = (level) => {
     default: return 'Belirsiz';
   }
 }; 
+
+// Capitalize name func
+export function capitalizeName(name) {
+  if (!name) return '';
+  return name
+    .split(' ')
+    .map(word => word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1))
+    .join(' ');
+} 
