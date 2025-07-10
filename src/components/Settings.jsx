@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApiService from "../services/api";
 import Button from "./Button";
 import { LogOut, Trash2, Save, X, ArrowLeft } from "lucide-react";
-import { capitalizeName } from "../utils/helpers";
+import { Link } from "react-router-dom"; 
 
 function Settings() {
   const [profile, setProfile] = useState({ name: "", email: "" });
@@ -86,16 +86,25 @@ function Settings() {
     alert("Hesap silme özelliği demo amaçlıdır. Backend desteği pek yakında gelecek.");
   };
 
+  const userType = localStorage.getItem("userType");    
+  const backPath = userType === "doctor" ? "/doctor" : "/dashboard";
+
   return (
     <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700 flex items-center justify-center py-10">
-      <a href="/dashboard" className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl flex items-center gap-2" title="Dashboard'a Dön">
-        <ArrowLeft className="w-6 h-6" />
-        <span className="hidden sm:inline">Dashboard</span>
-      </a>
-      <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Ayarlar</h2>
-        {error && <div className="text-red-400 text-center mb-4">{error}</div>}
-        {success && <div className="text-green-400 text-center mb-4">{success}</div>}
+    {/* Sol üst geri ok */}
+    <Link
+      to={backPath}
+      className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl flex items-center gap-2"
+      title="Dashboard'a Dön"
+    >
+      <ArrowLeft className="w-6 h-6" />
+      <span className="hidden sm:inline">Dashboard</span>
+    </Link>
+
+    <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-lg">
+      <h2 className="text-2xl font-bold text-white mb-6 text-center">Ayarlar</h2>
+      {error   && <p className="text-red-400 text-center mb-4">{error}</p>}
+      {success && <p className="text-green-400 text-center mb-4">{success}</p>}
 
         {/* Profil Bilgileri */}
         <form onSubmit={handleSave} className="space-y-4 mb-8">
@@ -176,4 +185,4 @@ function Settings() {
   );
 }
 
-export default Settings; 
+export default Settings;
