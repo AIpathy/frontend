@@ -23,6 +23,10 @@ pnpm-debug.log*
 *.sublime-workspace
 *.sublime-project
 
+# build ve dist klasörleri
+dist/
+build/
+list/
 
 # cache dosyaları
 *.log
