@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell } from "lucide-react";
 import Button from "./Button";
 import ApiService from "../services/api";
-import { formatTimestamp, getAnalysisTypeName } from "../utils/helpers";
+import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -93,7 +93,7 @@ function Dashboard() {
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">{user.name}</h3>
+                  <h3 className="text-white font-semibold">{capitalizeName(user.name)}</h3>
                   <p className="text-gray-400 text-sm">{user.email}</p>
                 </div>
               </div>
