@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell, Search, Users, TrendingUp, AlertCircle } from "lucide-react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell, Search, Users, TrendingUp, AlertCircle, Clock } from "lucide-react";
 import Button from "./Button";
 import ApiService from "../services/api";
-import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName } from "../utils/helpers";
+import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName } from "../utils/helpers";
 
 function DoctorDashboard() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -11,51 +11,57 @@ function DoctorDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-    // Gerçek hasta verileri
+    // hasta verileri
   const [patients, setPatients] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [stats, setStats] = useState({});
 
   const [doctor, setDoctor] = useState({
-    name: "Dr. Ayşe Özkan",
-    email: "ayse.ozkan@hospital.com",
-    specialization: "Psikiyatri"
+    name: "",
+    email: "",
+    specialization: ""
   });
 
   // API'den veri yükleme
   useEffect(() => {
     const loadData = async () => {
-      try {
-        setLoading(true);
-        const token = localStorage.getItem('token');
-        
-        if (!token) {
-          window.location.href = '/auth';
-          return;
-        }
+      setLoading(true);
+      setError(null);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = '/auth';
+        return;
+      }
 
-        // Hasta listesini yükle
+      try {
         const patientsData = await ApiService.getPatients(token);
         setPatients(patientsData);
+      } catch (e) {
+        setError('Hasta verileri yüklenemedi');
+      }
 
-        // İstatistikleri yükle
+      try {
         const statsData = await ApiService.getDashboardStats(token, 'doctor');
         setStats(statsData);
+      } catch (e) {
+        setError('İstatistikler yüklenemedi');
+      }
 
-        // Uyarıları yükle
+      try {
         const alertsData = await ApiService.getAlerts(token);
         setAlerts(alertsData);
+      } catch (e) {
+        setAlerts([]); // Hata olsa bile boş bırak
+      }
 
-        // Doktor profilini yükle
+      try {
         const profileData = await ApiService.getUserProfile(token);
         setDoctor(profileData);
-
-      } catch (error) {
-        console.error('Data loading error:', error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
+      } catch (e) {
+        setError('Profil yüklenemedi');
       }
+
+      setLoading(false);
     };
 
     loadData();
@@ -133,7 +139,7 @@ function DoctorDashboard() {
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">{doctor.name}</h3>
+                  <h3 className="text-white font-semibold">{capitalizeName(doctor.name)}</h3>
                   <p className="text-gray-400 text-sm">{doctor.specialization}</p>
                 </div>
               </div>
