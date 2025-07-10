@@ -195,7 +195,7 @@ class ApiService {
 
   // User profile
   static async getUserProfile(token) {
-    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+    const response = await fetch(`${API_BASE_URL}/users/profile`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
