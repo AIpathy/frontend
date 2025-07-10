@@ -13,6 +13,7 @@ function Auth() {
     email: "",
     password: "",
     confirmPassword: "",
+    specialization: ""
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ function Auth() {
       newErrors.email = "E-posta en fazla 50 karakter olabilir.";
     }
     
-    // Şifre kontrolü (sadece giriş ve kayıt için)
+    // Şifre kontrolü
     if (!showForgotPassword) {
       if (!form.password) {
         newErrors.password = "Şifre gereklidir.";
@@ -40,7 +41,7 @@ function Auth() {
         newErrors.password = "Şifre en fazla 32 karakter olabilir.";
       }
       
-      // Şifre doğrulama kontrolü (sadece kayıt için)
+      // Şifre doğrulama kontrolü
       if (!isLogin) {
         if (!form.confirmPassword) {
           newErrors.confirmPassword = "Şifre doğrulama gereklidir.";
@@ -58,6 +59,10 @@ function Auth() {
         newErrors.name = "Ad Soyad en fazla 40 karakter olabilir.";
       } else if (!/^[a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]+$/.test(form.name)) {
         newErrors.name = "Ad Soyad sadece harf, boşluk ve - karakteri içerebilir.";
+      }
+      // Doktor ise uzmanlık kontrolü
+      if (isDoctor && !form.specialization) {
+        newErrors.specialization = "Uzmanlık alanı gereklidir.";
       }
     }
     
@@ -106,7 +111,8 @@ function Auth() {
             name: form.name,
             email: form.email,
             password: form.password,
-            userType: isDoctor ? 'doctor' : 'user'
+            userType: isDoctor ? 'doctor' : 'user',
+            specialization: isDoctor ? form.specialization : undefined // Uzmanlık gönder
           });
           
           // Başarılı kayıt sonrası giriş yap
@@ -221,19 +227,37 @@ function Auth() {
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           {/* Ad Soyad (sadece kayıt modunda) */}
           {!isLogin && !showForgotPassword && (
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Ad Soyad"
-                maxLength={40}
-                autoComplete="name"
-                value={form.name}
-                onChange={handleChange}
-                className={`px-4 py-2 rounded bg-[#18181b] text-white focus:outline-none focus:ring-2 focus:ring-green-500 w-full ${errors.name ? 'border border-red-500' : ''}`}
-              />
-              <div className="text-xs text-red-400 mt-1 min-h-[18px]">{errors.name}</div>
-            </div>
+            <>
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Ad Soyad"
+                  maxLength={40}
+                  autoComplete="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className={`px-4 py-2 rounded bg-[#18181b] text-white focus:outline-none focus:ring-2 focus:ring-green-500 w-full ${errors.name ? 'border border-red-500' : ''}`}
+                />
+                <div className="text-xs text-red-400 mt-1 min-h-[18px]">{errors.name}</div>
+              </div>
+              {/* Uzmanlık alanı sadece doktor için */}
+              {isDoctor && (
+                <div>
+                  <select
+                    name="specialization"
+                    value={form.specialization}
+                    onChange={handleChange}
+                    className={`px-4 py-2 rounded bg-[#18181b] text-white focus:outline-none focus:ring-2 focus:ring-green-500 w-full ${errors.specialization ? 'border border-red-500' : ''}`}
+                  >
+                    <option value="">Uzmanlık Seçiniz</option>
+                    <option value="Psikoloji">Psikoloji</option>
+                    <option value="Psikiyatri">Psikiyatri</option>
+                  </select>
+                  <div className="text-xs text-red-400 mt-1 min-h-[18px]">{errors.specialization}</div>
+                </div>
+              )}
+            </>
           )}
           
           {/* E-posta */}
