@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
 import Dashboard from "./components/Dashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
+import Settings from "./components/Settings";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/doctor" element={<DoctorDashboard />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
   );
