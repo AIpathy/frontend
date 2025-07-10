@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/logo.png";
 import Button from "./Button";
-import { Home, User } from "lucide-react"; // 👈 User ikonu eklendi
+import { Home, User } from "lucide-react";
 
 function Header() {
   return (
