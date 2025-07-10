@@ -72,7 +72,7 @@ function Dashboard() {
             <Button onClick={() => {}}>
               <Bell className="w-5 h-5 text-[#3CB97F]" />
             </Button>
-            <Button onClick={() => {}}>
+            <Button onClick={() => { window.location.href = '/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
             <Button onClick={handleLogout}>
