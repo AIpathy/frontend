@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell, Search, Users, TrendingUp, AlertCircle, Clock } from "lucide-react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock } from "lucide-react";
 import Button from "./Button";
+import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName } from "../utils/helpers";
 
@@ -115,9 +116,12 @@ function DoctorDashboard() {
             <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Doktor Paneli</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button onClick={() => {}}>
-              <Bell className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
+            <AlertManager onAlertClick={(alert) => {
+              // Alert'e tıklandığında hasta detaylarını göster
+              if (alert.patientId) {
+                loadPatientDetails(alert.patientId);
+              }
+            }} />
             <Button onClick={() => { window.location.href = '/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
