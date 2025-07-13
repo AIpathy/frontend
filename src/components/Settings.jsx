@@ -64,9 +64,8 @@ function Settings() {
       return;
     }
     try {
-      // ApiService ve şifre güncelleme fonksiyonu eklenecek
       const token = localStorage.getItem("token");
-      await ApiService.updateUserProfile({ password: passwords.new, currentPassword: passwords.current }, token);
+      await ApiService.updatePassword(passwords.current, passwords.new, token);
       setSuccess("Şifre başarıyla değiştirildi.");
       setPasswords({ current: "", new: "", confirm: "" });
     } catch (e) {
@@ -82,9 +81,22 @@ function Settings() {
     window.location.href = "/";
   };
 
-  const handleDeleteAccount = () => {
-    // onay modalı ve ApiService.deleteUser gibi bir fonksiyon gerekli
-    alert("Hesap silme özelliği demo amaçlıdır. Backend desteği pek yakında gelecek.");
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.")) {
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        await ApiService.deleteUser(token);
+        localStorage.removeItem("token");
+        localStorage.removeItem("userType");
+        localStorage.removeItem("userData");
+        window.location.href = "/";
+      } catch (e) {
+        setError("Hesap silinemedi.");
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   const userType = localStorage.getItem("userType");    
