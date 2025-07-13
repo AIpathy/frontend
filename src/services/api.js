@@ -116,34 +116,7 @@ class ApiService {
     return handleResponse(response);
   }
 
-  // Analysis endpoints (for users)
-  static async submitVoiceAnalysis(audioData, token) {
-    const formData = new FormData();
-    formData.append('audio', audioData);
-    
-    const response = await fetch(`${API_BASE_URL}/analyses/voice`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    return handleResponse(response);
-  }
 
-  static async submitFacialAnalysis(imageData, token) {
-    const formData = new FormData();
-    formData.append('image', imageData);
-    
-    const response = await fetch(`${API_BASE_URL}/analyses/facial`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: formData,
-    });
-    return handleResponse(response);
-  }
 
   static async submitTestAnalysis(testData, token) {
     const response = await fetch(`${API_BASE_URL}/analyses/test`, {
@@ -185,6 +158,43 @@ class ApiService {
   static async getAlerts(token) {
     const response = await fetch(`${API_BASE_URL}/alerts`, {
       method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(response);
+  }
+
+  // Mark alert as read
+  static async markAlertAsRead(alertId, token) {
+    const response = await fetch(`${API_BASE_URL}/alerts/${alertId}/read`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(response);
+  }
+
+  // Update user password
+  static async updatePassword(currentPassword, newPassword, token) {
+    const response = await fetch(`${API_BASE_URL}/users/password`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ currentPassword, newPassword }),
+    });
+    return handleResponse(response);
+  }
+
+  // Delete user account
+  static async deleteUser(token) {
+    const response = await fetch(`${API_BASE_URL}/users/profile`, {
+      method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
