@@ -51,6 +51,7 @@
 
 ### 🔐 Kimlik Doğrulama
 - **Auth.jsx** : Giriş/kayıt formu, form validasyonu, JWT token yönetimi
+- **ResetPassword.jsx** : Şifre sıfırlama sayfası
 
 ### 📊 Dashboard Sistemleri
 - **Dashboard.jsx** : Kullanıcı dashboard'u, analiz sonuçları, istatistikler
@@ -63,6 +64,7 @@
 - **Hero.jsx**: Ana sayfa hero bölümü
 - **HeroInteractive.jsx**: Etkileşimli ana sayfa içeriği
 - **HeroDemo.jsx**: Demo animasyonları
+- **AlertManager.jsx**: Uyarı yönetimi bileşeni
 
 ---
 
@@ -188,6 +190,9 @@ VITE_API_URL=http://localhost:3001/api
 - ✅ Error handling
 - ✅ Loading states
 - ✅ Form validation
+- ✅ Real-time alerts
+- ✅ Password reset functionality
+- ✅ Account management
 
 ---
 
