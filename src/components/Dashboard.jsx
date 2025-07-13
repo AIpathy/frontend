@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Bell } from "lucide-react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings } from "lucide-react";
 import Button from "./Button";
+import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
 
@@ -15,6 +16,7 @@ function Dashboard() {
   });
   const [analyses, setAnalyses] = useState([]);
   const [stats, setStats] = useState({});
+
 
   // API'den veri yükleme
   useEffect(() => {
@@ -60,6 +62,8 @@ function Dashboard() {
     window.location.href = "/";
   };
 
+
+
   return (
     <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700">
       {/* Header */}
@@ -69,9 +73,10 @@ function Dashboard() {
             <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button onClick={() => {}}>
-              <Bell className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
+            <AlertManager onAlertClick={(alert) => {
+              // Alert'e tıklandığında yapılacak işlemler
+              console.log('Alert clicked:', alert);
+            }} />
             <Button onClick={() => { window.location.href = '/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
@@ -215,7 +220,7 @@ function Dashboard() {
                           'Henüz analiz yok')}
                       </p>
                     </div>
-                    <Bell className="w-8 h-8 text-[#3CB97F]" />
+                    <Activity className="w-8 h-8 text-[#3CB97F]" />
                   </div>
                 </div>
               </div>
