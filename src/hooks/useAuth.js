@@ -14,11 +14,12 @@ export const useAuth = () => {
       
       // Token'ı localStorage'a kaydet
       localStorage.setItem('token', response.token);
-      localStorage.setItem('userType', credentials.userType);
+      // Backend'ten gelen userType'ı kullan
+      localStorage.setItem('userType', response.user.userType);
       localStorage.setItem('userData', JSON.stringify(response.user));
       
       // Dashboard'a yönlendir
-      if (credentials.userType === 'doctor') {
+      if (response.user.userType === 'doctor') {
         window.location.href = "/doctor";
       } else {
         window.location.href = "/dashboard";
@@ -48,10 +49,11 @@ export const useAuth = () => {
       });
       
       localStorage.setItem('token', loginResponse.token);
-      localStorage.setItem('userType', userData.userType);
+      // Backend'ten gelen userType'ı kullan
+      localStorage.setItem('userType', loginResponse.user.userType);
       localStorage.setItem('userData', JSON.stringify(loginResponse.user));
       
-      if (userData.userType === 'doctor') {
+      if (loginResponse.user.userType === 'doctor') {
         window.location.href = "/doctor";
       } else {
         window.location.href = "/dashboard";
