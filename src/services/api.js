@@ -178,6 +178,47 @@ class ApiService {
     return handleResponse(response);
   }
 
+  // Tüm uyarıları okundu yap
+  static async markAllAsRead(token) {
+    const response = await fetch(`${API_BASE_URL}/alerts/read-all`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(response);
+  }
+
+  //delete alert
+  static async deleteAlert(id, token) {
+    const res = await fetch(`${API_BASE_URL}/alerts/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return handleResponse(res);
+  }
+
+  //delete all alerts 
+  static async deleteAllAlerts(token) {
+    const response = await fetch(`${API_BASE_URL}/alerts`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return handleResponse(response);
+  }
+  
+
+  static async getAlert(id, token) {
+    const res = await fetch(`${API_BASE_URL}/alerts/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return handleResponse(res);
+  }
+  
   // Update user password
   static async updatePassword(currentPassword, newPassword, token) {
     const response = await fetch(`${API_BASE_URL}/users/password`, {
