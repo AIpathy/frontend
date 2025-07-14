@@ -10,6 +10,8 @@ import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import Settings from "./components/Settings";
+import AlertDetail from "./components/AlertDetail";
+
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/alert/:id" element={<AlertDetail />} />
       </Routes>
     </Router>
   );
