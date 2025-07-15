@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIpathy</title>
+
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN sadece daktilo efekti için-->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            keyframes: {
+              typing: {
+                "0%": {
+                  width: "0%",
+                  visibility: "hidden"
+                },
+                "100%": {
+                  width: "100%"
+                }
+              },
+              blink: {
+                "50%": {
+                  borderColor: "transparent"
+                },
+                "100%": {
+                  borderColor: "white"
+                }
+              }
+            },
+            animation: {
+              typing: "typing 2s steps(20) infinite alternate, blink .7s infinite"
+            }
+          },
+        },
+        plugins: [],
+      }
+    </script>
+    <script type="module" crossorigin src="/frontend/assets/index-B-gZY_7A.js"></script>
+    <link rel="stylesheet" crossorigin href="/frontend/assets/index-B56egUvR.css">
+  </head>
+  <body class="font-sans" style="background:#1c1c1e;">
+    <div id="root"></div>
+    
+  </body>
+</html>
