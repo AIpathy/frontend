@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock } from "lucide-react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock, Bot } from "lucide-react";
 import Button from "./Button";
 import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName } from "../utils/helpers";
+import AIInteraction from "./AIInteraction";
 
 function DoctorDashboard() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -200,6 +201,18 @@ function DoctorDashboard() {
               >
                 <TrendingUp className="w-5 h-5" />
                 <span>Analitik</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("ai-assistant")}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                  activeTab === "ai-assistant"
+                    ? "bg-[#3CB97F] text-white"
+                    : "text-gray-300 hover:bg-[#18181b]/50"
+                }`}
+              >
+                <Bot className="w-5 h-5" />
+                <span>AI Asistan</span>
               </button>
 
               <button
@@ -409,6 +422,13 @@ function DoctorDashboard() {
                   ))}
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* AI Asistan Sekmesi */}
+          {!loading && !error && activeTab === "ai-assistant" && (
+            <div className="-m-6 h-[calc(100vh-120px)]">
+              <AIInteraction doctorMode={true} />
             </div>
           )}
 

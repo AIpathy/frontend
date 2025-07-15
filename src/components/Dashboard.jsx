@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings } from "lucide-react";
+import { LogOut, User, Activity, Bot, FileText, Settings } from "lucide-react";
 import Button from "./Button";
-import AlertManager from "./AlertManager";
+import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
 
@@ -67,16 +67,12 @@ function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700">
       {/* Header */}
-      <header className="bg-[#1c1c1e]/80 backdrop-blur-md border-b border-[#3CB97F]/20">
+      <header className="bg-[#1c1c1e]/80 backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10">
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <AlertManager onAlertClick={(alert) => {
-              // Alert'e tıklandığında yapılacak işlemler
-              console.log('Alert clicked:', alert);
-            }} />
             <Button onClick={() => { window.location.href = '/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
@@ -89,7 +85,7 @@ function Dashboard() {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-[#232325]/80 backdrop-blur-md border-r border-[#3CB97F]/20 min-h-screen">
+        <aside className="w-64 bg-[#232325]/80 backdrop-blur-md border-r border-[#3CB97F]/20 min-h-screen relative z-0">
           <div className="p-6">
             {/* Kullanıcı Profili */}
             <div className="bg-[#18181b]/50 rounded-lg p-4 mb-6">
@@ -119,27 +115,15 @@ function Dashboard() {
               </button>
 
               <button
-                onClick={() => setActiveTab("voice")}
+                onClick={() => setActiveTab("ai-assistant")}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "voice"
+                  activeTab === "ai-assistant"
                     ? "bg-[#3CB97F] text-white"
                     : "text-gray-300 hover:bg-[#18181b]/50"
                 }`}
               >
-                <Mic className="w-5 h-5" />
-                <span>Ses Analizi</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab("facial")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "facial"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
-              >
-                <Camera className="w-5 h-5" />
-                <span>Mimik Analizi</span>
+                <Bot className="w-5 h-5" />
+                <span>AI Asistan</span>
               </button>
 
               <button
@@ -158,7 +142,7 @@ function Dashboard() {
         </aside>
 
         {/* Ana İçerik */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 relative z-0">
           {loading && (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
@@ -254,37 +238,9 @@ function Dashboard() {
             </div>
           )}
 
-          {!loading && !error && activeTab === "voice" && (
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white mb-6">Ses Analizi</h2>
-              
-              <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
-                <div className="text-center space-y-4">
-                  <Mic className="w-16 h-16 text-[#3CB97F] mx-auto" />
-                  <h3 className="text-xl font-semibold text-white">Ses Kaydı Başlat</h3>
-                  <p className="text-gray-400">10 saniye boyunca konuşun, duygu durumunuz analiz edilecek</p>
-                  <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-8 py-3 rounded-lg">
-                    Kayıt Başlat
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {!loading && !error && activeTab === "facial" && (
-            <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white mb-6">Mimik Analizi</h2>
-              
-              <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
-                <div className="text-center space-y-4">
-                  <Camera className="w-16 h-16 text-[#3CB97F] mx-auto" />
-                  <h3 className="text-xl font-semibold text-white">Kamera Erişimi</h3>
-                  <p className="text-gray-400">Yüz ifadelerinizi analiz etmek için kameraya erişim gerekiyor</p>
-                  <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-8 py-3 rounded-lg">
-                    Analizi Başlat
-                  </Button>
-                </div>
-              </div>
+          {!loading && !error && activeTab === "ai-assistant" && (
+            <div className="-m-6 h-[calc(100vh-120px)]">
+              <AIInteraction />
             </div>
           )}
 

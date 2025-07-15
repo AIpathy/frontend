@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ApiService from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const login = async (credentials) => {
     setLoading(true);
@@ -14,14 +16,15 @@ export const useAuth = () => {
       
       // Token'ı localStorage'a kaydet
       localStorage.setItem('token', response.token);
-      localStorage.setItem('userType', credentials.userType);
+      // Backend'ten gelen userType'ı kullan
+      localStorage.setItem('userType', response.user.userType);
       localStorage.setItem('userData', JSON.stringify(response.user));
       
       // Dashboard'a yönlendir
-      if (credentials.userType === 'doctor') {
-        window.location.href = "/doctor";
+      if (response.user.userType === 'doctor') {
+        navigate("/doctor");
       } else {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       }
       
       return response;
@@ -48,13 +51,14 @@ export const useAuth = () => {
       });
       
       localStorage.setItem('token', loginResponse.token);
-      localStorage.setItem('userType', userData.userType);
+      // Backend'ten gelen userType'ı kullan
+      localStorage.setItem('userType', loginResponse.user.userType);
       localStorage.setItem('userData', JSON.stringify(loginResponse.user));
       
-      if (userData.userType === 'doctor') {
-        window.location.href = "/doctor";
+      if (loginResponse.user.userType === 'doctor') {
+        navigate("/doctor");
       } else {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       }
       
       return response;
