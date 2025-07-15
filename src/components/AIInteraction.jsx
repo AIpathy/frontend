@@ -275,20 +275,20 @@ function AIInteraction({ doctorMode = false }) {
       ];
     } else {
       newMessages = [
-        {
-          id: 1,
-          type: 'ai',
-          content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses ve görüntü analizi yaparak size daha iyi yardımcı olabilirim.',
-          timestamp: new Date()
-        },
-        {
-          id: 2,
-          type: 'ai',
-          content: 'Ses ve görüntünüzün analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı ve yüz ifadelerinizi analiz ederek size daha iyi yardımcı olabilirim.',
-          timestamp: new Date(),
-          showConsentButton: true
-        }
-      ];
+      {
+        id: 1,
+        type: 'ai',
+        content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses ve görüntü analizi yaparak size daha iyi yardımcı olabilirim.',
+        timestamp: new Date()
+      },
+      {
+        id: 2,
+        type: 'ai',
+        content: 'Ses ve görüntünüzün analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı ve yüz ifadelerinizi analiz ederek size daha iyi yardımcı olabilirim.',
+        timestamp: new Date(),
+        showConsentButton: true
+      }
+    ];
     }
     setMessages(newMessages);
     // Medya akışını durdur
@@ -476,15 +476,15 @@ function AIInteraction({ doctorMode = false }) {
               <div className="flex items-end space-x-3">
                 <div className="flex-1 relative">
                   {/* Emoji Butonu - yukarı hizalı */}
-                  <button
+                <button
                     type="button"
-                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                     className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
-                    title="Emoji ekle"
+                  title="Emoji ekle"
                     style={{ zIndex: 2 }}
-                  >
-                    <Smile className="w-5 h-5" />
-                  </button>
+                >
+                  <Smile className="w-5 h-5" />
+                </button>
                   <textarea
                     value={inputMessage}
                     onChange={handleInputChange}
