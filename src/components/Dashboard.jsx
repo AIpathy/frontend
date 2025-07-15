@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LogOut, User, Activity, Bot, FileText, Settings } from "lucide-react";
 import Button from "./Button";
-import AlertManager from "./AlertManager";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
@@ -74,10 +73,6 @@ function Dashboard() {
             <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <AlertManager onAlertClick={(alert) => {
-              // Alert'e tıklandığında yapılacak işlemler
-              console.log('Alert clicked:', alert);
-            }} />
             <Button onClick={() => { window.location.href = '/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
