@@ -1,4 +1,6 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+import axios from "axios";
+
 
 // API Response Handler
 const handleResponse = async (response) => {
@@ -267,6 +269,19 @@ class ApiService {
     });
     return handleResponse(response);
   }
+
+static async uploadTest(formData) {
+  const token = localStorage.getItem("token");
+  return axios.post(`${API_BASE_URL}/uploads`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 
-export default ApiService; 
+}
+
+
+
+export default ApiService;

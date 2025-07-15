@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../assets/logo.png";
 import Button from "./Button";
 import { Home, User } from "lucide-react";
-import AlertManager from "./AlertManager";
+
 
 
 function Header() {
@@ -16,11 +16,6 @@ function Header() {
         <Button onClick={() => window.location.href = '/'}>
           <Home className="w-6 h-6 text-[#3CB97F]" />
         </Button>
-
-        {/* Bildirim butonu  ← EKLENDİ */}
-        <AlertManager />
-
-
         {/* Giriş / Kayıt tek ikonlu buton */}
         <Button onClick={() => window.location.href = '/auth'}>
           <User className="w-6 h-6 text-[#3CB97F]" />

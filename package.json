@@ -7,14 +7,15 @@
         "build": "vite build",
         "preview": "vite preview",
         "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest --coverage"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "description": "",
     "dependencies": {
+        "axios": "^1.10.0",
         "lucide-react": "^0.525.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",

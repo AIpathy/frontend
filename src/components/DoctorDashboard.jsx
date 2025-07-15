@@ -11,8 +11,11 @@ function DoctorDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-    // hasta verileri
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+
+  // hasta verileri
   const [patients, setPatients] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [stats, setStats] = useState({});
@@ -36,7 +39,13 @@ function DoctorDashboard() {
 
       try {
         const patientsData = await ApiService.getPatients(token);
-        setPatients(patientsData);
+        setPatients(
+          patientsData.map(p => ({
+            ...p,
+            analyses: p.analyses || []
+          }))
+        );
+
       } catch (e) {
         setError('Hasta verileri yüklenemedi');
       }
@@ -96,14 +105,34 @@ function DoctorDashboard() {
       const token = localStorage.getItem('token');
       const patientData = await ApiService.getPatientById(patientId, token);
       const analysesData = await ApiService.getPatientAnalyses(patientId, token);
-      
+
       setSelectedPatient({
         ...patientData,
-        analyses: analysesData
+        analyses: analysesData || []
       });
     } catch (error) {
       console.error('Patient details loading error:', error);
       setError(error.message);
+    }
+  };
+
+  //Dosya yükleme fonksiyonu.
+  const handleUpload = async () => {
+    if (!selectedFile || !selectedPatient) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("patientId", selectedPatient.id);
+      await ApiService.uploadTest(formData);
+      alert("Dosya başarıyla yüklendi!");
+      setShowUploadModal(false);
+      setSelectedFile(null);
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("Yükleme sırasında hata oluştu");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -153,11 +182,10 @@ function DoctorDashboard() {
             <nav className="space-y-2">
               <button
                 onClick={() => setActiveTab("patients")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "patients"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "patients"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Users className="w-5 h-5" />
                 <span>Hastalar</span>
@@ -165,11 +193,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("analytics")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "analytics"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "analytics"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <TrendingUp className="w-5 h-5" />
                 <span>Analitik</span>
@@ -177,11 +204,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("alerts")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "alerts"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "alerts"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <AlertCircle className="w-5 h-5" />
                 <span>Uyarılar</span>
@@ -236,29 +262,41 @@ function DoctorDashboard() {
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(patient.status)}`}></div>
                         <h3 className="text-white font-semibold">{patient.name}</h3>
                       </div>
-                                             <span className={`text-sm font-medium ${getRiskLevelColor(patient.riskLevel)}`}>
-                         {getRiskLevelName(patient.riskLevel)}
-                       </span>
+                      <span className={`text-sm font-medium ${getRiskLevelColor(patient.riskLevel)}`}>
+                        {getRiskLevelName(patient.riskLevel)}
+                      </span>
                     </div>
-                    
+
                     <div className="space-y-2 text-sm text-gray-400">
                       <p>{patient.email}</p>
                       <p>Yaş: {patient.age}</p>
                       <p>Son aktivite: {formatTimestamp(patient.lastActivity)}</p>
-                      <p>Analiz sayısı: {patient.analyses.length}</p>
+                      <p>Analiz sayısı: {patient.analyses?.length || 0}</p>
                     </div>
 
                     <div className="mt-4 pt-4 border-t border-[#3CB97F]/20">
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-gray-400">Ortalama skor:</span>
                         <span className="text-[#3CB97F] font-semibold">
-                          {(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10
+                          {patient.analyses.length > 0 ? `${(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10`: 'Yok'}
                         </span>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Test Yükle Butonu */}
+              {selectedPatient && (
+                <div className="mt-4">
+                  <button
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                    onClick={() => setShowUploadModal(true)}
+                  >
+                    Test Yükle
+                  </button>
+                </div>
+              )}
 
               {/* Seçili Hasta Detayları */}
               {selectedPatient && (
@@ -276,11 +314,11 @@ function DoctorDashboard() {
                       <div className="space-y-2 text-gray-300">
                         <p><span className="text-[#3CB97F]">E-posta:</span> {selectedPatient.email}</p>
                         <p><span className="text-[#3CB97F]">Yaş:</span> {selectedPatient.age}</p>
-                                                 <p><span className="text-[#3CB97F]">Risk Seviyesi:</span> 
-                           <span className={`ml-2 ${getRiskLevelColor(selectedPatient.riskLevel)}`}>
-                             {getRiskLevelName(selectedPatient.riskLevel)}
-                           </span>
-                         </p>
+                        <p><span className="text-[#3CB97F]">Risk Seviyesi:</span>
+                          <span className={`ml-2 ${getRiskLevelColor(selectedPatient.riskLevel)}`}>
+                            {getRiskLevelName(selectedPatient.riskLevel)}
+                          </span>
+                        </p>
                         <p><span className="text-[#3CB97F]">Son Aktivite:</span> {formatTimestamp(selectedPatient.lastActivity)}</p>
                       </div>
                     </div>
@@ -293,9 +331,9 @@ function DoctorDashboard() {
                             <div className="flex items-center justify-between mb-2">
                               <div className="flex items-center space-x-2">
                                 {getAnalysisIcon(analysis.type)}
-                                                                 <span className="text-white font-medium">
-                                   {getAnalysisTypeName(analysis.type)}
-                                 </span>
+                                <span className="text-white font-medium">
+                                  {getAnalysisTypeName(analysis.type)}
+                                </span>
                               </div>
                               <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
                             </div>
@@ -317,7 +355,7 @@ function DoctorDashboard() {
           {!loading && !error && activeTab === "analytics" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white">Analitik</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
                   <div className="flex items-center justify-between">
@@ -377,7 +415,7 @@ function DoctorDashboard() {
           {!loading && !error && activeTab === "alerts" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white">Uyarılar</h2>
-              
+
               <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
                 <div className="space-y-4">
                   {alerts.map((alert) => (
@@ -388,7 +426,7 @@ function DoctorDashboard() {
                         <p className="text-gray-300">{alert.message}</p>
                         <p className="text-gray-400 text-sm">Oluşturulma: {formatTimestamp(alert.createdAt)}</p>
                       </div>
-                      <Button 
+                      <Button
                         className="bg-red-500 hover:bg-red-600 text-white px-4 py-2"
                         onClick={() => setSelectedPatient(alert.patient)}
                       >
@@ -396,7 +434,7 @@ function DoctorDashboard() {
                       </Button>
                     </div>
                   ))}
-                  
+
                   {alerts.length === 0 && (
                     <div className="text-center py-8">
                       <AlertCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
@@ -408,6 +446,37 @@ function DoctorDashboard() {
             </div>
           )}
         </main>
+
+        {/* ===== Upload Modal ===== */}
+        {showUploadModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded shadow-lg w-80">
+              <h2 className="text-xl font-semibold mb-4">Dosya Yükle</h2>
+
+              <input
+                type="file"
+                onChange={(e) => setSelectedFile(e.target.files[0])}
+                className="mb-4"
+              />
+
+              <div className="flex justify-end space-x-2">
+                <button
+                  className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                  onClick={() => setShowUploadModal(false)}
+                >
+                  Kapat
+                </button>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+                  disabled={!selectedFile || uploading}
+                  onClick={handleUpload}
+                >
+                  {uploading ? "Yükleniyor..." : "Yükle"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
