@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Mic, MicOff, Video, VideoOff, Send, Bot, Smile, Paperclip, SendHorizontal } from "lucide-react";
+import { Mic, MicOff, Video, VideoOff, Send, Bot, Smile, SendHorizontal } from "lucide-react";
 import Button from "./Button";
 
-function AIInteraction() {
+function AIInteraction({ doctorMode = false }) {
   const [isRecording, setIsRecording] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -22,8 +22,24 @@ function AIInteraction() {
         timestamp: new Date(msg.timestamp)
       }));
     }
-    
     // İlk kez açılıyorsa varsayılan mesajları göster
+    if (doctorMode) {
+      return [
+        {
+          id: 1,
+          type: 'ai',
+          content: 'Merhaba! Bugün sizin psikolojik iyi oluşunuzu analiz etmek için buradayım. Ses ve görüntü analiziyle ruh halinizi değerlendirebilirim.',
+          timestamp: new Date()
+        },
+        {
+          id: 2,
+          type: 'ai',
+          content: 'Kendi ruh halinizi analiz etmem için ses ve görüntü verilerinizi kullanmama izin veriyor musunuz? Böylece size daha iyi destek olabilirim.',
+          timestamp: new Date(),
+          showConsentButton: true
+        }
+      ];
+    }
     return [
       {
         id: 1,
@@ -89,42 +105,43 @@ function AIInteraction() {
       setPermissions({ audio: true, video: true });
       setIsVideoOn(true);
       setIsRecording(true);
-      
       // Onay mesajını ekle
       const consentMessage = {
         id: messages.length + 1,
         type: 'user',
-        content: 'Evet, ses ve görüntü analizi yapılmasına izin veriyorum.',
+        content: doctorMode
+          ? 'Evet, kendi psikolojik analizim için ses ve görüntü verilerimi kullanabilirsin.'
+          : 'Evet, ses ve görüntü analizi yapılmasına izin veriyorum.',
         timestamp: new Date()
       };
-      
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: 'Teşekkürler! Artık ses ve görüntü analizi yapabilirim. Konuşmaya başlayabilirsiniz.',
+        content: doctorMode
+          ? 'Teşekkürler! Artık kendi ruh halinizi analiz edebilirim. Dilediğiniz gibi konuşmaya başlayabilirsiniz.'
+          : 'Teşekkürler! Artık ses ve görüntü analizi yapabilirim. Konuşmaya başlayabilirsiniz.',
         timestamp: new Date()
       };
-      
       setMessages(prev => [...prev, consentMessage, aiResponse]);
-      
     } catch (error) {
       console.error('Media stream error:', error);
-      
       // Hata mesajını ekle
       const errorMessage = {
         id: messages.length + 1,
         type: 'user',
-        content: 'Hayır, şu an izin vermek istemiyorum.',
+        content: doctorMode
+          ? 'Hayır, şu an kendi psikolojik analizimi yapmak istemiyorum.'
+          : 'Hayır, şu an izin vermek istemiyorum.',
         timestamp: new Date()
       };
-      
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
+        content: doctorMode
+          ? 'Anladım. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?'
+          : 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
         timestamp: new Date()
       };
-      
       setMessages(prev => [...prev, errorMessage, aiResponse]);
     }
   };
@@ -187,24 +204,23 @@ function AIInteraction() {
   // Mesaj gönder
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
-
     const newMessage = {
       id: messages.length + 1,
       type: 'user',
       content: inputMessage,
       timestamp: new Date()
     };
-
     setMessages(prev => [...prev, newMessage]);
     setInputMessage("");
     setIsLoading(true);
-
     // AI yanıtını simüle et
     setTimeout(() => {
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: 'Mesajınızı aldım. Ses ve görüntü analizlerinizle birlikte değerlendiriyorum...',
+        content: doctorMode
+          ? 'Mesajınızı aldım. Ses ve görüntü analizinizle birlikte ruh halinizi değerlendiriyorum...'
+          : 'Mesajınızı aldım. Ses ve görüntü analizlerinizle birlikte değerlendiriyorum...',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, aiResponse]);
@@ -238,34 +254,43 @@ function AIInteraction() {
     setShowEmojiPicker(false);
   };
 
-  // Dosya yükleme
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Dosya yükleme işlemi burada yapılacak
-      console.log('Dosya yüklendi:', file.name);
-    }
-  };
-
   // Yeni konuşma başlat
   const startNewConversation = () => {
-    const newMessages = [
-      {
-        id: 1,
-        type: 'ai',
-        content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses ve görüntü analizi yaparak size daha iyi yardımcı olabilirim.',
-        timestamp: new Date()
-      },
-      {
-        id: 2,
-        type: 'ai',
-        content: 'Ses ve görüntünüzün analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı ve yüz ifadelerinizi analiz ederek size daha iyi yardımcı olabilirim.',
-        timestamp: new Date(),
-        showConsentButton: true
-      }
-    ];
+    let newMessages;
+    if (doctorMode) {
+      newMessages = [
+        {
+          id: 1,
+          type: 'ai',
+          content: 'Merhaba! Bugün sizin psikolojik iyi oluşunuzu analiz etmek için buradayım. Ses ve görüntü analiziyle ruh halinizi değerlendirebilirim.',
+          timestamp: new Date()
+        },
+        {
+          id: 2,
+          type: 'ai',
+          content: 'Kendi ruh halinizi analiz etmem için ses ve görüntü verilerinizi kullanmama izin veriyor musunuz? Böylece size daha iyi destek olabilirim.',
+          timestamp: new Date(),
+          showConsentButton: true
+        }
+      ];
+    } else {
+      newMessages = [
+        {
+          id: 1,
+          type: 'ai',
+          content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses ve görüntü analizi yaparak size daha iyi yardımcı olabilirim.',
+          timestamp: new Date()
+        },
+        {
+          id: 2,
+          type: 'ai',
+          content: 'Ses ve görüntünüzün analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı ve yüz ifadelerinizi analiz ederek size daha iyi yardımcı olabilirim.',
+          timestamp: new Date(),
+          showConsentButton: true
+        }
+      ];
+    }
     setMessages(newMessages);
-    
     // Medya akışını durdur
     if (mediaStreamRef.current) {
       mediaStreamRef.current.getTracks().forEach(track => track.stop());
@@ -287,8 +312,14 @@ function AIInteraction() {
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">AI Psikolojik Asistan</h1>
-                <p className="text-gray-400 text-sm">Ses ve görüntü analizi ile size yardımcı oluyorum</p>
+                <h1 className="text-xl font-bold text-white">
+                  {doctorMode ? 'AI Klinik Asistan' : 'AI Psikolojik Asistan'}
+                </h1>
+                <p className="text-gray-400 text-sm">
+                  {doctorMode
+                    ? 'Doktorlara özel psikolojik destek'
+                    : 'Ses ve görüntü analizi ile ruh halinizi analiz ediyorum'}
+                </p>
               </div>
             </div>
             
@@ -443,34 +474,23 @@ function AIInteraction() {
             {/* Modern Mesaj Girişi */}
             <div className="p-4 border-t border-[#3CB97F]/20 bg-[#1c1c1e]/30 flex-shrink-0">
               <div className="flex items-end space-x-3">
-                {/* Emoji Butonu */}
-                <button
-                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className="p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
-                  title="Emoji ekle"
-                >
-                  <Smile className="w-5 h-5" />
-                </button>
-
-                {/* Dosya Yükleme */}
-                <label className="p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50 cursor-pointer">
-                  <Paperclip className="w-5 h-5" />
-                  <input
-                    type="file"
-                    className="hidden"
-                    onChange={handleFileUpload}
-                    accept="image/*,video/*,audio/*,.pdf,.doc,.docx"
-                  />
-                </label>
-
-                {/* Input Alanı */}
                 <div className="flex-1 relative">
+                  {/* Emoji Butonu - yukarı hizalı */}
+                  <button
+                    type="button"
+                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                    className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
+                    title="Emoji ekle"
+                    style={{ zIndex: 2 }}
+                  >
+                    <Smile className="w-5 h-5" />
+                  </button>
                   <textarea
                     value={inputMessage}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Mesajınızı yazın... (Enter ile gönder)"
-                    className="w-full bg-[#232325]/70 text-white placeholder-gray-400 rounded-xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/30 hover:border-[#3CB97F]/50 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
+                    className="w-full bg-[#232325]/70 text-white placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/30 hover:border-[#3CB97F]/50 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
                     rows="1"
                     style={{ minHeight: '44px', maxHeight: '128px', overflowY: 'auto' }}
                   />
