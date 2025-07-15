@@ -2,7 +2,7 @@
 
 ## 🟢 Genel Bakış
 
-🟢 **Canlı Demo**: [https://heuristic-yalow.162-55-2-145.plesk.page](https://heuristic-yalow.162-55-2-145.plesk.page)
+🟢 **Canlı Demo**: [https://aipathy.github.io/frontend/](https://aipathy.github.io/frontend/)
 
 **AIpathy**, ses ve yüz mimiklerinden duygu analizi ile psikolojik test sonuçlarını birleştirerek ruh hali değerlendirmesi yapan; hem danışanlara hem de doktorlara özel arayüzler sunan, yenilikçi ve erişilebilir bir psikolojik destek platformudur.
 
@@ -211,7 +211,7 @@ VITE_API_URL=http://localhost:3001/api
 
 ### Deployment Platform
 - **Platform**: Plesk Panel , Git CICD Operasyonu
-- **URL**: https://heuristic-yalow.162-55-2-145.plesk.page
+- **URL**: https://aipathy.github.io/frontend/
 - **Status**: ✅ Canlı
 
 ---
