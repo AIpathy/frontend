@@ -229,5 +229,3 @@ VITE_API_URL=http://localhost:3001/api
 - **Son Güncelleme**: 2025
 
 ---
-
-*Bu proje, modern web teknolojileri kullanılarak geliştirilmiş, kullanıcı dostu ve erişilebilir bir psikolojik destek platformudur.*
