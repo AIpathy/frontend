@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ApiService from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const login = async (credentials) => {
     setLoading(true);
@@ -20,9 +22,9 @@ export const useAuth = () => {
       
       // Dashboard'a yönlendir
       if (response.user.userType === 'doctor') {
-        window.location.href = "/doctor";
+        navigate("/doctor");
       } else {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       }
       
       return response;
@@ -54,9 +56,9 @@ export const useAuth = () => {
       localStorage.setItem('userData', JSON.stringify(loginResponse.user));
       
       if (loginResponse.user.userType === 'doctor') {
-        window.location.href = "/doctor";
+        navigate("/doctor");
       } else {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       }
       
       return response;
