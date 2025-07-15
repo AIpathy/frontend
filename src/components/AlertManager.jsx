@@ -140,7 +140,7 @@ function AlertManager({ onAlertClick }) {
   
       {/* Dropdown */}
       {showDropdown && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-[#232325] rounded-lg shadow-lg border border-[#3CB97F]/20 z-50">
+        <div className="absolute right-0 top-full mt-2 w-80 bg-[#232325] rounded-lg shadow-lg border border-[#3CB97F]/20 z-[9999]">
           {/* Başlık */}
           <div className="p-4 border-b border-[#3CB97F]/20 flex justify-between items-center">
             <h3 className="text-white font-semibold">Uyarılar</h3>
@@ -239,7 +239,7 @@ function AlertManager({ onAlertClick }) {
       {/* Backdrop */}
       {showDropdown && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-[9998]"
           onClick={() => setShowDropdown(false)}
         />
       )}
