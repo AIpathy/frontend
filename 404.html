@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=/frontend/" />
+  </head>
+  <body>
+    <script>
+      // GitHub Pages SPA redirect
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+        location.replace(redirect);
+      }
+    </script>
+    <p>Redirecting...</p>
+  </body>
+</html>
