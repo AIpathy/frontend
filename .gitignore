@@ -33,3 +33,7 @@ list/
 
 # coverage tools
 coverage/
+
+# kullanıcı yüklemeleri
+uploads/
+
