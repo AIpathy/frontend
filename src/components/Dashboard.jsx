@@ -24,7 +24,7 @@ function Dashboard() {
       try {
         setLoading(true);
         const token = localStorage.getItem('token');
-        
+
         if (!token) {
           window.location.href = '/auth';
           return;
@@ -53,6 +53,25 @@ function Dashboard() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    const handler = async (e) => {
+      const token = localStorage.getItem("token");
+      try {
+        const updatedUser = await ApiService.getUserProfile(token);
+
+        // 🌟 Burada avatar güncellenmişse zorla avatar'ı state'e yaz
+        if (e.detail) {
+          updatedUser.avatar_url = e.detail;
+        }
+
+        setUser(updatedUser);
+      } catch (err) {
+        console.error("Avatar sonrası profil alınamadı:", err);
+      }
+    };
+    window.addEventListener("avatar-updated", handler);
+    return () => window.removeEventListener("avatar-updated", handler);
+  }, []);
 
 
   const handleLogout = () => {
@@ -90,9 +109,18 @@ function Dashboard() {
             {/* Kullanıcı Profili */}
             <div className="bg-[#18181b]/50 rounded-lg p-4 mb-6">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
+                <img
+                  key={user.avatar_url} // bu satır çok önemli
+                  src={
+                    user.avatar_url
+                      ? `${import.meta.env.VITE_BACKEND_URL}${user.avatar_url}`
+                      : "/default-avatar.png"
+                  }
+                  onError={(e) => { e.currentTarget.src = "/default-avatar.png" }}
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#3CB97F]"
+                />
+
                 <div>
                   <h3 className="text-white font-semibold">{capitalizeName(user.name)}</h3>
                   <p className="text-gray-400 text-sm">{user.email}</p>
@@ -104,11 +132,10 @@ function Dashboard() {
             <nav className="space-y-2">
               <button
                 onClick={() => setActiveTab("overview")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "overview"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "overview"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Activity className="w-5 h-5" />
                 <span>Genel Bakış</span>
@@ -116,11 +143,10 @@ function Dashboard() {
 
               <button
                 onClick={() => setActiveTab("ai-assistant")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "ai-assistant"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "ai-assistant"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Bot className="w-5 h-5" />
                 <span>AI Asistan</span>
@@ -128,11 +154,10 @@ function Dashboard() {
 
               <button
                 onClick={() => setActiveTab("tests")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "tests"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "tests"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <FileText className="w-5 h-5" />
                 <span>Testler</span>
@@ -161,7 +186,7 @@ function Dashboard() {
           {!loading && !error && activeTab === "overview" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Genel Bakış</h2>
-              
+
               {/* İstatistik Kartları */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
@@ -179,15 +204,15 @@ function Dashboard() {
                     <div>
                       <p className="text-gray-400 text-sm">Ortalama Skor</p>
                       <p className="text-2xl font-bold text-[#3CB97F]">
-                        {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ? 
-                          `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` : 
+                        {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ?
+                          `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` :
                           '0/10'}
                       </p>
                     </div>
                     <div className="w-8 h-8 bg-[#3CB97F] rounded-full flex items-center justify-center">
                       <span className="text-white text-sm font-bold">
-                        {stats.averageScore || (analyses.length > 0 ? 
-                          (analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1) : 
+                        {stats.averageScore || (analyses.length > 0 ?
+                          (analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1) :
                           '0')}
                       </span>
                     </div>
@@ -199,8 +224,8 @@ function Dashboard() {
                     <div>
                       <p className="text-gray-400 text-sm">Son Güncelleme</p>
                       <p className="text-2xl font-bold text-[#3CB97F]">
-                        {stats.lastUpdate || (analyses.length > 0 ? 
-                          formatTimestamp(analyses[0].timestamp) : 
+                        {stats.lastUpdate || (analyses.length > 0 ?
+                          formatTimestamp(analyses[0].timestamp) :
                           'Henüz analiz yok')}
                       </p>
                     </div>
@@ -216,8 +241,8 @@ function Dashboard() {
                   {analyses.slice(0, 5).map((analysis) => (
                     <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
                       {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#3CB97F]" /> :
-                       analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#3CB97F]" /> :
-                       <FileText className="w-5 h-5 text-[#3CB97F]" />}
+                        analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#3CB97F]" /> :
+                          <FileText className="w-5 h-5 text-[#3CB97F]" />}
                       <div className="flex-1">
                         <p className="text-white font-medium">
                           {getAnalysisTypeName(analysis.type)} Tamamlandı
@@ -227,7 +252,7 @@ function Dashboard() {
                       <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
                     </div>
                   ))}
-                  
+
                   {analyses.length === 0 && (
                     <div className="text-center py-8">
                       <p className="text-gray-400">Henüz analiz bulunmuyor.</p>
@@ -247,7 +272,7 @@ function Dashboard() {
           {!loading && !error && activeTab === "tests" && (
             <div className="space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">Psikolojik Testler</h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
                   <div className="text-center space-y-4">

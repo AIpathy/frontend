@@ -40,6 +40,8 @@ function DoctorDashboard() {
 
       try {
         const patientsData = await ApiService.getPatients(token);
+
+
         setPatients(
           patientsData.map(p => ({
             ...p,
@@ -77,6 +79,28 @@ function DoctorDashboard() {
 
     loadData();
   }, []);
+
+
+  useEffect(() => {
+    const handler = async (e) => {
+      const token = localStorage.getItem("token");
+      try {
+        const updatedUser = await ApiService.getUserProfile(token);
+
+        // 🩵 Avatar güncellemesini zorla uygula
+        if (e.detail) {
+          updatedUser.avatar_url = e.detail;
+        }
+
+        setDoctor(updatedUser);
+      } catch (err) {
+        console.error("Avatar sonrası profil alınamadı:", err);
+      }
+    };
+    window.addEventListener("avatar-updated", handler);
+    return () => window.removeEventListener("avatar-updated", handler);
+  }, []);
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -169,15 +193,35 @@ function DoctorDashboard() {
             {/* Doktor Profili */}
             <div className="bg-[#18181b]/50 rounded-lg p-4 mb-6">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-white font-semibold">{capitalizeName(doctor.name)}</h3>
-                  <p className="text-gray-400 text-sm">{doctor.specialization}</p>
+                {/* Avatar */}
+                <img
+                  key={doctor.avatar_url} // yine key önemli
+                  src={
+                    doctor.avatar_url
+                      ? `${import.meta.env.VITE_BACKEND_URL}${doctor.avatar_url}`
+                      : "/default-avatar.png"
+                  }
+                  onError={(e) => { e.currentTarget.src = "/default-avatar.png" }}
+                  alt="Avatar"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-[#3CB97F]"
+                />
+                {/* İsim & Alan */}
+                <div className="space-y-1">
+                  {/* İsim + Rank */}
+                  <h3 className="text-white font-semibold leading-tight">
+                    {doctor.rank ? `${doctor.rank} ${capitalizeName(doctor.name)}` : capitalizeName(doctor.name)}
+                  </h3>
+
+                  {/* Sadece Alan (rozet) */}
+                  {doctor.specialization && (
+                    <span className="inline-flex items-center gap-1 bg-[#3CB97F]/15 text-[#3CB97F] text-xs font-semibold px-2 py-[2px] rounded-md">
+                      🩺 {doctor.specialization}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
+
 
             {/* Navigasyon */}
             <nav className="space-y-2">
@@ -205,11 +249,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("ai-assistant")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "ai-assistant"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "ai-assistant"
+                  ? "bg-[#3CB97F] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Bot className="w-5 h-5" />
                 <span>AI Asistan</span>
@@ -291,7 +334,7 @@ function DoctorDashboard() {
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-gray-400">Ortalama skor:</span>
                         <span className="text-[#3CB97F] font-semibold">
-                          {patient.analyses.length > 0 ? `${(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10`: 'Yok'}
+                          {patient.analyses.length > 0 ? `${(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10` : 'Yok'}
                         </span>
                       </div>
                     </div>

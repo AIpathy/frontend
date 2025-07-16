@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApiService from "../services/api";
 import Button from "./Button";
 import { LogOut, Trash2, Save, X, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { capitalizeName } from "../utils/helpers";
 
 function Settings() {
@@ -13,6 +13,9 @@ function Settings() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [preview, setPreview] = useState("");
+
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,6 +24,7 @@ function Settings() {
         const data = await ApiService.getUserProfile(token);
         setProfile(data);
         setForm({ name: data.name || "", email: data.email || "" });
+        setPreview(data.avatar_url || "");
       } catch (e) {
         setError("Profil bilgileri yüklenemedi.");
       }
@@ -99,25 +103,81 @@ function Settings() {
     }
   };
 
-  const userType = localStorage.getItem("userType");    
+
+  const handleAvatarUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const token = localStorage.getItem('token');
+
+    try {
+      const { avatar_url } = await ApiService.uploadAvatar(file, token);
+
+      // timestamp ekle (cache kırma)
+      const timestampedUrl = avatar_url + '?t=' + Date.now();
+
+      setPreview(timestampedUrl);
+      setProfile(prev => ({ ...prev, avatar_url: timestampedUrl }));
+
+      // localStorage da güncellenmeli
+      const existing = JSON.parse(localStorage.getItem('userData') || '{}');
+      localStorage.setItem('userData', JSON.stringify({ ...existing, avatar_url: timestampedUrl }));
+
+      // Dashboard / DoctorDashboard tetikle
+      window.dispatchEvent(new CustomEvent('avatar-updated', { detail: timestampedUrl }));
+
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+
+
+  const userType = localStorage.getItem("userType");
   const backPath = userType === "doctor" ? "/doctor" : "/dashboard";
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700 flex items-center justify-center py-10">
-    {/* Sol üst geri ok */}
-    <Link
-      to={backPath}
-      className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl flex items-center gap-2"
-      title="Dashboard'a Dön"
-    >
-      <ArrowLeft className="w-6 h-6" />
-      <span className="hidden sm:inline">Dashboard</span>
-    </Link>
+      {/* Sol üst geri ok */}
+      <Link
+        to={backPath}
+        className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl flex items-center gap-2"
+        title="Dashboard'a Dön"
+      >
+        <ArrowLeft className="w-6 h-6" />
+        <span className="hidden sm:inline">Dashboard</span>
+      </Link>
 
-    <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-lg">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">Ayarlar</h2>
-      {error   && <p className="text-red-400 text-center mb-4">{error}</p>}
-      {success && <p className="text-green-400 text-center mb-4">{success}</p>}
+      <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-lg">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">Ayarlar</h2>
+        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
+        {success && <p className="text-green-400 text-center mb-4">{success}</p>}
+
+        {/* Avatar Önizleme */}
+        <div className="flex flex-col items-center mb-6">
+          <label htmlFor="avatar" className="cursor-pointer">
+            <img
+              src={
+                preview
+                  ? `${import.meta.env.VITE_BACKEND_URL}${preview}`
+                  : profile.avatar_url
+                    ? `${import.meta.env.VITE_BACKEND_URL}${profile.avatar_url}`
+                    : "/default-avatar.png"
+              }
+              alt="Avatar"
+              className="w-24 h-24 rounded-full object-cover border-2 border-[#3CB97F] mb-2"
+              onError={(e) => (e.currentTarget.src = "/default-avatar.png")}
+            />
+          </label>
+          <input
+            id="avatar"
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarUpload}
+            className="hidden"
+          />
+        </div>
+
 
         {/* Profil Bilgileri */}
         <form onSubmit={handleSave} className="space-y-4 mb-8">

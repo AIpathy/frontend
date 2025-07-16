@@ -7,6 +7,7 @@ import UserTypeSelector from "./forms/UserTypeSelector";
 import SubmitButton from "./forms/SubmitButton";
 import { useAuth } from "../hooks/useAuth";
 import { validateAuthForm } from "../utils/validation";
+import { rankMap } from "../utils/rankMap";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,7 +18,8 @@ function Auth() {
     email: "",
     password: "",
     confirmPassword: "",
-    specialization: ""
+    specialization: "",
+    rank: ""
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
@@ -32,10 +34,10 @@ function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const validationErrors = validateAuthForm(form, isLogin, isDoctor, showForgotPassword);
     setErrors(validationErrors);
-    
+
     if (Object.keys(validationErrors).length === 0) {
       try {
         if (showForgotPassword) {
@@ -54,7 +56,8 @@ function Auth() {
             email: form.email,
             password: form.password,
             userType: isDoctor ? 'doctor' : 'user',
-            specialization: isDoctor ? form.specialization : undefined
+            specialization: isDoctor ? form.specialization : undefined,
+            rank: isDoctor ? form.rank : undefined
           });
         }
       } catch (error) {
@@ -85,6 +88,19 @@ function Auth() {
     setSuccessMessage("");
   };
 
+
+  const handleSpecializationChange = (e) => {
+    const specialization = e.target.value;
+    setForm({
+      ...form,
+      specialization,
+      rank: ""
+    });
+  };
+
+
+
+
   const getSubmitButtonText = () => {
     if (showForgotPassword) return "Şifre Sıfırlama Bağlantısı Gönder";
     return isLogin ? "Giriş Yap" : "Kayıt Ol";
@@ -95,16 +111,16 @@ function Auth() {
       <a href="/" className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl" title="Anasayfa">
         <Home className="w-8 h-8" />
       </a>
-      
+
       <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-md">
         {/* Başlık */}
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          {showForgotPassword 
-            ? "Şifremi Unuttum" 
+          {showForgotPassword
+            ? "Şifremi Unuttum"
             : (isLogin ? "Giriş Yap" : "Kayıt Ol")
           }
         </h2>
-        
+
         {/* Şifremi unuttum modunda geri dön butonu */}
         {showForgotPassword && (
           <button
@@ -115,7 +131,7 @@ function Auth() {
             Giriş ekranına dön
           </button>
         )}
-        
+
         {/* Kullanıcı Tipi Seçimi */}
         {!showForgotPassword && (
           <UserTypeSelector isDoctor={isDoctor} setIsDoctor={setIsDoctor} />
@@ -135,7 +151,7 @@ function Auth() {
                 onChange={handleChange}
                 error={errors.name}
               />
-              
+
               {/* Uzmanlık alanı sadece doktor için */}
               {isDoctor && (
                 <Select
@@ -151,7 +167,25 @@ function Auth() {
               )}
             </>
           )}
-          
+
+
+          {/* RANK SELECT – yalnızca doktor ve specialization seçiliyse görünür */}
+          {isDoctor && form.specialization && (
+            <Select
+              name="rank"
+              value={form.rank}
+              onChange={handleChange}
+              error={errors.rank}
+            >
+              <option value="">Rütbe Seçiniz</option>
+              {rankMap[form.specialization]?.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </Select>
+          )}
+
+
+
           {/* E-posta */}
           <Input
             type="email"
@@ -163,7 +197,7 @@ function Auth() {
             onChange={handleChange}
             error={errors.email}
           />
-          
+
           {/* Şifre (şifremi unuttum modunda gizli) */}
           {!showForgotPassword && (
             <div>
@@ -181,7 +215,7 @@ function Auth() {
               </div>
             </div>
           )}
-          
+
           {/* Şifre Doğrulama (sadece kayıt modunda) */}
           {!isLogin && !showForgotPassword && (
             <PasswordInput
@@ -194,31 +228,31 @@ function Auth() {
               error={errors.confirmPassword}
             />
           )}
-          
+
           {/* Submit Butonu */}
-          <SubmitButton 
-            loading={loading} 
+          <SubmitButton
+            loading={loading}
             isForgotPassword={showForgotPassword}
             isLogin={isLogin}
           >
             {getSubmitButtonText()}
           </SubmitButton>
         </form>
-        
+
         {/* Başarı mesajı */}
         {successMessage && (
           <div className="text-green-400 text-sm text-center mt-4 p-3 bg-green-900/20 rounded-lg">
             {successMessage}
           </div>
         )}
-        
+
         {/* Genel hata mesajı */}
         {errors.general && (
           <div className="text-red-400 text-sm text-center mt-2">
             {errors.general}
           </div>
         )}
-        
+
         {/* Alt linkler */}
         <div className="text-center mt-4 space-y-2">
           {!showForgotPassword && isLogin && (
@@ -229,7 +263,7 @@ function Auth() {
               Şifremi unuttum
             </button>
           )}
-          
+
           {!showForgotPassword && (
             <button
               className="text-green-400 hover:underline text-sm block w-full"

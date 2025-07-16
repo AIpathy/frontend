@@ -212,7 +212,7 @@ class ApiService {
     });
     return handleResponse(response);
   }
-  
+
 
   static async getAlert(id, token) {
     const res = await fetch(`${API_BASE_URL}/alerts/${id}`, {
@@ -220,7 +220,7 @@ class ApiService {
     });
     return handleResponse(res);
   }
-  
+
   // Update user password
   static async updatePassword(currentPassword, newPassword, token) {
     const response = await fetch(`${API_BASE_URL}/users/password`, {
@@ -248,13 +248,13 @@ class ApiService {
 
   // User profile
   static async getUserProfile(token) {
+
     const response = await fetch(`${API_BASE_URL}/users/profile`, {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Authorization': `Bearer ${token}` },
     });
+
+
     return handleResponse(response);
   }
 
@@ -270,15 +270,33 @@ class ApiService {
     return handleResponse(response);
   }
 
-static async uploadTest(formData) {
-  const token = localStorage.getItem("token");
-  return axios.post(`${API_BASE_URL}/uploads`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-}
+
+  static async uploadAvatar(file, token) {
+    const formData = new FormData();
+    formData.append('avatar', file);          // backend alan adı: avatar
+
+    const response = await fetch(`${API_BASE_URL}/users/avatar`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`,     // JWT
+        // ⚠️ Content‑Type belirtme: FormData kullanırken **ekleme!**
+      },
+      body: formData,
+    });
+
+    return handleResponse(response);          // { avatar_url: '...' }
+  }
+
+  
+  static async uploadTest(formData) {
+    const token = localStorage.getItem("token");
+    return axios.post(`${API_BASE_URL}/uploads`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 
 }
 
