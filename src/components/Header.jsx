@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 import Button from "./Button";
 import { Home, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ function Header() {
   return (
     <header className="z-10 w-full flex items-center justify-between px-6 h-[64px]">
       <div className="flex items-center">
-        <img src={logo} alt="AIpathy Logo" className="w-[100px] h-[100px]" />
+        <img src={logo} alt="AIpathy Logo" className="w-[100px] h-[100px] mt-10" />
       </div>
       <div className="flex gap-4 sm:gap-8 lg:gap-10 items-center">
         {/* Anasayfa butonu */}
