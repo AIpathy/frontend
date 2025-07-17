@@ -3,7 +3,7 @@ import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users,
 import Button from "./Button";
 import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
-import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName } from "../utils/helpers";
+import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName, formatDoctorName } from "../utils/helpers";
 import AIInteraction from "./AIInteraction";
 
 function DoctorDashboard() {
@@ -21,7 +21,8 @@ function DoctorDashboard() {
   const [doctor, setDoctor] = useState({
     name: "",
     email: "",
-    specialization: ""
+    specialization: "",
+    expertiseLevel: ""
   });
 
   // API'den veri yükleme
@@ -144,7 +145,7 @@ function DoctorDashboard() {
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">{capitalizeName(doctor.name)}</h3>
+                  <h3 className="text-white font-semibold">{formatDoctorName(doctor.name, doctor.expertiseLevel)}</h3>
                   <p className="text-gray-400 text-sm">{doctor.specialization}</p>
                 </div>
               </div>
