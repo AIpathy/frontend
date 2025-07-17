@@ -94,15 +94,11 @@ function Dashboard() {
         >
           <div className="p-6">
             {/* Kullanıcı Profili */}
-            <div className="bg-white/50 rounded-lg p-5 mb-10 shadow-md">
-              <div className="flex items-center space-x-1">
-                <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
-                </div>
-                <div>
-                  <h3 className="text-gray-800 font-semibold">{capitalizeName(user.name)}</h3>
-                  <p className="text-gray-500 text-sm">{user.email}</p>
-                </div>
+            <div className="bg-white/80 rounded-full px-2 py-1.5 mb-6 shadow-lg shadow-[#3CB97F]/10 overflow-hidden w-full flex items-center space-x-4">
+              <div className="w-12 h-12 bg-[#3CB97F] rounded-full flex items-center justify-center">
+                <User className="w-7 h-7 text-white" />
               </div>
+              <span className="text-xl font-normal text-[#696969] leading-tight whitespace-nowrap">{capitalizeName(user.name)}</span>
             </div>
             {/* Navigasyon */}
             <nav className="space-y-2">
