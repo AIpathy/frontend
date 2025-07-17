@@ -74,6 +74,13 @@ function AIInteraction({ doctorMode = false }) {
     localStorage.setItem('aiChatMessages', JSON.stringify(messages));
   }, [messages]);
 
+  // Video referansı ve stream eşleşmesi
+  useEffect(() => {
+    if (videoRef.current && mediaStreamRef.current) {
+      videoRef.current.srcObject = mediaStreamRef.current;
+    }
+  }, [isVideoOn]);
+
   const checkPermissions = async () => {
     try {
       // Ses izni kontrolü
