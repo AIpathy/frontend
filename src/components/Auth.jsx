@@ -17,17 +17,48 @@ function Auth() {
     email: "",
     password: "",
     confirmPassword: "",
-    specialization: ""
+    specialization: "",
+    expertiseLevel: ""
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
   const { login, register, forgotPassword, loading, error } = useAuth();
 
+  // Uzmanlık seviyeleri, unvanlar
+  const expertiseLevels = {
+    "Psikoloji": [
+      "Psikolog",
+      "Klinik Psikolog",
+      "Uzman Klinik Psikolog",
+      "Psikoterapist",
+      "Çocuk ve Ergen Psikoloğu",
+      "Aile Danışmanı",
+      "Bilişsel Davranışçı Terapist",
+      "Diğer"
+    ],
+    "Psikiyatri": [
+      "Psikiyatrist",
+      "Uzman Psikiyatrist",
+      "Doçent Dr.",
+      "Prof. Dr.",
+      "Çocuk ve Ergen Psikiyatristi",
+      "Yetişkin Psikiyatristi",
+      "Nöropsikiyatrist",
+      "Diğer"
+    ]
+  };
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: undefined });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: undefined });
     setSuccessMessage("");
+    
+    // Uzmanlık alanı değiştiğinde uzmanlık seviyesini sıfırla
+    if (name === "specialization") {
+      setForm(prev => ({ ...prev, expertiseLevel: "" }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -49,13 +80,21 @@ function Auth() {
             userType: isDoctor ? 'doctor' : 'user'
           });
         } else {
-          await register({
+          const registerData = {
             name: form.name,
             email: form.email,
             password: form.password,
             userType: isDoctor ? 'doctor' : 'user',
-            specialization: isDoctor ? form.specialization : undefined
-          });
+            specialization: isDoctor ? form.specialization : undefined,
+            expertiseLevel: isDoctor ? form.expertiseLevel : undefined
+          };
+          
+          // Doktor için expertiseLevel'ı localStorage'a kaydet
+          if (isDoctor && form.expertiseLevel) {
+            localStorage.setItem('doctorExpertiseLevel', form.expertiseLevel);
+          }
+          
+          await register(registerData);
         }
       } catch (error) {
         setErrors({ general: error.message || 'Bir hata oluştu. Lütfen tekrar deneyin.' });
@@ -65,14 +104,14 @@ function Auth() {
 
   const handleForgotPassword = () => {
     setShowForgotPassword(true);
-    setForm({ name: "", email: "", password: "", confirmPassword: "" });
+    setForm({ name: "", email: "", password: "", confirmPassword: "", specialization: "", expertiseLevel: "" });
     setErrors({});
     setSuccessMessage("");
   };
 
   const handleBackToLogin = () => {
     setShowForgotPassword(false);
-    setForm({ name: "", email: "", password: "", confirmPassword: "" });
+    setForm({ name: "", email: "", password: "", confirmPassword: "", specialization: "", expertiseLevel: "" });
     setErrors({});
     setSuccessMessage("");
   };
@@ -80,7 +119,7 @@ function Auth() {
   const handleToggleMode = () => {
     setIsLogin(!isLogin);
     setShowForgotPassword(false);
-    setForm({ name: "", email: "", password: "", confirmPassword: "" });
+    setForm({ name: "", email: "", password: "", confirmPassword: "", specialization: "", expertiseLevel: "" });
     setErrors({});
     setSuccessMessage("");
   };
@@ -138,16 +177,35 @@ function Auth() {
               
               {/* Uzmanlık alanı sadece doktor için */}
               {isDoctor && (
-                <Select
-                  name="specialization"
-                  value={form.specialization}
-                  onChange={handleChange}
-                  error={errors.specialization}
-                >
-                  <option value="">Uzmanlık Seçiniz</option>
-                  <option value="Psikoloji">Psikoloji</option>
-                  <option value="Psikiyatri">Psikiyatri</option>
-                </Select>
+                <>
+                  <Select
+                    name="specialization"
+                    value={form.specialization}
+                    onChange={handleChange}
+                    error={errors.specialization}
+                  >
+                    <option value="">Uzmanlık Alanı Seçiniz</option>
+                    <option value="Psikoloji">Psikoloji</option>
+                    <option value="Psikiyatri">Psikiyatri</option>
+                  </Select>
+                  
+                  {/* Uzmanlık seviyesi seçimi */}
+                  {form.specialization && (
+                    <Select
+                      name="expertiseLevel"
+                      value={form.expertiseLevel}
+                      onChange={handleChange}
+                      error={errors.expertiseLevel}
+                    >
+                      <option value="">Uzmanlık Seviyesi Seçiniz</option>
+                      {expertiseLevels[form.specialization]?.map((level) => (
+                        <option key={level} value={level}>
+                          {level}
+                        </option>
+                      ))}
+                    </Select>
+                  )}
+                </>
               )}
             </>
           )}
