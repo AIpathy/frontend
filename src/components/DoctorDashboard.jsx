@@ -130,7 +130,7 @@ function DoctorDashboard() {
                 loadPatientDetails(alert.patientId);
               }
             }} />
-            <Button onClick={() => { window.location.href = '/settings'; }}>
+            <Button onClick={() => { window.location.hash = '#/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
             <Button onClick={handleLogout}>
