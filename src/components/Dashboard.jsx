@@ -67,13 +67,13 @@ function Dashboard() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}
+      style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
     >
       {/* Header */}
-      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)' }}>
+      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)' }}>
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
-            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm">AIpathy Dashboard</h1>
+            <h1 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
             <Button onClick={() => { window.location.href = '/settings'; }}>
@@ -90,14 +90,13 @@ function Dashboard() {
         {/* Sidebar */}
         <aside
           className="w-64 min-h-screen relative z-0"
-          style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
+          style={{ background: 'linear-gradient(135deg,rgb(201, 221, 215) 60%,rgb(252, 253, 254) 100%)' }}
         >
           <div className="p-6">
             {/* Kullanıcı Profili */}
-            <div className="bg-white/80 rounded-lg p-4 mb-6 shadow-md">
-              <div className="flex items-center space-x-3">
+            <div className="bg-white/50 rounded-lg p-5 mb-10 shadow-md">
+              <div className="flex items-center space-x-1">
                 <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-gray-800 font-semibold">{capitalizeName(user.name)}</h3>
@@ -164,8 +163,8 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "overview" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Genel Bakış</h2>
-              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e0e7ef] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Genel Bakış</h2>
+              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               {/* İstatistik Kartları */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white/90 rounded-xl p-6 shadow-md">
@@ -246,8 +245,8 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "tests" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
-              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e0e7ef] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
+              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-white/90 rounded-xl p-6 shadow-md">
