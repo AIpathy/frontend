@@ -186,7 +186,7 @@ function Settings() {
 
         {/* Hesap İşlemleri */}
         <div className="flex flex-col gap-2 mt-6">
-          <Button className="w-full" onClick={handleDeleteAccount}>
+          <Button className="w-full danger" onClick={handleDeleteAccount}>
             <Trash2 className="w-4 h-4 mr-1" /> Hesabı Sil
           </Button>
           <Button className="w-full" onClick={handleLogout}>
