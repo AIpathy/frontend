@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
   return (
-    <header className="z-10 w-full flex items-center justify-between px-6 h-[64px]" style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}>
+    <header className="z-10 w-full flex items-center justify-between px-6 h-[64px]">
       <div className="flex items-center">
         <img src={logo} alt="AIpathy Logo" className="w-[100px] h-[100px]" />
       </div>
