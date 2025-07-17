@@ -112,7 +112,7 @@ function DoctorDashboard() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}
+      style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
     >
       {/* Header */}
       <header
@@ -144,7 +144,7 @@ function DoctorDashboard() {
         {/* Sidebar */}
         <aside
           className="w-64 min-h-screen"
-          style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
+          style={{ background: 'linear-gradient(135deg,rgb(201, 221, 215) 60%,rgb(252, 253, 254) 100%)' }}
         >
           <div className="p-6">
             {/* Doktor Profili */}
@@ -338,7 +338,7 @@ function DoctorDashboard() {
               <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Toplam Hasta</p>
@@ -348,7 +348,7 @@ function DoctorDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Bu Hafta Analiz</p>
@@ -360,7 +360,7 @@ function DoctorDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Yüksek Risk</p>
@@ -373,7 +373,7 @@ function DoctorDashboard() {
                 </div>
               </div>
 
-              <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+              <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                 <h3 className="text-xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
                 <div className="space-y-4">
                   {patients.map((patient) => (
@@ -405,7 +405,7 @@ function DoctorDashboard() {
               <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
               <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               
-              <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+              <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                 <div className="space-y-4">
                   {alerts.map((alert) => (
                     <div key={alert.id} className="flex items-center space-x-4 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
