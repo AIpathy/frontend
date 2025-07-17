@@ -32,7 +32,7 @@ function DoctorDashboard() {
       setError(null);
       const token = localStorage.getItem('token');
       if (!token) {
-        window.location.href = '/auth';
+        window.location.hash = '#/auth';
         return;
       }
 
@@ -74,7 +74,7 @@ function DoctorDashboard() {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
-    window.location.href = "/";
+    window.location.hash = '#/';
   };
 
   const getAnalysisIcon = (type) => {

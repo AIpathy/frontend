@@ -26,7 +26,7 @@ function Dashboard() {
         const token = localStorage.getItem('token');
         
         if (!token) {
-          window.location.href = '/auth';
+          window.location.hash = '#/auth';
           return;
         }
 
@@ -59,7 +59,7 @@ function Dashboard() {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
-    window.location.href = "/";
+    window.location.hash = '#/';
   };
 
 
@@ -76,7 +76,7 @@ function Dashboard() {
             <h1 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <Button onClick={() => { window.location.href = '/settings'; }}>
+            <Button onClick={() => { window.location.hash = '#/settings'; }}>
               <Settings className="w-5 h-5 text-[#3CB97F]" />
             </Button>
             <Button onClick={handleLogout}>

@@ -78,7 +78,7 @@ function Settings() {
     localStorage.removeItem("token");
     localStorage.removeItem("userType");
     localStorage.removeItem("userData");
-    window.location.href = "/";
+    window.location.hash = '#/';
   };
 
   const handleDeleteAccount = async () => {
@@ -90,7 +90,7 @@ function Settings() {
         localStorage.removeItem("token");
         localStorage.removeItem("userType");
         localStorage.removeItem("userData");
-        window.location.href = "/";
+        window.location.hash = '#/';
       } catch (e) {
         setError("Hesap silinemedi.");
       } finally {

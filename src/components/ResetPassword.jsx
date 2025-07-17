@@ -83,7 +83,7 @@ function ResetPassword() {
             Yeni şifrenizle giriş yapabilirsiniz.
           </p>
           <button
-            onClick={() => window.location.href = '/auth'}
+            onClick={() => window.location.hash = '#/auth'}
             className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
           >
             Giriş Yap
@@ -95,13 +95,13 @@ function ResetPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-900 to-green-700 relative">
-      <a href="/" className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl" title="Anasayfa">
+      <a href="#/" className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl" title="Anasayfa">
         <Home className="w-8 h-8" />
       </a>
       
       <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-md">
         <button
-          onClick={() => window.location.href = '/auth'}
+          onClick={() => window.location.hash = '#/auth'}
           className="flex items-center gap-2 text-green-400 hover:text-green-300 mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />

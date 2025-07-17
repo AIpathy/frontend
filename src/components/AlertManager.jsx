@@ -189,7 +189,7 @@ function AlertManager({ onAlertClick }) {
                     className={`p-3 border-l-4 ${getAlertColor(alert.type)} ${!alert.is_read ? "bg-[#f5f5f5]" : "bg-white/80"} hover:bg-[#e0e7ef] transition-colors cursor-pointer mb-3 rounded-lg`}
                     onClick={() => {
                       if (!alert.is_read) markAsRead(alert.id);
-                      window.location.href = `/alert/${alert.id}`;
+                      window.location.hash = `#/alert/${alert.id}`;
                     }}
                   >
                     <div className="flex items-start gap-3">
