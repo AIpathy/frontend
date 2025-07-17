@@ -58,6 +58,13 @@ export const validateSpecialization = (specialization, isDoctor) => {
   return null;
 };
 
+export const validateExpertiseLevel = (expertiseLevel, isDoctor, specialization) => {
+  if (isDoctor && specialization && !expertiseLevel) {
+    return "Uzmanlık seviyesi gereklidir.";
+  }
+  return null;
+};
+
 export const validateAuthForm = (form, isLogin, isDoctor, showForgotPassword) => {
   const errors = {};
   
@@ -85,6 +92,10 @@ export const validateAuthForm = (form, isLogin, isDoctor, showForgotPassword) =>
     // Uzmanlık kontrolü (doktor)
     const specializationError = validateSpecialization(form.specialization, isDoctor);
     if (specializationError) errors.specialization = specializationError;
+    
+    // Uzmanlık seviyesi kontrolü (doktor)
+    const expertiseLevelError = validateExpertiseLevel(form.expertiseLevel, isDoctor, form.specialization);
+    if (expertiseLevelError) errors.expertiseLevel = expertiseLevelError;
   }
   
   return errors;
