@@ -9,7 +9,7 @@ function UserTypeSelector({ isDoctor, setIsDoctor }) {
         className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
           !isDoctor
             ? "bg-[#3CB97F] text-white"
-            : "bg-[#18181b] text-gray-300 hover:bg-[#18181b]/80"
+            : "bg-[#4e4e4e] text-gray-300 hover:bg-[#5e5e5e]"
         }`}
       >
         Kullanıcı
@@ -20,7 +20,7 @@ function UserTypeSelector({ isDoctor, setIsDoctor }) {
         className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
           isDoctor
             ? "bg-[#3CB97F] text-white"
-            : "bg-[#18181b] text-gray-300 hover:bg-[#18181b]/80"
+            : "bg-[#4e4e4e] text-gray-300 hover:bg-[#18181b]/80"
         }`}
       >
         Doktor
