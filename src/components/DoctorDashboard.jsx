@@ -121,7 +121,7 @@ function DoctorDashboard() {
       >
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
-            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm">AIpathy Doktor Paneli</h1>
+            <h1 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm">AIpathy Doktor Paneli</h1>
           </div>
           <div className="flex items-center space-x-4">
             <AlertManager onAlertClick={(alert) => {
@@ -231,8 +231,8 @@ function DoctorDashboard() {
           {!loading && !error && activeTab === "patients" && (
             <div className="space-y-6">
               <div className="mb-6">
-                <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
-                <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
+                <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
+                <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
                 <div className="relative mt-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
@@ -334,8 +334,8 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "analytics" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Analitik</h2>
-              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Analitik</h2>
+              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
@@ -374,7 +374,7 @@ function DoctorDashboard() {
               </div>
 
               <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
-                <h3 className="text-xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
+                <h3 className="text-xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
                 <div className="space-y-4">
                   {patients.map((patient) => (
                     <div key={patient.id} className="flex items-center justify-between p-3 bg-white/70 rounded-lg">
@@ -402,8 +402,8 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "alerts" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
-              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
+              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
               
               <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
                 <div className="space-y-4">
