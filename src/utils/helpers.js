@@ -97,4 +97,14 @@ export function capitalizeName(name) {
     .split(' ')
     .map(word => word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1))
     .join(' ');
+}
+
+// Doktor adını uzmanlık seviyesi ile birlikte formatlar
+export function formatDoctorName(name, expertiseLevel) {
+  if (!name) return '';
+  const capitalizedName = capitalizeName(name);
+  if (expertiseLevel && expertiseLevel.trim().toLowerCase() !== 'diğer') {
+    return `${expertiseLevel} ${capitalizedName}`;
+  }
+  return capitalizedName;
 } 
