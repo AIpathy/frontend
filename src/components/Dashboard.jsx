@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Bot, FileText, Settings } from "lucide-react";
+import { LogOut, User, Activity, Bot, FileText, Settings, Mic, Camera } from "lucide-react";
 import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
@@ -65,12 +65,15 @@ function Dashboard() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700">
+    <div
+      className="min-h-screen"
+      style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}
+    >
       {/* Header */}
-      <header className="bg-[#1c1c1e]/80 backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10">
+      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)' }}>
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Dashboard</h1>
+            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm">AIpathy Dashboard</h1>
           </div>
           <div className="flex items-center space-x-4">
             <Button onClick={() => { window.location.href = '/settings'; }}>
@@ -85,21 +88,23 @@ function Dashboard() {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-[#232325]/80 backdrop-blur-md border-r border-[#3CB97F]/20 min-h-screen relative z-0">
+        <aside
+          className="w-64 min-h-screen relative z-0"
+          style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
+        >
           <div className="p-6">
             {/* Kullanıcı Profili */}
-            <div className="bg-[#18181b]/50 rounded-lg p-4 mb-6">
+            <div className="bg-white/80 rounded-lg p-4 mb-6 shadow-md">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">{capitalizeName(user.name)}</h3>
-                  <p className="text-gray-400 text-sm">{user.email}</p>
+                  <h3 className="text-gray-800 font-semibold">{capitalizeName(user.name)}</h3>
+                  <p className="text-gray-500 text-sm">{user.email}</p>
                 </div>
               </div>
             </div>
-
             {/* Navigasyon */}
             <nav className="space-y-2">
               <button
@@ -111,7 +116,7 @@ function Dashboard() {
                 }`}
               >
                 <Activity className="w-5 h-5" />
-                <span>Genel Bakış</span>
+                <span className={activeTab === "overview" ? "" : "text-gray-800"}>Genel Bakış</span>
               </button>
 
               <button
@@ -123,7 +128,7 @@ function Dashboard() {
                 }`}
               >
                 <Bot className="w-5 h-5" />
-                <span>AI Asistan</span>
+                <span className={activeTab === "ai-assistant" ? "" : "text-gray-800"}>AI Asistan</span>
               </button>
 
               <button
@@ -135,12 +140,11 @@ function Dashboard() {
                 }`}
               >
                 <FileText className="w-5 h-5" />
-                <span>Testler</span>
+                <span className={activeTab === "tests" ? "" : "text-gray-800"}>Testler</span>
               </button>
             </nav>
           </div>
         </aside>
-
         {/* Ana İçerik */}
         <main className="flex-1 p-6 relative z-0">
           {loading && (
@@ -160,24 +164,23 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "overview" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white mb-6">Genel Bakış</h2>
-              
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Genel Bakış</h2>
+              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e0e7ef] rounded-full mb-4" />
               {/* İstatistik Kartları */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">Bu Hafta</p>
+                      <p className="text-gray-500 text-sm">Bu Hafta</p>
                       <p className="text-2xl font-bold text-[#3CB97F]">{stats.weeklyAnalyses || analyses.length} Analiz</p>
                     </div>
                     <Activity className="w-8 h-8 text-[#3CB97F]" />
                   </div>
                 </div>
-
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">Ortalama Skor</p>
+                      <p className="text-gray-500 text-sm">Ortalama Skor</p>
                       <p className="text-2xl font-bold text-[#3CB97F]">
                         {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ? 
                           `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` : 
@@ -193,11 +196,10 @@ function Dashboard() {
                     </div>
                   </div>
                 </div>
-
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-gray-400 text-sm">Son Güncelleme</p>
+                      <p className="text-gray-500 text-sm">Son Güncelleme</p>
                       <p className="text-2xl font-bold text-[#3CB97F]">
                         {stats.lastUpdate || (analyses.length > 0 ? 
                           formatTimestamp(analyses[0].timestamp) : 
@@ -208,26 +210,24 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
-
               {/* Son Aktiviteler */}
-              <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
-                <h3 className="text-xl font-semibold text-white mb-4">Son Aktiviteler</h3>
+              <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">Son Aktiviteler</h3>
                 <div className="space-y-4">
                   {analyses.slice(0, 5).map((analysis) => (
-                    <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-[#18181b]/50 rounded-lg">
+                    <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-white/70 rounded-lg">
                       {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#3CB97F]" /> :
                        analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#3CB97F]" /> :
                        <FileText className="w-5 h-5 text-[#3CB97F]" />}
                       <div className="flex-1">
-                        <p className="text-white font-medium">
+                        <p className="text-gray-800 font-medium">
                           {getAnalysisTypeName(analysis.type)} Tamamlandı
                         </p>
-                        <p className="text-gray-400 text-sm">{formatTimestamp(analysis.timestamp)}</p>
+                        <p className="text-gray-500 text-sm">{formatTimestamp(analysis.timestamp)}</p>
                       </div>
                       <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
                     </div>
                   ))}
-                  
                   {analyses.length === 0 && (
                     <div className="text-center py-8">
                       <p className="text-gray-400">Henüz analiz bulunmuyor.</p>
@@ -246,25 +246,26 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "tests" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white mb-6">Psikolojik Testler</h2>
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
+              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e0e7ef] rounded-full mb-4" />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="text-center space-y-4">
                     <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-white">PHQ-9 Testi</h3>
-                    <p className="text-gray-400 text-sm">Depresyon şiddetini ölçen 9 soruluk test</p>
+                    <h3 className="text-lg font-semibold text-gray-800">PHQ-9 Testi</h3>
+                    <p className="text-gray-500 text-sm">Depresyon şiddetini ölçen 9 soruluk test</p>
                     <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg">
                       Testi Başlat
                     </Button>
                   </div>
                 </div>
 
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="text-center space-y-4">
                     <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-white">GAD-7 Testi</h3>
-                    <p className="text-gray-400 text-sm">Anksiyete şiddetini ölçen 7 soruluk test</p>
+                    <h3 className="text-lg font-semibold text-gray-800">GAD-7 Testi</h3>
+                    <p className="text-gray-500 text-sm">Anksiyete şiddetini ölçen 7 soruluk test</p>
                     <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg">
                       Testi Başlat
                     </Button>

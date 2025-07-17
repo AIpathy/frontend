@@ -140,98 +140,103 @@ function AlertManager({ onAlertClick }) {
   
       {/* Dropdown */}
       {showDropdown && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-[#232325] rounded-lg shadow-lg border border-[#3CB97F]/20 z-[9999]">
-          {/* Başlık */}
-          <div className="p-4 border-b border-[#3CB97F]/20 flex justify-between items-center">
-            <h3 className="text-white font-semibold">Uyarılar</h3>
-            <div className="flex gap-3">
-              {unreadCount > 0 && (
-                <button
-                  onClick={markAllAsRead}
-                  className="text-[#3CB97F] text-xs hover:underline"
-                >
-                  Tümünü okundu yap
-                </button>
-              )}
-              {alerts.length > 0 && (
-                <button
-                  onClick={deleteAll}
-                  className="text-red-400 text-xs hover:underline"
-                >
-                  Tümünü sil
-                </button>
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
+          {/* Modal arka planı */}
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setShowDropdown(false)} />
+          {/* Modal kutusu */}
+          <div className="relative w-full max-w-md mx-auto bg-white/90 rounded-2xl shadow-2xl border border-[#e0e7ef] flex flex-col max-h-[90vh] my-auto">
+            {/* Kapat butonu */}
+            <button onClick={() => setShowDropdown(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors z-10" title="Kapat" style={{background: 'rgba(255,255,255,0.7)', borderRadius: '9999px', padding: '2px'}}>
+              <X className="w-6 h-6" />
+            </button>
+            {/* Başlık */}
+            <div className="p-6 border-b border-[#e0e7ef] flex justify-between items-center">
+              <h3 className="text-gray-800 font-semibold text-lg">Uyarılar</h3>
+              <div className="flex gap-3">
+                {unreadCount > 0 && (
+                  <button
+                    onClick={markAllAsRead}
+                    className="text-[#3CB97F] text-xs hover:underline"
+                  >
+                    Tümünü okundu yap
+                  </button>
+                )}
+                {alerts.length > 0 && (
+                  <button
+                    onClick={deleteAll}
+                    className="text-red-400 text-xs hover:underline"
+                  >
+                    Tümünü sil
+                  </button>
+                )}
+              </div>
+            </div>
+            {/* İçerik */}
+            <div className="overflow-y-auto p-6 flex-1">
+              {loading ? (
+                <div className="text-center text-gray-400">Yükleniyor…</div>
+              ) : error ? (
+                <div className="text-center text-red-500">{error}</div>
+              ) : alerts.length === 0 ? (
+                <div className="text-center">
+                  <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-1" />
+                  <p className="text-gray-400 text-sm">Uyarı yok</p>
+                </div>
+              ) : (
+                alerts.map((alert) => (
+                  <div
+                    key={alert.id}
+                    className={`p-3 border-l-4 ${getAlertColor(alert.type)} ${!alert.is_read ? "bg-[#f5f5f5]" : "bg-white/80"} hover:bg-[#e0e7ef] transition-colors cursor-pointer mb-3 rounded-lg`}
+                    onClick={() => {
+                      if (!alert.is_read) markAsRead(alert.id);
+                      window.location.href = `/alert/${alert.id}`;
+                    }}
+                  >
+                    <div className="flex items-start gap-3">
+                      {getAlertIcon(alert.type)}
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <p className="text-gray-800 text-sm font-medium truncate">
+                            {alert.title || "Uyarı"}
+                          </p>
+                          {!alert.is_read && (
+                            <span className="w-2 h-2 bg-red-400 rounded-full mt-1"></span>
+                          )}
+                        </div>
+                        <p className="text-gray-500 text-xs line-clamp-2">
+                          {alert.message}
+                        </p>
+                        <p className="text-gray-400 text-xs">
+                          {formatTimestamp(alert.created_at)}
+                        </p>
+                      </div>
+                      {/* Okundu */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          markAsRead(alert.id);
+                        }}
+                        className="text-gray-400 hover:text-gray-800 ml-1"
+                        title="Okundu yap"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                      {/* Sil */}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteOne(alert.id);
+                        }}
+                        className="text-red-500 hover:text-red-700 ml-1"
+                        title="Sil"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))
               )}
             </div>
-          </div>
-  
-          {/* İçerik */}
-          <div className="max-h-96 overflow-y-auto">
-            {loading ? (
-              <div className="p-4 text-center text-gray-400">Yükleniyor…</div>
-            ) : error ? (
-              <div className="p-4 text-center text-red-400">{error}</div>
-            ) : alerts.length === 0 ? (
-              <div className="p-4 text-center">
-                <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-1" />
-                <p className="text-gray-400 text-sm">Uyarı yok</p>
-              </div>
-            ) : (
-              alerts.map((alert) => (
-                <div
-                  key={alert.id}
-                  className={`p-3 border-l-4 ${getAlertColor(alert.type)} ${
-                    !alert.is_read ? "bg-[#18181b]/50" : ""
-                  } hover:bg-[#18181b]/30 transition-colors cursor-pointer`}
-                  onClick={() => {
-                    if (!alert.is_read) markAsRead(alert.id);
-                    // navigate detay sayfasına:
-                    window.location.href = `/alert/${alert.id}`;
-                  }}
-                >
-                  <div className="flex items-start gap-3">
-                    {getAlertIcon(alert.type)}
-                    <div className="flex-1">
-                      <div className="flex justify-between">
-                        <p className="text-white text-sm font-medium truncate">
-                          {alert.title || "Uyarı"}
-                        </p>
-                        {!alert.is_read && (
-                          <span className="w-2 h-2 bg-red-400 rounded-full mt-1"></span>
-                        )}
-                      </div>
-                      <p className="text-gray-400 text-xs line-clamp-2">
-                        {alert.message}
-                      </p>
-                      <p className="text-gray-500 text-xs">
-                        {formatTimestamp(alert.created_at)}
-                      </p>
-                    </div>
-                    {/* Okundu */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        markAsRead(alert.id);
-                      }}
-                      className="text-gray-400 hover:text-white"
-                      title="Okundu yap"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                    {/* Sil */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteOne(alert.id);
-                      }}
-                      className="text-red-500 hover:text-red-300 ml-1"
-                      title="Sil"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
           </div>
         </div>
       )}

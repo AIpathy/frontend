@@ -303,19 +303,22 @@ function AIInteraction({ doctorMode = false }) {
 
   return (
     <div className="h-full relative z-0">
-      <div className="bg-[#232325]/80 backdrop-blur-md rounded-xl border border-[#3CB97F]/20 overflow-hidden h-full flex flex-col">
+      <div
+        className="rounded-xl border border-[#3CB97F]/20 overflow-hidden h-full flex flex-col"
+        style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
+      >
         {/* Header */}
-        <div className="bg-[#1c1c1e]/80 border-b border-[#3CB97F]/20 p-4 flex-shrink-0">
+        <div className="bg-white/90 border-b border-[#3CB97F]/20 p-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-gray-800">
                   {doctorMode ? 'AI Klinik Asistan' : 'AI Psikolojik Asistan'}
                 </h1>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-500 text-sm">
                   {doctorMode
                     ? 'Doktorlara özel psikolojik destek'
                     : 'Ses ve görüntü analizi ile ruh halinizi analiz ediyorum'}
@@ -370,9 +373,9 @@ function AIInteraction({ doctorMode = false }) {
 
         <div className="flex flex-1 min-h-0">
           {/* Video Alanı */}
-          <div className="w-1/3 bg-[#18181b]/50 border-r border-[#3CB97F]/20 p-4">
+          <div className="w-1/3 bg-white/70 border-r border-[#3CB97F]/20 p-4">
             <div className="h-full flex flex-col">
-              <h3 className="text-white font-semibold mb-4">Görüntü</h3>
+              <h3 className="text-gray-800 font-semibold mb-4">Görüntü</h3>
               
               {!permissions.video ? (
                 <div className="flex-1 bg-[#232325]/50 rounded-lg flex items-center justify-center">
@@ -411,10 +414,10 @@ function AIInteraction({ doctorMode = false }) {
                   className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                    className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-md ${
                       message.type === 'user'
                         ? 'bg-[#3CB97F] text-white'
-                        : 'bg-[#18181b]/50 text-gray-300 border border-[#3CB97F]/20'
+                        : 'bg-white/80 text-gray-800 border border-[#3CB97F]/10'
                     }`}
                   >
                     <p className="text-sm">{message.content}</p>
@@ -472,14 +475,14 @@ function AIInteraction({ doctorMode = false }) {
             </div>
 
             {/* Modern Mesaj Girişi */}
-            <div className="p-4 border-t border-[#3CB97F]/20 bg-[#1c1c1e]/30 flex-shrink-0">
+            <div className="p-4 border-t border-[#3CB97F]/20 bg-white/80 flex-shrink-0">
               <div className="flex items-end space-x-3">
                 <div className="flex-1 relative">
                   {/* Emoji Butonu - yukarı hizalı */}
                 <button
                     type="button"
                   onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
+                    className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-gray-100"
                   title="Emoji ekle"
                     style={{ zIndex: 2 }}
                 >
@@ -490,7 +493,7 @@ function AIInteraction({ doctorMode = false }) {
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Mesajınızı yazın... (Enter ile gönder)"
-                    className="w-full bg-[#232325]/70 text-white placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/30 hover:border-[#3CB97F]/50 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
+                    className="w-full bg-white/90 text-gray-800 placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/10 hover:border-[#3CB97F]/30 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
                     rows="1"
                     style={{ minHeight: '44px', maxHeight: '128px', overflowY: 'auto' }}
                   />
@@ -510,7 +513,7 @@ function AIInteraction({ doctorMode = false }) {
                   className={`p-3 rounded-xl transition-all duration-200 ${
                     inputMessage.trim() && !isLoading
                       ? 'bg-[#3CB97F] hover:bg-[#2d8f5f] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                      : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                      : 'bg-gray-300 text-gray-400 cursor-not-allowed'
                   }`}
                 >
                   <SendHorizontal className="w-5 h-5" />

@@ -22,7 +22,7 @@ function Input({
         onChange={onChange}
         maxLength={maxLength}
         autoComplete={autoComplete}
-        className={`px-4 py-2 rounded bg-[#18181b] text-white focus:outline-none focus:ring-2 focus:ring-green-500 w-full ${error ? 'border border-red-500' : ''} ${className}`}
+        className={`px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 placeholder-gray-400 border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F] w-full transition-colors ${error ? 'border border-red-500' : ''} ${className}`}
         {...props}
       />
       {error && (

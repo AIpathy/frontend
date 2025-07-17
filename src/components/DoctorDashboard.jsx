@@ -110,12 +110,18 @@ function DoctorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700">
+    <div
+      className="min-h-screen"
+      style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}
+    >
       {/* Header */}
-      <header className="bg-[#1c1c1e]/80 backdrop-blur-md border-b border-[#3CB97F]/20">
+      <header
+        className="backdrop-blur-md border-b border-[#3CB97F]/20"
+        style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)' }}
+      >
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold text-[#3CB97F]">AIpathy Doktor Paneli</h1>
+            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm">AIpathy Doktor Paneli</h1>
           </div>
           <div className="flex items-center space-x-4">
             <AlertManager onAlertClick={(alert) => {
@@ -136,21 +142,23 @@ function DoctorDashboard() {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-[#232325]/80 backdrop-blur-md border-r border-[#3CB97F]/20 min-h-screen">
+        <aside
+          className="w-64 min-h-screen"
+          style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
+        >
           <div className="p-6">
             {/* Doktor Profili */}
-            <div className="bg-[#18181b]/50 rounded-lg p-4 mb-6">
+            <div className="bg-white/80 rounded-lg p-4 mb-6 shadow-md">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold">{formatDoctorName(doctor.name, doctor.expertiseLevel)}</h3>
-                  <p className="text-gray-400 text-sm">{doctor.specialization}</p>
+                  <h3 className="text-gray-800 font-semibold">{formatDoctorName(doctor.name, doctor.expertiseLevel)}</h3>
+                  <p className="text-gray-500 text-sm">{doctor.specialization}</p>
                 </div>
               </div>
             </div>
-
             {/* Navigasyon */}
             <nav className="space-y-2">
               <button
@@ -162,7 +170,7 @@ function DoctorDashboard() {
                 }`}
               >
                 <Users className="w-5 h-5" />
-                <span>Hastalar</span>
+                <span className={activeTab === "patients" ? "" : "text-gray-800"}>Hastalar</span>
               </button>
 
               <button
@@ -174,7 +182,7 @@ function DoctorDashboard() {
                 }`}
               >
                 <TrendingUp className="w-5 h-5" />
-                <span>Analitik</span>
+                <span className={activeTab === "analytics" ? "" : "text-gray-800"}>Analitik</span>
               </button>
 
               <button
@@ -186,7 +194,7 @@ function DoctorDashboard() {
                 }`}
               >
                 <Bot className="w-5 h-5" />
-                <span>AI Asistan</span>
+                <span className={activeTab === "ai-assistant" ? "" : "text-gray-800"}>AI Asistan</span>
               </button>
 
               <button
@@ -198,12 +206,11 @@ function DoctorDashboard() {
                 }`}
               >
                 <AlertCircle className="w-5 h-5" />
-                <span>Uyarılar</span>
+                <span className={activeTab === "alerts" ? "" : "text-gray-800"}>Uyarılar</span>
               </button>
             </nav>
           </div>
         </aside>
-
         {/* Ana İçerik */}
         <main className="flex-1 p-6">
           {loading && (
@@ -223,16 +230,17 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "patients" && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-3xl font-bold text-white">Hasta Listesi</h2>
-                <div className="relative">
+              <div className="mb-6">
+                <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
+                <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
+                <div className="relative mt-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Hasta ara..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 bg-[#232325]/70 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+                    className="pl-10 pr-4 py-2 bg-[#f5f5f5] rounded-lg text-gray-800 placeholder-gray-400 border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F] transition-colors"
                   />
                 </div>
               </div>
@@ -242,29 +250,25 @@ function DoctorDashboard() {
                 {filteredPatients.map((patient) => (
                   <div
                     key={patient.id}
-                    className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md cursor-pointer hover:bg-[#232325]/90 transition-all duration-200"
+                    className="bg-white/90 rounded-xl p-6 shadow-md cursor-pointer hover:bg-white transition-all duration-200"
                     onClick={() => loadPatientDetails(patient.id)}
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-3">
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(patient.status)}`}></div>
-                        <h3 className="text-white font-semibold">{patient.name}</h3>
+                        <h3 className="text-gray-800 font-semibold">{patient.name}</h3>
                       </div>
-                                             <span className={`text-sm font-medium ${getRiskLevelColor(patient.riskLevel)}`}>
-                         {getRiskLevelName(patient.riskLevel)}
-                       </span>
+                      <span className={`text-sm font-medium ${getRiskLevelColor(patient.riskLevel)}`}>{getRiskLevelName(patient.riskLevel)}</span>
                     </div>
-                    
-                    <div className="space-y-2 text-sm text-gray-400">
+                    <div className="space-y-2 text-sm text-gray-500">
                       <p>{patient.email}</p>
                       <p>Yaş: {patient.age}</p>
                       <p>Son aktivite: {formatTimestamp(patient.lastActivity)}</p>
                       <p>Analiz sayısı: {patient.analyses.length}</p>
                     </div>
-
                     <div className="mt-4 pt-4 border-t border-[#3CB97F]/20">
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Ortalama skor:</span>
+                        <span className="text-gray-500">Ortalama skor:</span>
                         <span className="text-[#3CB97F] font-semibold">
                           {(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10
                         </span>
@@ -330,10 +334,11 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "analytics" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">Analitik</h2>
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Analitik</h2>
+              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Toplam Hasta</p>
@@ -343,7 +348,7 @@ function DoctorDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Bu Hafta Analiz</p>
@@ -355,7 +360,7 @@ function DoctorDashboard() {
                   </div>
                 </div>
 
-                <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+                <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Yüksek Risk</p>
@@ -368,16 +373,16 @@ function DoctorDashboard() {
                 </div>
               </div>
 
-              <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
-                <h3 className="text-xl font-semibold text-white mb-4">Hasta Aktivite Özeti</h3>
+              <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
+                <h3 className="text-xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
                 <div className="space-y-4">
                   {patients.map((patient) => (
-                    <div key={patient.id} className="flex items-center justify-between p-3 bg-[#18181b]/50 rounded-lg">
+                    <div key={patient.id} className="flex items-center justify-between p-3 bg-white/70 rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className={`w-3 h-3 rounded-full ${getStatusColor(patient.status)}`}></div>
-                        <span className="text-white font-medium">{patient.name}</span>
+                        <span className="text-gray-800 font-medium">{patient.name}</span>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-gray-400">
+                      <div className="flex items-center space-x-4 text-sm text-gray-500">
                         <span>{patient.analyses.length} analiz</span>
                         <span>Son: {formatTimestamp(patient.lastActivity)}</span>
                       </div>
@@ -397,9 +402,10 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "alerts" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-white">Uyarılar</h2>
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-[#3CB97F] via-[#1c1c1e] to-[#3CB97F] bg-clip-text text-transparent tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
+              <div className="h-1 w-16 bg-gradient-to-r from-[#3CB97F] to-[#e6eaf3] rounded-full mb-4" />
               
-              <div className="bg-[#232325]/70 rounded-xl p-6 backdrop-blur-md">
+              <div className="bg-[#e6eaf3] rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-[#f0f2f8]">
                 <div className="space-y-4">
                   {alerts.map((alert) => (
                     <div key={alert.id} className="flex items-center space-x-4 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">

@@ -130,14 +130,17 @@ function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-900 to-green-700 relative">
-      <a href="/" className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl" title="Anasayfa">
+    <div
+      className="min-h-screen flex items-center justify-center relative"
+      style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}
+    >
+      <a href="/" className="absolute top-6 left-6 text-gray-700 hover:text-green-400 transition-colors text-2xl" title="Anasayfa">
         <Home className="w-8 h-8" />
       </a>
       
-      <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-md">
+      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         {/* Başlık */}
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           {showForgotPassword 
             ? "Şifremi Unuttum" 
             : (isLogin ? "Giriş Yap" : "Kayıt Ol")

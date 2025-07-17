@@ -103,47 +103,47 @@ function Settings() {
   const backPath = userType === "doctor" ? "/doctor" : "/dashboard";
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-indigo-900 to-green-700 flex items-center justify-center py-10">
+    <div className="min-h-screen flex items-center justify-center py-10" style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}>
     {/* Sol üst geri ok */}
     <Link
       to={backPath}
-      className="absolute top-6 left-6 text-white hover:text-green-400 transition-colors text-2xl flex items-center gap-2"
+      className="absolute top-6 left-6 text-gray-700 hover:text-[#3CB97F] transition-colors text-2xl flex items-center gap-2"
       title="Dashboard'a Dön"
     >
       <ArrowLeft className="w-6 h-6" />
       <span className="hidden sm:inline">Dashboard</span>
     </Link>
 
-    <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-lg">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">Ayarlar</h2>
-      {error   && <p className="text-red-400 text-center mb-4">{error}</p>}
-      {success && <p className="text-green-400 text-center mb-4">{success}</p>}
+    <div className="bg-white/90 rounded-xl shadow-lg p-8 w-full max-w-lg border border-[#e0e7ef]">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Ayarlar</h2>
+      {error   && <p className="text-red-500 text-center mb-4">{error}</p>}
+      {success && <p className="text-green-600 text-center mb-4">{success}</p>}
 
         {/* Profil Bilgileri */}
         <form onSubmit={handleSave} className="space-y-4 mb-8">
           <div>
-            <label className="block text-gray-300 mb-1">Hesap Adı</label>
+            <label className="block text-gray-700 mb-1">Hesap Adı</label>
             <input
               type="text"
               name="name"
               value={userType === "doctor" ? formatDoctorName(form.name, profile.expertiseLevel) : capitalizeName(form.name)}
               onChange={handleChange}
-              className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
               readOnly
             />
           </div>
           <div>
-            <label className="block text-gray-300 mb-1">E-posta</label>
+            <label className="block text-gray-700 mb-1">E-posta</label>
             <input
               type="email"
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
             />
           </div>
           <div className="flex gap-2 mt-2">
-            <Button type="submit" className="flex-1 bg-green-600 hover:bg-green-700">
+            <Button type="submit" className="flex-1">
               <Save className="w-4 h-4 mr-1" /> Kaydet
             </Button>
           </div>
@@ -151,14 +151,14 @@ function Settings() {
 
         {/* Şifre Değiştir */}
         <form onSubmit={handlePasswordSubmit} className="space-y-4 mb-8">
-          <div className="text-lg text-white font-semibold mb-2">Şifre Değiştir</div>
+          <div className="text-lg text-gray-800 font-semibold mb-2">Şifre Değiştir</div>
           <input
             type="password"
             name="current"
             placeholder="Mevcut Şifre"
             value={passwords.current}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
             autoComplete="current-password"
           />
           <input
@@ -167,7 +167,7 @@ function Settings() {
             placeholder="Yeni Şifre"
             value={passwords.new}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
             autoComplete="new-password"
           />
           <input
@@ -176,20 +176,20 @@ function Settings() {
             placeholder="Yeni Şifre (Tekrar)"
             value={passwords.confirm}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
             autoComplete="new-password"
           />
-          <Button type="submit" className="w-full bg-green-600 hover:bg-green-700">
+          <Button type="submit" className="w-full">
             Şifreyi Güncelle
           </Button>
         </form>
 
         {/* Hesap İşlemleri */}
         <div className="flex flex-col gap-2 mt-6">
-          <Button className="bg-red-600 hover:bg-red-700 w-full" onClick={handleDeleteAccount}>
+          <Button className="w-full" onClick={handleDeleteAccount}>
             <Trash2 className="w-4 h-4 mr-1" /> Hesabı Sil
           </Button>
-          <Button className="bg-gray-700 hover:bg-gray-800 w-full" onClick={handleLogout}>
+          <Button className="w-full" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-1" /> Çıkış Yap
           </Button>
         </div>
