@@ -29,7 +29,8 @@ Kullanıcı girişi
     "name": "Kullanıcı Adı",
     "email": "user@example.com",
     "userType": "user",
-    "specialization": "Psikiyatri" // sadece doktorlar için
+    "specialization": "Psikiyatri", // sadece doktorlar için
+    "expertiseLevel": "Uzman Psikiyatrist" // sadece doktorlar için
   }
 }
 ```
@@ -43,7 +44,9 @@ Kullanıcı kaydı
   "name": "Kullanıcı Adı",
   "email": "user@example.com",
   "password": "Password123",
-  "userType": "user" // "user" veya "doctor"
+  "userType": "user", // "user" veya "doctor"
+  "specialization": "Psikoloji", // sadece doktorlar için
+  "expertiseLevel": "Klinik Psikolog" // sadece doktorlar için
 }
 ```
 
@@ -55,7 +58,9 @@ Kullanıcı kaydı
     "id": 1,
     "name": "Kullanıcı Adı",
     "email": "user@example.com",
-    "userType": "user"
+    "userType": "user",
+    "specialization": "Psikoloji", // sadece doktorlar için
+    "expertiseLevel": "Klinik Psikolog" // sadece doktorlar için
   }
 }
 ```
@@ -78,6 +83,7 @@ Authorization: Bearer <token>
   "email": "user@example.com",
   "userType": "user",
   "specialization": "Psikiyatri", // sadece doktorlar için
+  "expertiseLevel": "Uzman Psikiyatrist", // sadece doktorlar için
   "createdAt": "2024-01-15T10:30:00Z",
   "lastLogin": "2024-01-15T14:30:00Z"
 }
