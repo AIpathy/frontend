@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import HeroInteractive from "./components/HeroInteractive";
 import HeroDemo from "./components/HeroDemo";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
 import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
