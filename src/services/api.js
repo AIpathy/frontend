@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api.aipathy.xyz';
+const API_BASE_URL = 'https://aipathy.xyz/api';
 
 // API Response Handler
 const handleResponse = async (response) => {
