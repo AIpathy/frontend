@@ -3,7 +3,7 @@ import ApiService from "../services/api";
 import Button from "./Button";
 import { LogOut, Trash2, Save, X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom"; 
-import { capitalizeName } from "../utils/helpers";
+import { capitalizeName, formatDoctorName } from "../utils/helpers";
 
 function Settings() {
   const [profile, setProfile] = useState({ name: "", email: "" });
@@ -122,11 +122,11 @@ function Settings() {
         {/* Profil Bilgileri */}
         <form onSubmit={handleSave} className="space-y-4 mb-8">
           <div>
-            <label className="block text-gray-300 mb-1">Ad Soyad</label>
+            <label className="block text-gray-300 mb-1">Hesap Adı</label>
             <input
               type="text"
               name="name"
-              value={capitalizeName(form.name)}
+              value={userType === "doctor" ? formatDoctorName(form.name, profile.expertiseLevel) : capitalizeName(form.name)}
               onChange={handleChange}
               className="px-4 py-2 rounded bg-[#18181b] text-white w-full focus:outline-none focus:ring-2 focus:ring-green-500"
               readOnly
