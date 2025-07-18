@@ -4,6 +4,7 @@ import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
+import dashboardLogo from "../assets/dashboardLogo.png";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -71,10 +72,10 @@ function Dashboard() {
       style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
     >
       {/* Header */}
-      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)' }}>
-        <div className="flex items-center justify-between px-6 py-4">
+      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)', minHeight: 56 }}>
+        <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <h1 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm">AIpathy Dashboard</h1>
+            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
           <div className="flex items-center space-x-4">
             <Button onClick={() => { window.location.hash = '#/settings'; }}>
@@ -145,7 +146,7 @@ function Dashboard() {
         <button
           onClick={() => setSidebarOpen((v) => !v)}
           className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
-          style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
+          style={{ width: 20, height: 30, top: 100, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
           aria-label="Sidebar'ı gizle/göster"
         >
           {sidebarOpen ? <ChevronLeft className="w-8 h-8" strokeWidth={3} /> : <ChevronRight className="w-6 h-6" strokeWidth={3} />}
