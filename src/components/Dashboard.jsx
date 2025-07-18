@@ -100,7 +100,7 @@ function Dashboard() {
               <div className="w-12 h-12 bg-[#3CB97F] rounded-full flex items-center justify-center">
                 <User className="w-7 h-7 text-white" />
               </div>
-              <span className="text-xl font-normal text-[#696969] leading-tight whitespace-nowrap">{capitalizeName(user.name)}</span>
+              <span className="text-base font-semibold text-[#696969] leading-tight">{capitalizeName(user.name)}</span>
             </div>
             {/* Navigasyon */}
             <nav className="space-y-2">
