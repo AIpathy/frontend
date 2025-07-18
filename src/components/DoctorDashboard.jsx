@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock, Bot } from "lucide-react";
+import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock, Bot, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./Button";
 import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
@@ -24,6 +24,8 @@ function DoctorDashboard() {
     specialization: "",
     expertiseLevel: ""
   });
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // API'den veri yükleme
   useEffect(() => {
@@ -140,13 +142,13 @@ function DoctorDashboard() {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex relative">
         {/* Sidebar */}
         <aside
-          className="w-64 min-h-screen"
+          className={`min-h-screen transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'}`}
           style={{ background: 'linear-gradient(135deg,rgb(201, 221, 215) 60%,rgb(252, 253, 254) 100%)' }}
         >
-          <div className="p-6">
+          <div className={`p-6 transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'}`}>
             {/* Doktor Profili */}
             <div className="bg-white/80 rounded-lg p-4 mb-6 shadow-md">
               <div className="flex items-center space-x-3">
@@ -211,6 +213,15 @@ function DoctorDashboard() {
             </nav>
           </div>
         </aside>
+        {/* Sidebar toggle button */}
+        <button
+          onClick={() => setSidebarOpen((v) => !v)}
+          className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
+          style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
+          aria-label="Sidebar'ı gizle/göster"
+        >
+          {sidebarOpen ? <ChevronLeft className="w-8 h-8" strokeWidth={3} /> : <ChevronRight className="w-6 h-6" strokeWidth={3} />}
+        </button>
         {/* Ana İçerik */}
         <main className="flex-1 p-6">
           {loading && (
