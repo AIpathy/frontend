@@ -5,6 +5,7 @@ import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName, formatDoctorName } from "../utils/helpers";
 import AIInteraction from "./AIInteraction";
+import dashboardLogo from "../assets/dashboardLogo.png";
 
 function DoctorDashboard() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -118,12 +119,12 @@ function DoctorDashboard() {
     >
       {/* Header */}
       <header
-        className="backdrop-blur-md border-b border-[#3CB97F]/20"
-        style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)' }}
+        className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10"
+        style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)', minHeight: 56 }}
       >
-        <div className="flex items-center justify-between px-6 py-4">
+        <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <h1 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm">AIpathy Doktor Paneli</h1>
+            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
           <div className="flex items-center space-x-4">
             <AlertManager onAlertClick={(alert) => {
