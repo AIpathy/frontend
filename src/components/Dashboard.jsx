@@ -146,7 +146,7 @@ function Dashboard() {
         <button
           onClick={() => setSidebarOpen((v) => !v)}
           className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
-          style={{ width: 20, height: 30, top: 100, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
+          style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
           aria-label="Sidebar'ı gizle/göster"
         >
           {sidebarOpen ? <ChevronLeft className="w-8 h-8" strokeWidth={3} /> : <ChevronRight className="w-6 h-6" strokeWidth={3} />}
