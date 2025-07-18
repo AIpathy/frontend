@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Bot, FileText, Settings, Mic, Camera } from "lucide-react";
+import { LogOut, User, Activity, Bot, FileText, Settings, Mic, Camera, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
@@ -16,6 +16,7 @@ function Dashboard() {
   });
   const [analyses, setAnalyses] = useState([]);
   const [stats, setStats] = useState({});
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
 
   // API'den veri yükleme
@@ -86,13 +87,13 @@ function Dashboard() {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex relative">
         {/* Sidebar */}
         <aside
-          className="w-64 min-h-screen relative z-0"
+          className={`min-h-screen transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'}`}
           style={{ background: 'linear-gradient(135deg,rgb(201, 221, 215) 60%,rgb(252, 253, 254) 100%)' }}
         >
-          <div className="p-6">
+          <div className={`p-6 transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'}`}>
             {/* Kullanıcı Profili */}
             <div className="bg-white/80 rounded-full px-2 py-1.5 mb-6 shadow-lg shadow-[#3CB97F]/10 overflow-hidden w-full flex items-center space-x-4">
               <div className="w-12 h-12 bg-[#3CB97F] rounded-full flex items-center justify-center">
@@ -140,8 +141,17 @@ function Dashboard() {
             </nav>
           </div>
         </aside>
+        {/* Sidebar toggle button */}
+        <button
+          onClick={() => setSidebarOpen((v) => !v)}
+          className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
+          style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
+          aria-label="Sidebar'ı gizle/göster"
+        >
+          {sidebarOpen ? <ChevronLeft className="w-8 h-8" strokeWidth={3} /> : <ChevronRight className="w-6 h-6" strokeWidth={3} />}
+        </button>
         {/* Ana İçerik */}
-        <main className="flex-1 p-6 relative z-0">
+        <main className={`flex-1 p-6 relative z-0 transition-all duration-300 ${sidebarOpen ? '' : 'ml-0'}`}>
           {loading && (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
