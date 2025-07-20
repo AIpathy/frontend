@@ -275,8 +275,8 @@ function Dashboard() {
                 <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="text-center space-y-4">
                     <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">GAD-7 Testi</h3>
-                    <p className="text-gray-500 text-sm">Anksiyete şiddetini ölçen 7 soruluk test</p>
+                    <h3 className="text-lg font-semibold text-gray-800">Beck Anksiyete Ölçeği</h3>
+                    <p className="text-gray-500 text-sm">Son 1 haftadaki anksiyete düzeyini ölçen 20 maddelik test</p>
                     <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/gad7-test')}>
                       Testi Başlat
                     </Button>

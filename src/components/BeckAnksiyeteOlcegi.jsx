@@ -3,30 +3,43 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const QUESTIONS = [
-  "Gergin, endişeli veya diken üstünde hissetmek.",
-  "Endişelenmeyi durduramamak veya kontrol edememek.",
-  "Çok fazla farklı şey hakkında aşırı endişelenmek.",
-  "Huzursuz olmak, rahatlamakta güçlük çekmek.",
-  "O kadar huzursuz olmak ki yerinde duramamak.",
-  "Kolayca sinirlenmek veya irkilmek.",
-  "Sanki korkunç bir şey olacakmış gibi korkmuş hissetmek."
+  "Bedeninizin herhangi bir yerinde uyuşma veya karıncalanma",
+  "Sıcak basması veya ateş basmaları",
+  "Bacaklarda halsizlik veya titreme hissi",
+  "Kaslarınızı gevşetememe veya rahatlayamama",
+  "Çok kötü bir şey olacakmış gibi hissetme veya endişe duyma",
+  "Baş dönmesi, sersemlik ya da denge kaybı hissi",
+  "Kalp çarpıntısı veya kalbin hızlı atması",
+  "Dehşete kapılma ya da yoğun korku anları yaşama",
+  "Sinirlilik, huzursuzluk veya çabuk öfkelenme",
+  "Boğuluyormuş gibi olma hissi veya nefes almakta zorlanma",
+  "Ellerde titreme veya genel titreklik",
+  "Kontrolü kaybedecekmiş gibi olma korkusu",
+  "Ölüm korkusu",
+  "Mide rahatsızlığı, hazımsızlık ya da ani tuvalet ihtiyacı",
+  "Baygınlık hissi veya bayılacakmış gibi olma",
+  "Yüzde kızarma veya ani sıcaklık değişimleri",
+  "Terleme (sıcaklıkla ilgili olmayan)",
+  "Zihin karışıklığı, tükenmişlik hissi ya da dikkat dağınıklığı",
+  "Görme bulanıklığı",
+  "Uyku problemleri (uyuyamama, sık uyanma, dinlenememe)"
 ];
 
 const OPTIONS = [
-  { value: 0, label: "Hiç yok" },
-  { value: 1, label: "Birkaç gün" },
-  { value: 2, label: "Haftanın yarısından fazla gün" },
-  { value: 3, label: "Neredeyse her gün" }
+  { value: 0, label: "Hiç" },
+  { value: 1, label: "Hafif düzeyde. Beni pek etkilemedi" },
+  { value: 2, label: "Orta düzeyde. Hoş değildi ama katlanabildim" },
+  { value: 3, label: "Ciddi düzeyde. Dayanmakta çok zorlandım" }
 ];
 
 function getResultText(score) {
-  if (score <= 4) return "Minimal anksiyete";
-  if (score <= 9) return "Hafif anksiyete";
-  if (score <= 14) return "Orta düzeyde anksiyete";
-  return "Şiddetli anksiyete";
+  if (score <= 7) return "Minimal / Yok";
+  if (score <= 15) return "Hafif Düzeyde Anksiyete";
+  if (score <= 25) return "Orta Düzeyde Anksiyete";
+  return "Ciddi Düzeyde Anksiyete";
 }
 
-export default function GAD7Test() {
+export default function BeckAnksiyeteOlcegi() {
   const [answers, setAnswers] = useState(Array(QUESTIONS.length).fill(null));
   const [submitted, setSubmitted] = useState(false);
 
@@ -60,7 +73,8 @@ export default function GAD7Test() {
         <span className="hidden sm:inline">Dashboard</span>
       </Link>
       <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-16">
-        <h2 className="text-2xl font-bold text-[#3CB97F] mb-4">GAD-7 (Yaygın Anksiyete Bozukluğu) Testi</h2>
+        <h2 className="text-2xl font-bold text-[#3CB97F] mb-4">Beck Anksiyete Ölçeği</h2>
+        <p className="mb-4 text-gray-700">Lütfen son 1 haftada aşağıdaki belirtileri ne düzeyde yaşadığınızı işaretleyin:</p>
         <form onSubmit={handleSubmit}>
           {QUESTIONS.map((q, idx) => (
             <div key={idx} className="mb-6">

@@ -11,7 +11,7 @@ import Dashboard from "./components/Dashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import Settings from "./components/Settings";
 import AlertDetail from "./components/AlertDetail";
-import GAD7Test from "./components/GAD7Test";
+import BeckAnksiyeteOlcegi from "./components/BeckAnksiyeteOlcegi";
 import PHQ9Test from "./components/PHQ9Test";
 import NarsisizmTesti from "./components/NarsisizmTesti";
 import BorderlineKisilikTesti from "./components/BorderlineKisilikTesti";
@@ -39,7 +39,7 @@ function App() {
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/alert/:id" element={<AlertDetail />} />
-        <Route path="/gad7-test" element={<GAD7Test />} />
+        <Route path="/gad7-test" element={<BeckAnksiyeteOlcegi />} />
         <Route path="/phq9-test" element={<PHQ9Test />} />
         <Route path="/npi16-test" element={<NarsisizmTesti />} />
         <Route path="/msibpd-test" element={<BorderlineKisilikTesti />} />
