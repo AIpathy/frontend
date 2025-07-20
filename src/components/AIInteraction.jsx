@@ -63,6 +63,7 @@ function AIInteraction({ doctorMode = false }) {
 
   const videoRef = useRef(null);
   const mediaStreamRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   // İzinleri kontrol et
   useEffect(() => {
@@ -80,6 +81,17 @@ function AIInteraction({ doctorMode = false }) {
       videoRef.current.srcObject = mediaStreamRef.current;
     }
   }, [isVideoOn]);
+
+  // Sohbet alanını en alta kaydır
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
 
   const checkPermissions = async () => {
     try {
@@ -414,7 +426,7 @@ function AIInteraction({ doctorMode = false }) {
           {/* Sohbet Alanı */}
           <div className="flex-1 flex flex-col min-h-0">
             {/* Mesajlar */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4">
+            <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto space-y-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
