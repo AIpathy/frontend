@@ -42,7 +42,7 @@ function App() {
         <Route path="/beck-anksiyete-olcegi" element={<BeckAnksiyeteOlcegi />} />
         <Route path="/phq9-test" element={<PHQ9Test />} />
         <Route path="/npi16-test" element={<NarsisizmTesti />} />
-        <Route path="/msibpd-test" element={<BorderlineKisilikTesti />} />
+        <Route path="/borderline-kisilik-testi" element={<BorderlineKisilikTesti />} />
         <Route path="/sias20-test" element={<SIAS20Test />} />
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
