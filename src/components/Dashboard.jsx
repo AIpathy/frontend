@@ -7,6 +7,129 @@ import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/h
 import dashboardLogo from "../assets/dashboardLogo.png";
 import { useNavigate } from "react-router-dom";
 
+const TEST_CATEGORIES = [
+  {
+    key: "kisilik",
+    label: "Kişilik Bozuklukları ve Kişilik Testleri",
+    tests: [
+      {
+        key: "borderline-kisilik-testi",
+        title: "Borderline Kişilik Bozukluğu Testi",
+        desc: "Borderline kişilik bozukluğu eğilimini ölçen 53 maddelik test",
+        icon: "FileText",
+        route: "/borderline-kisilik-testi"
+      },
+      {
+        key: "narsisizm-testi",
+        title: "Narsisizm Testi",
+        desc: "Narsisizm eğilimini ölçen 25 maddelik test",
+        icon: "FileText",
+        route: "/narsisizm-testi"
+      }
+    ]
+  },
+  {
+    key: "anksiyete",
+    label: "Anksiyete ve Kaygı Bozuklukları",
+    tests: [
+      {
+        key: "beck-anksiyete-olcegi",
+        title: "Beck Anksiyete Ölçeği",
+        desc: "Son 1 haftadaki anksiyete düzeyini ölçen 20 maddelik test",
+        icon: "Activity",
+        route: "/beck-anksiyete-olcegi"
+      },
+      {
+        key: "sosyal-fobi-testi",
+        title: "Sosyal Fobi Testi",
+        desc: "Sosyal fobi/kaygı düzeyini ölçen 43 maddelik test",
+        icon: "FileText",
+        route: "/sosyal-fobi-testi"
+      },
+      {
+        key: "sias20-test",
+        title: "SIAS Testi",
+        desc: "Sosyal anksiyete düzeyini ölçen 20 maddelik test",
+        icon: "FileText",
+        route: "/sias20-test"
+      }
+    ]
+  },
+  {
+    key: "depresyon",
+    label: "Depresyon ve Duygudurum Bozuklukları",
+    tests: [
+      {
+        key: "phq9-test",
+        title: "PHQ-9 Testi",
+        desc: "Depresyon şiddetini ölçen 9 soruluk test",
+        icon: "FileText",
+        route: "/phq9-test"
+      }
+    ]
+  },
+  {
+    key: "travma",
+    label: "Travma, Stres ve Yas Testleri",
+    tests: [
+      {
+        key: "pcl5-test",
+        title: "PCL-5 Testi",
+        desc: "Travma sonrası stres belirtilerini ölçen 10 maddelik test",
+        icon: "FileText",
+        route: "/pcl5-test"
+      },
+      {
+        key: "icg5-test",
+        title: "ICG-5 Testi",
+        desc: "Karmaşık yas belirtilerini tarayan 5 maddelik test",
+        icon: "FileText",
+        route: "/icg5-test"
+      }
+    ]
+  },
+  {
+    key: "madde-bagimliligi",
+    label: "Madde ve Alkol Bağımlılığı Testleri",
+    tests: []
+  },
+  {
+    key: "dikkat-hiperaktivite",
+    label: "Dikkat Eksikliği, Hiperaktivite ve Nörogelişimsel Bozukluklar",
+    tests: []
+  },
+  {
+    key: "zeka-gelisim",
+    label: "Zeka ve Gelişim Testleri",
+    tests: []
+  },
+  {
+    key: "ozguven-duygusal-zeka",
+    label: "Özgüven, Duygusal Zeka ve Empati Ölçekleri",
+    tests: []
+  },
+  {
+    key: "kiskanclik-takinti-okb",
+    label: "Kıskançlık, Takıntı, OKB ve İlgili Testler",
+    tests: []
+  },
+  {
+    key: "cinsel-saglik-iliski",
+    label: "Cinsel Sağlık ve İlişki Testleri",
+    tests: []
+  },
+  {
+    key: "cocuk-ergen",
+    label: "Çocuk ve Ergen Testleri",
+    tests: []
+  },
+  {
+    key: "diger",
+    label: "Diğer Testler ve Ölçekler",
+    tests: []
+  }
+];
+
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [loading, setLoading] = useState(true);
@@ -20,6 +143,7 @@ function Dashboard() {
   const [stats, setStats] = useState({});
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState(TEST_CATEGORIES[0].key);
 
 
   // API'den veri yükleme
@@ -259,95 +383,32 @@ function Dashboard() {
             <div className="space-y-6">
               <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
               <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
-              
+              {/* Kategori Seçimi */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {TEST_CATEGORIES.map(cat => (
+                  <button
+                    key={cat.key}
+                    onClick={() => setSelectedCategory(cat.key)}
+                    className={`px-4 py-2 rounded-full font-semibold border transition-colors ${selectedCategory === cat.key ? 'bg-[#3CB97F] text-white border-[#3CB97F]' : 'bg-white text-[#3CB97F] border-[#3CB97F]/30 hover:bg-[#3CB97F]/10'}`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              {/* Seçili Kategorinin Testleri */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">PHQ-9 Testi</h3>
-                    <p className="text-gray-500 text-sm">Depresyon şiddetini ölçen 9 soruluk test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/phq9-test')}>
-                      Testi Başlat
-                    </Button>
+                {TEST_CATEGORIES.find(cat => cat.key === selectedCategory).tests.map(test => (
+                  <div key={test.key} className="bg-white/90 rounded-xl p-6 shadow-md">
+                    <div className="text-center space-y-4">
+                      {test.icon === "Activity" ? <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" /> : <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />}
+                      <h3 className="text-lg font-semibold text-gray-800">{test.title}</h3>
+                      <p className="text-gray-500 text-sm">{test.desc}</p>
+                      <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate(test.route)}>
+                        Testi Başlat
+                      </Button>
+                    </div>
                   </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">Beck Anksiyete Ölçeği</h3>
-                    <p className="text-gray-500 text-sm">Son 1 haftadaki anksiyete düzeyini ölçen 20 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/beck-anksiyete-olcegi')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">Narsisizm Testi</h3>
-                    <p className="text-gray-500 text-sm">Narsisizm eğilimini ölçen 25 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/narsisizm-testi')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">Borderline Kişilik Bozukluğu Testi</h3>
-                    <p className="text-gray-500 text-sm">Borderline kişilik bozukluğu eğilimini ölçen 53 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/borderline-kisilik-testi')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">SIAS Testi</h3>
-                    <p className="text-gray-500 text-sm">Sosyal anksiyete düzeyini ölçen 20 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/sias20-test')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">PCL-5 Testi</h3>
-                    <p className="text-gray-500 text-sm">Travma sonrası stres belirtilerini ölçen 10 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/pcl5-test')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">ICG-5 Testi</h3>
-                    <p className="text-gray-500 text-sm">Karmaşık yas belirtilerini tarayan 5 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/icg5-test')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
-                    <h3 className="text-lg font-semibold text-gray-800">Sosyal Fobi Testi</h3>
-                    <p className="text-gray-500 text-sm">Sosyal fobi/kaygı düzeyini ölçen 44 maddelik test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/sosyal-fobi-testi')}>
-                      Testi Başlat
-                    </Button>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           )}
