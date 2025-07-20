@@ -11,7 +11,13 @@ import Dashboard from "./components/Dashboard";
 import DoctorDashboard from "./components/DoctorDashboard";
 import Settings from "./components/Settings";
 import AlertDetail from "./components/AlertDetail";
-
+import GAD7Test from "./components/GAD7Test";
+import PHQ9Test from "./components/PHQ9Test";
+import NPI16Test from "./components/NPI16Test";
+import MSIBPDTest from "./components/MSIBPDTest";
+import SIAS20Test from "./components/SIAS20Test";
+import PCL5Test from "./components/PCL5Test";
+import ICG5Test from "./components/ICG5Test";
 
 
 function App() {
@@ -33,6 +39,13 @@ function App() {
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/alert/:id" element={<AlertDetail />} />
+        <Route path="/gad7-test" element={<GAD7Test />} />
+        <Route path="/phq9-test" element={<PHQ9Test />} />
+        <Route path="/npi16-test" element={<NPI16Test />} />
+        <Route path="/msibpd-test" element={<MSIBPDTest />} />
+        <Route path="/sias20-test" element={<SIAS20Test />} />
+        <Route path="/pcl5-test" element={<PCL5Test />} />
+        <Route path="/icg5-test" element={<ICG5Test />} />
       </Routes>
     </Router>
   );
