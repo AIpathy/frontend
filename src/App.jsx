@@ -14,7 +14,7 @@ import AlertDetail from "./components/AlertDetail";
 import GAD7Test from "./components/GAD7Test";
 import PHQ9Test from "./components/PHQ9Test";
 import NarsisizmTesti from "./components/NarsisizmTesti";
-import MSIBPDTest from "./components/MSIBPDTest";
+import BorderlineKisilikTesti from "./components/BorderlineKisilikTesti";
 import SIAS20Test from "./components/SIAS20Test";
 import PCL5Test from "./components/PCL5Test";
 import ICG5Test from "./components/ICG5Test";
@@ -42,7 +42,7 @@ function App() {
         <Route path="/gad7-test" element={<GAD7Test />} />
         <Route path="/phq9-test" element={<PHQ9Test />} />
         <Route path="/npi16-test" element={<NarsisizmTesti />} />
-        <Route path="/msibpd-test" element={<MSIBPDTest />} />
+        <Route path="/msibpd-test" element={<BorderlineKisilikTesti />} />
         <Route path="/sias20-test" element={<SIAS20Test />} />
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
