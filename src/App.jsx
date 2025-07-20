@@ -18,6 +18,7 @@ import BorderlineKisilikTesti from "./components/BorderlineKisilikTesti";
 import SIAS20Test from "./components/SIAS20Test";
 import PCL5Test from "./components/PCL5Test";
 import ICG5Test from "./components/ICG5Test";
+import SosyalFobiTesti from "./components/SosyalFobiTesti";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/sias20-test" element={<SIAS20Test />} />
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
+        <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
       </Routes>
     </Router>
   );
