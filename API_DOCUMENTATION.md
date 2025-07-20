@@ -166,7 +166,7 @@ Authorization: Bearer <token>
 [
   {
     "id": 1,
-    "type": "voice", // "voice", "facial", "phq9", "gad7"
+    "type": "voice", // "voice", "facial", "phq9", "beck_anxiety"
     "score": 7.5,
     "details": "Ses analizi sonucu: Hafif stres belirtileri",
     "timestamp": "2024-01-15T14:30:00Z"
@@ -271,7 +271,7 @@ Authorization: Bearer <token>
 **Request Body:**
 ```json
 {
-  "type": "phq9", // "phq9" veya "gad7"
+  "type": "phq9", // "phq9" veya "beck_anxiety"
   "answers": [1, 2, 0, 1, 2, 1, 0, 1, 2], // PHQ-9 için 9 soru
   "totalScore": 10
 }
@@ -412,7 +412,7 @@ CREATE TABLE analyses (
   id INT PRIMARY KEY AUTO_INCREMENT,
   userId INT,
   patientId INT NULL, -- doktorlar için hasta ID'si
-  type ENUM('voice', 'facial', 'phq9', 'gad7') NOT NULL,
+  type ENUM('voice', 'facial', 'phq9', 'beck_anxiety') NOT NULL,
   score DECIMAL(3,1) NOT NULL,
   details TEXT,
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

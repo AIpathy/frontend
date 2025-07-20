@@ -85,7 +85,7 @@ function DoctorDashboard() {
       case 'voice': return <Mic className="w-4 h-4" />;
       case 'facial': return <Camera className="w-4 h-4" />;
       case 'phq9': return <FileText className="w-4 h-4" />;
-      case 'gad7': return <Activity className="w-4 h-4" />;
+      case 'beck_anxiety': return <Activity className="w-4 h-4" />;
       default: return <Activity className="w-4 h-4" />;
     }
   };
