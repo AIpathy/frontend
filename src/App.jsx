@@ -39,7 +39,7 @@ function App() {
         <Route path="/doctor" element={<DoctorDashboard />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/alert/:id" element={<AlertDetail />} />
-        <Route path="/gad7-test" element={<BeckAnksiyeteOlcegi />} />
+        <Route path="/beck-anksiyete-olcegi" element={<BeckAnksiyeteOlcegi />} />
         <Route path="/phq9-test" element={<PHQ9Test />} />
         <Route path="/npi16-test" element={<NarsisizmTesti />} />
         <Route path="/msibpd-test" element={<BorderlineKisilikTesti />} />
