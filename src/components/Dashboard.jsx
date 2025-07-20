@@ -5,6 +5,7 @@ import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
 import dashboardLogo from "../assets/dashboardLogo.png";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -18,6 +19,7 @@ function Dashboard() {
   const [analyses, setAnalyses] = useState([]);
   const [stats, setStats] = useState({});
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
 
 
   // API'den veri yükleme
@@ -55,6 +57,9 @@ function Dashboard() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeTab]);
 
 
   const handleLogout = () => {
@@ -261,7 +266,7 @@ function Dashboard() {
                     <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
                     <h3 className="text-lg font-semibold text-gray-800">PHQ-9 Testi</h3>
                     <p className="text-gray-500 text-sm">Depresyon şiddetini ölçen 9 soruluk test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg">
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/phq9-test')}>
                       Testi Başlat
                     </Button>
                   </div>
@@ -272,7 +277,62 @@ function Dashboard() {
                     <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" />
                     <h3 className="text-lg font-semibold text-gray-800">GAD-7 Testi</h3>
                     <p className="text-gray-500 text-sm">Anksiyete şiddetini ölçen 7 soruluk test</p>
-                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg">
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/gad7-test')}>
+                      Testi Başlat
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                  <div className="text-center space-y-4">
+                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
+                    <h3 className="text-lg font-semibold text-gray-800">NPI-16 Testi</h3>
+                    <p className="text-gray-500 text-sm">Narsistik eğilimleri ölçen 16 maddelik test</p>
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/npi16-test')}>
+                      Testi Başlat
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                  <div className="text-center space-y-4">
+                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
+                    <h3 className="text-lg font-semibold text-gray-800">MSI-BPD Testi</h3>
+                    <p className="text-gray-500 text-sm">Borderline kişilik bozukluğu belirtilerini tarayan 10 soruluk test</p>
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/msibpd-test')}>
+                      Testi Başlat
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                  <div className="text-center space-y-4">
+                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
+                    <h3 className="text-lg font-semibold text-gray-800">SIAS Testi</h3>
+                    <p className="text-gray-500 text-sm">Sosyal anksiyete düzeyini ölçen 20 maddelik test</p>
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/sias20-test')}>
+                      Testi Başlat
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                  <div className="text-center space-y-4">
+                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
+                    <h3 className="text-lg font-semibold text-gray-800">PCL-5 Testi</h3>
+                    <p className="text-gray-500 text-sm">Travma sonrası stres belirtilerini ölçen 10 maddelik test</p>
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/pcl5-test')}>
+                      Testi Başlat
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="bg-white/90 rounded-xl p-6 shadow-md">
+                  <div className="text-center space-y-4">
+                    <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />
+                    <h3 className="text-lg font-semibold text-gray-800">ICG-5 Testi</h3>
+                    <p className="text-gray-500 text-sm">Karmaşık yas belirtilerini tarayan 5 maddelik test</p>
+                    <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate('/icg5-test')}>
                       Testi Başlat
                     </Button>
                   </div>
