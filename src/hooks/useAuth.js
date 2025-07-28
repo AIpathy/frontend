@@ -90,6 +90,8 @@ export const useAuth = () => {
     register,
     forgotPassword,
     loading,
-    error
+    error,
+    // Sadece token gerekli (AIInteraction için)
+    token: localStorage.getItem('token')
   };
 }; 

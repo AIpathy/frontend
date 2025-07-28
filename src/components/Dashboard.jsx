@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Bot, FileText, Settings, Mic, Camera, ChevronLeft, ChevronRight } from "lucide-react";
+import { LogOut, User, Activity, Bot, FileText, Settings, Mic, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
@@ -271,19 +271,19 @@ function Dashboard() {
             <img src={dashboardLogoNew} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
-  <button
-    onClick={() => { window.location.hash = '#/settings'; }}
-    className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
-  >
-    <Settings className="w-5 h-5 text-[#265d5c]" />
-  </button>
-  <button
-    onClick={handleLogout}
-    className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
-  >
-    <LogOut className="w-5 h-5 text-[#265d5c]" />
-  </button>
-</div>
+            <button
+              onClick={() => { window.location.hash = '#/settings'; }}
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+            >
+              <Settings className="w-5 h-5 text-[#265d5c]" />
+            </button>
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+            >
+              <LogOut className="w-5 h-5 text-[#265d5c]" />
+            </button>
+          </div>
 
         </div>
       </header>
@@ -419,15 +419,21 @@ function Dashboard() {
                 <div className="space-y-4">
                   {analyses.slice(0, 5).map((analysis) => (
                     <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-white/70 rounded-lg">
-                      {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#265d5c]" /> :
-                        analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#265d5c]" /> :
-                          <FileText className="w-5 h-5 text-[#265d5c]" />}
+                      {analysis.type === 'voice' ? (
+                        <Mic className="w-5 h-5 text-[#265d5c]" />
+                      ) : analysis.type === 'facial' ? (
+                        <Camera className="w-5 h-5 text-[#265d5c]" />
+                      ) : (
+                        <FileText className="w-5 h-5 text-[#265d5c]" />
+                      )}
+
                       <div className="flex-1">
                         <p className="text-gray-800 font-medium">
                           {getAnalysisTypeName(analysis.type)} Tamamlandı
                         </p>
                         <p className="text-gray-500 text-sm">{formatTimestamp(analysis.timestamp)}</p>
                       </div>
+
                       <span className="text-[#265d5c] font-semibold">{analysis.score}/10</span>
                     </div>
                   ))}
