@@ -1,76 +1,42 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Mic, MicOff, Send, Bot, Smile, SendHorizontal } from "lucide-react";
+import { Bot, Smile, SendHorizontal } from "lucide-react";
 import Button from "./Button";
+import VoiceRecorder from "./VoiceRecorder";
 
 function AIInteraction({ doctorMode = false }) {
   const [isRecording, setIsRecording] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const [showConsentDialog, setShowConsentDialog] = useState(false);
   const [permissions, setPermissions] = useState({
     audio: false
   });
-  const [messages, setMessages] = useState(() => {
-    // localStorage'dan konuşmaları yükle
-    const savedMessages = localStorage.getItem('aiChatMessages');
-    if (savedMessages) {
-      const parsedMessages = JSON.parse(savedMessages);
-      // Timestamp'leri Date objesine çevir
-      return parsedMessages.map(msg => ({
-        ...msg,
-        timestamp: new Date(msg.timestamp)
-      }));
+  
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      type: 'ai',
+      content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses analizi yaparak size daha iyi yardımcı olabilirim.',
+      timestamp: new Date()
+    },
+    {
+      id: 2,
+      type: 'ai',
+      content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
+      timestamp: new Date(),
+      showConsentButton: true
     }
-    // İlk kez açılıyorsa varsayılan mesajları göster
-    if (doctorMode) {
-      return [
-        {
-          id: 1,
-          type: 'ai',
-          content: 'Merhaba! Bugün sizin psikolojik iyi oluşunuzu analiz etmek için buradayım. Ses analiziyle ruh halinizi değerlendirebilirim.',
-          timestamp: new Date()
-        },
-        {
-          id: 2,
-          type: 'ai',
-          content: 'Kendi ruh halinizi analiz etmem için ses verilerinizi kullanmama izin veriyor musunuz? Böylece size daha iyi destek olabilirim.',
-          timestamp: new Date(),
-          showConsentButton: true
-        }
-      ];
-    }
-    return [
-      {
-        id: 1,
-        type: 'ai',
-        content: 'Merhaba! Psikolojik durumunuzu analiz etmek için buradayım. Ses analizi yaparak size daha iyi yardımcı olabilirim.',
-        timestamp: new Date()
-      },
-      {
-        id: 2,
-        type: 'ai',
-        content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
-        timestamp: new Date(),
-        showConsentButton: true
-      }
-    ];
-  });
+  ]);
+  
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
-  const mediaStreamRef = useRef(null);
   const chatContainerRef = useRef(null);
 
   // İzinleri kontrol et
   useEffect(() => {
     checkPermissions();
   }, []);
-
-  // Mesajları localStorage'a kaydet
-  useEffect(() => {
-    localStorage.setItem('aiChatMessages', JSON.stringify(messages));
-  }, [messages]);
 
   // Sohbet alanını en alta kaydır
   const scrollToBottom = () => {
@@ -93,93 +59,72 @@ function AIInteraction({ doctorMode = false }) {
     }
   };
 
-  // Kullanıcı onayını al ve medya akışını başlat
+  // Kullanıcı onayını al
   const handleConsent = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true
-      });
+    setIsRecording(true);
+    
+    // Onay mesajını ekle
+    const consentMessage = {
+      id: messages.length + 1,
+      type: 'user',
+      content: 'Evet, ses analizi yapılmasına izin veriyorum.',
+      timestamp: new Date()
+    };
+    const aiResponse = {
+      id: messages.length + 2,
+      type: 'ai',
+      content: 'Teşekkürler! Artık ses kaydı yapabilirsiniz. Aşağıdaki mikrofon butonuna basarak konuşmaya başlayabilirsiniz.',
+      timestamp: new Date()
+    };
+    setMessages(prev => [...prev, consentMessage, aiResponse]);
+  };
 
-      mediaStreamRef.current = stream;
+  // VoiceRecorder'dan gelen ses verilerini işle
+  const handleSendAudio = (audioData) => {
+    // Kullanıcı mesajını ekle
+    const userMessage = {
+      id: messages.length + 1,
+      type: 'user',
+      content: `🎵 Ses kaydı gönderildi (${audioData.formattedDuration})`,
+      timestamp: new Date(),
+      audioData: audioData.audioURL
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+    setIsLoading(true);
 
-      setPermissions({ audio: true });
-      setIsRecording(true);
-      // Onay mesajını ekle
-      const consentMessage = {
-        id: messages.length + 1,
-        type: 'user',
-        content: doctorMode
-          ? 'Evet, kendi psikolojik analizim için ses verilerimi kullanabilirsin.'
-          : 'Evet, ses analizi yapılmasına izin veriyorum.',
-        timestamp: new Date()
-      };
-      const aiResponse = {
-        id: messages.length + 2,
-        type: 'ai',
-        content: doctorMode
-          ? 'Teşekkürler! Artık kendi ruh halinizi analiz edebilirim. Dilediğiniz gibi konuşmaya başlayabilirsiniz.'
-          : 'Teşekkürler! Artık ses analizi yapabilirim. Konuşmaya başlayabilirsiniz.',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, consentMessage, aiResponse]);
-    } catch (error) {
-      console.error('Media stream error:', error);
-      // Hata mesajını ekle
+    // TODO: Gerçek AI API entegrasyonu burada yapılacak
+    // Şimdilik sadece loading state'ini false yapıyoruz
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  // VoiceRecorder'dan gelen izin durumunu işle
+  const handlePermissionChange = (hasPermission) => {
+    setPermissions(prev => ({ ...prev, audio: hasPermission }));
+    if (!hasPermission) {
+      // İzin reddedildi, hata mesajı ekle
       const errorMessage = {
         id: messages.length + 1,
         type: 'user',
-        content: doctorMode
-          ? 'Hayır, şu an kendi psikolojik analizimi yapmak istemiyorum.'
-          : 'Hayır, şu an izin vermek istemiyorum.',
+        content: 'Hayır, şu an izin vermek istemiyorum.',
         timestamp: new Date()
       };
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: doctorMode
-          ? 'Anladım. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?'
-          : 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
+        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage, aiResponse]);
     }
   };
 
-  // Medya akışını başlat
-  const startMediaStream = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true
-      });
-
-      mediaStreamRef.current = stream;
-
-      setPermissions({ audio: true });
-      setIsRecording(true);
-    } catch (error) {
-      console.error('Media stream error:', error);
-      alert('Mikrofon erişimi gerekli!');
-    }
-  };
-
-  // Medya akışını durdur
+  // Oturumu sonlandır
   const stopMediaStream = () => {
-    if (mediaStreamRef.current) {
-      mediaStreamRef.current.getTracks().forEach(track => track.stop());
-      mediaStreamRef.current = null;
-    }
     setIsRecording(false);
-  };
-
-  // Mute toggle
-  const toggleMute = () => {
-    if (mediaStreamRef.current) {
-      const audioTrack = mediaStreamRef.current.getAudioTracks()[0];
-      if (audioTrack) {
-        audioTrack.enabled = !audioTrack.enabled;
-        setIsMuted(!isMuted);
-      }
-    }
+    setPermissions({ audio: false });
   };
 
   // Mesaj gönder
@@ -194,19 +139,12 @@ function AIInteraction({ doctorMode = false }) {
     setMessages(prev => [...prev, newMessage]);
     setInputMessage("");
     setIsLoading(true);
-    // AI yanıtını simüle et
+    
+    // TODO: Gerçek AI API entegrasyonu burada yapılacak
+    // Şimdilik sadece loading state'ini false yapıyoruz
     setTimeout(() => {
-      const aiResponse = {
-        id: messages.length + 2,
-        type: 'ai',
-        content: doctorMode
-          ? 'Mesajınızı aldım. Ses analizinizle birlikte ruh halinizi değerlendiriyorum...'
-          : 'Mesajınızı aldım. Ses analizinizle birlikte değerlendiriyorum...',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, aiResponse]);
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   // Enter tuşu ile mesaj gönder
@@ -237,25 +175,7 @@ function AIInteraction({ doctorMode = false }) {
 
   // Yeni konuşma başlat
   const startNewConversation = () => {
-    let newMessages;
-    if (doctorMode) {
-      newMessages = [
-        {
-          id: 1,
-          type: 'ai',
-          content: 'Merhaba! Bugün sizin psikolojik iyi oluşunuzu analiz etmek için buradayım. Ses analiziyle ruh halinizi değerlendirebilirim.',
-          timestamp: new Date()
-        },
-        {
-          id: 2,
-          type: 'ai',
-          content: 'Kendi ruh halinizi analiz etmem için ses verilerinizi kullanmama izin veriyor musunuz? Böylece size daha iyi destek olabilirim.',
-          timestamp: new Date(),
-          showConsentButton: true
-        }
-      ];
-    } else {
-      newMessages = [
+    const newMessages = [
       {
         id: 1,
         type: 'ai',
@@ -270,13 +190,7 @@ function AIInteraction({ doctorMode = false }) {
         showConsentButton: true
       }
     ];
-    }
     setMessages(newMessages);
-    // Medya akışını durdur
-    if (mediaStreamRef.current) {
-      mediaStreamRef.current.getTracks().forEach(track => track.stop());
-      mediaStreamRef.current = null;
-    }
     setIsRecording(false);
     setPermissions({ audio: false });
   };
@@ -318,24 +232,12 @@ function AIInteraction({ doctorMode = false }) {
                 </svg>
               </button>
               
-              {isRecording && (
-                <>
-                  <button
-                    onClick={toggleMute}
-                    className={`p-3 rounded-lg transition-colors ${
-                      isMuted 
-                        ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
-                        : 'bg-[#3CB97F]/20 text-[#3CB97F] border border-[#3CB97F]/30'
-                    }`}
-                  >
-                    {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                  </button>
-                  
-                  <Button onClick={stopMediaStream}>
-                    Durdur
-                  </Button>
-                </>
-              )}
+              <button 
+                onClick={stopMediaStream}
+                className="px-4 py-2 bg-gray-500 hover:bg-red-500 text-white rounded-lg transition-colors font-medium"
+              >
+                Oturumu Sonlandır
+              </button>
             </div>
           </div>
         </div>
@@ -357,6 +259,22 @@ function AIInteraction({ doctorMode = false }) {
                   }`}
                 >
                   <p className="text-sm">{message.content}</p>
+                  
+                  {/* Ses mesajı için oynatma kontrolü */}
+                  {message.audioData && (
+                    <div className="mt-2 p-2 bg-black/10 rounded-lg">
+                      <audio 
+                        controls 
+                        className="w-full h-8"
+                        preload="metadata"
+                        controlsList="nodownload"
+                        src={message.audioData}
+                      >
+                        Tarayıcınız ses oynatmayı desteklemiyor.
+                      </audio>
+                    </div>
+                  )}
+                  
                   <p className="text-xs opacity-70 mt-1">
                     {message.timestamp.toLocaleTimeString()}
                   </p>
@@ -403,7 +321,7 @@ function AIInteraction({ doctorMode = false }) {
                 <div className="bg-[#18181b]/50 text-gray-300 border border-[#3CB97F]/20 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#3CB97F]"></div>
-                    <span className="text-sm">AI düşünüyor...</span>
+                    <span className="text-sm">AI işliyor...</span>
                   </div>
                 </div>
               </div>
@@ -485,6 +403,14 @@ function AIInteraction({ doctorMode = false }) {
               </div>
             )}
           </div>
+
+          {/* Ses Kontrol Barı - Mesaj Alanının Altında */}
+          <VoiceRecorder 
+            isRecording={isRecording}
+            onSendAudio={handleSendAudio}
+            onPermissionChange={handlePermissionChange}
+            autoStart={true}
+          />
         </div>
       </div>
     </div>
