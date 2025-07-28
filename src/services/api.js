@@ -130,6 +130,21 @@ class ApiService {
     return handleResponse(response);
   }
 
+  // Submit voice analysis
+  static async submitVoiceAnalysis(audioBlob, token) {
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'voice-recording.webm');
+
+    const response = await fetch(`${API_BASE_URL}/analyses/voice`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    return handleResponse(response);
+  }
+
   static async getUserAnalyses(token) {
     const response = await fetch(`${API_BASE_URL}/analyses/user`, {
       method: 'GET',
