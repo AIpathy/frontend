@@ -2,8 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { Bot, Smile, SendHorizontal } from "lucide-react";
 import Button from "./Button";
 import VoiceRecorder from "./VoiceRecorder";
+import ApiService from "../services/api";
+import { useAuth } from "../hooks/useAuth";
 
 function AIInteraction({ doctorMode = false }) {
+  const { token } = useAuth();
   const [isRecording, setIsRecording] = useState(false);
   const [showConsentDialog, setShowConsentDialog] = useState(false);
   const [permissions, setPermissions] = useState({
@@ -80,7 +83,7 @@ function AIInteraction({ doctorMode = false }) {
   };
 
   // VoiceRecorder'dan gelen ses verilerini işle
-  const handleSendAudio = (audioData) => {
+  const handleSendAudio = async (audioData) => {
     // Kullanıcı mesajını ekle
     const userMessage = {
       id: messages.length + 1,
@@ -93,11 +96,31 @@ function AIInteraction({ doctorMode = false }) {
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
-    // TODO: Gerçek AI API entegrasyonu burada yapılacak
-    // Şimdilik sadece loading state'ini false yapıyoruz
-    setTimeout(() => {
+    try {
+      // Audio blob'unu backend'e gönder
+      const response = await ApiService.submitVoiceAnalysis(audioData.blob, token);
+      
+      const aiResponse = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: response.analysis.transcription,
+        timestamp: new Date(),
+        analysisId: response.analysis.id
+      };
+      
+      setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error('Voice analysis error:', error);
+      const errorMessage = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: 'Ses analizi sırasında bir hata oluştu. Lütfen tekrar deneyin.',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   // VoiceRecorder'dan gelen izin durumunu işle
@@ -140,8 +163,7 @@ function AIInteraction({ doctorMode = false }) {
     setInputMessage("");
     setIsLoading(true);
     
-    // TODO: Gerçek AI API entegrasyonu burada yapılacak
-    // Şimdilik sadece loading state'ini false yapıyoruz
+    // TODO: Text message API entegrasyonu
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
