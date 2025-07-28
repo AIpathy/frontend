@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApiService from "../services/api";
 import Button from "./Button";
 import { LogOut, Trash2, Save, X, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { capitalizeName, formatDoctorName } from "../utils/helpers";
 
 function Settings() {
@@ -99,25 +99,25 @@ function Settings() {
     }
   };
 
-  const userType = localStorage.getItem("userType");    
+  const userType = localStorage.getItem("userType");
   const backPath = userType === "doctor" ? "/doctor" : "/dashboard";
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10" style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}>
-    {/* Sol üst geri ok */}
-    <Link
-      to={backPath}
-      className="absolute top-6 left-6 text-gray-700 hover:text-[#3CB97F] transition-colors text-2xl flex items-center gap-2"
-      title="Dashboard'a Dön"
-    >
-      <ArrowLeft className="w-6 h-6" />
-      <span className="hidden sm:inline">Dashboard</span>
-    </Link>
+      {/* Sol üst geri ok */}
+      <Link
+        to={backPath}
+        className="absolute top-6 left-6 text-gray-700 hover:text-[#265d5c] transition-colors text-2xl flex items-center gap-2"
+        title="Dashboard'a Dön"
+      >
+        <ArrowLeft className="w-6 h-6" />
+        <span className="hidden sm:inline">Dashboard</span>
+      </Link>
 
-    <div className="bg-white/90 rounded-xl shadow-lg p-8 w-full max-w-lg border border-[#e0e7ef]">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Ayarlar</h2>
-      {error   && <p className="text-red-500 text-center mb-4">{error}</p>}
-      {success && <p className="text-green-600 text-center mb-4">{success}</p>}
+      <div className="bg-white/90 rounded-xl shadow-lg p-8 w-full max-w-lg border border-[#e0e7ef]">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Ayarlar</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        {success && <p className="text-green-600 text-center mb-4">{success}</p>}
 
         {/* Profil Bilgileri */}
         <form onSubmit={handleSave} className="space-y-4 mb-8">
@@ -128,7 +128,7 @@ function Settings() {
               name="name"
               value={userType === "doctor" ? formatDoctorName(form.name, profile.expertiseLevel) : capitalizeName(form.name)}
               onChange={handleChange}
-              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c]"
               readOnly
             />
           </div>
@@ -139,13 +139,16 @@ function Settings() {
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+              className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c]"
             />
           </div>
           <div className="flex gap-2 mt-2">
-            <Button type="submit" className="flex-1">
-              <Save className="w-4 h-4 mr-1" /> Kaydet
-            </Button>
+            <button
+              type="submit"
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition w-full text-[#265d5c] font-semibold"
+            >
+              Şifreyi Güncelle
+            </button>
           </div>
         </form>
 
@@ -158,7 +161,7 @@ function Settings() {
             placeholder="Mevcut Şifre"
             value={passwords.current}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c]"
             autoComplete="current-password"
           />
           <input
@@ -167,7 +170,7 @@ function Settings() {
             placeholder="Yeni Şifre"
             value={passwords.new}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c]"
             autoComplete="new-password"
           />
           <input
@@ -176,22 +179,35 @@ function Settings() {
             placeholder="Yeni Şifre (Tekrar)"
             value={passwords.confirm}
             onChange={handlePasswordChange}
-            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F]"
+            className="px-4 py-2 rounded bg-[#f5f5f5] text-gray-800 w-full border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c]"
             autoComplete="new-password"
           />
-          <Button type="submit" className="w-full">
+          <button
+            type="submit"
+            className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition w-full flex justify-center items-center text-[#265d5c]"
+          >
+            <Save className="w-5 h-5 mr-2" />
             Şifreyi Güncelle
-          </Button>
+          </button>
+
         </form>
 
         {/* Hesap İşlemleri */}
         <div className="flex flex-col gap-2 mt-6">
-          <Button className="w-full danger" onClick={handleDeleteAccount}>
-            <Trash2 className="w-4 h-4 mr-1" /> Hesabı Sil
-          </Button>
-          <Button className="w-full" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-1" /> Çıkış Yap
-          </Button>
+          <button
+            onClick={handleDeleteAccount}
+            className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition w-full flex justify-center items-center text-red-600"
+          >
+            <Trash2 className="w-5 h-5 mr-2" />
+            Hesabı Sil
+          </button>
+          <button
+            onClick={handleLogout}
+            className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition w-full flex justify-center items-center text-[#265d5c]"
+          >
+            <LogOut className="w-5 h-5 mr-2" />
+            Çıkış Yap
+          </button>
         </div>
       </div>
     </div>

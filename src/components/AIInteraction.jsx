@@ -323,14 +323,14 @@ function AIInteraction({ doctorMode = false }) {
   return (
     <div className="h-full relative z-0">
       <div
-        className="rounded-xl border border-[#3CB97F]/20 overflow-hidden h-full flex flex-col"
+        className="rounded-xl border border-[#265d5c]/20 overflow-hidden h-full flex flex-col"
         style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
       >
         {/* Header */}
-        <div className="bg-white/90 border-b border-[#3CB97F]/20 p-4 flex-shrink-0">
+        <div className="bg-white/90 border-b border-[#265d5c]/20 p-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-[#265d5c] rounded-full flex items-center justify-center">
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -349,7 +349,7 @@ function AIInteraction({ doctorMode = false }) {
             <div className="flex items-center space-x-3">
               <button
                 onClick={startNewConversation}
-                className="p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
+                className="p-2 text-gray-400 hover:text-[#265d5c] transition-colors rounded-lg hover:bg-[#18181b]/50"
                 title="Yeni Konuşma"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -364,7 +364,7 @@ function AIInteraction({ doctorMode = false }) {
                     className={`p-3 rounded-lg transition-colors ${
                       isMuted 
                         ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
-                        : 'bg-[#3CB97F]/20 text-[#3CB97F] border border-[#3CB97F]/30'
+                        : 'bg-[#265d5c]/20 text-[#265d5c] border border-[#265d5c]/30'
                     }`}
                   >
                     {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
@@ -375,7 +375,7 @@ function AIInteraction({ doctorMode = false }) {
                     className={`p-3 rounded-lg transition-colors ${
                       !isVideoOn 
                         ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
-                        : 'bg-[#3CB97F]/20 text-[#3CB97F] border border-[#3CB97F]/30'
+                        : 'bg-[#265d5c]/20 text-[#265d5c] border border-[#265d5c]/30'
                     }`}
                   >
                     {isVideoOn ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
@@ -392,7 +392,7 @@ function AIInteraction({ doctorMode = false }) {
 
         <div className="flex flex-1 min-h-0">
           {/* Video Alanı */}
-          <div className="w-1/3 bg-white/70 border-r border-[#3CB97F]/20 p-4">
+          <div className="w-1/3 bg-white/70 border-r border-[#265d5c]/20 p-4">
             <div className="h-full flex flex-col">
               <h3 className="text-gray-800 font-semibold mb-4">Görüntü</h3>
               
@@ -435,8 +435,8 @@ function AIInteraction({ doctorMode = false }) {
                   <div
                     className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-md ${
                       message.type === 'user'
-                        ? 'bg-[#3CB97F] text-white'
-                        : 'bg-white/80 text-gray-800 border border-[#3CB97F]/10'
+                        ? 'bg-[#265d5c] text-white'
+                        : 'bg-white/80 text-gray-800 border border-[#265d5c]/10'
                     }`}
                   >
                     <p className="text-sm">{message.content}</p>
@@ -449,7 +449,7 @@ function AIInteraction({ doctorMode = false }) {
                       <div className="mt-3 space-y-2">
                         <button
                           onClick={handleConsent}
-                          className="w-full bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                          className="w-full bg-[#265d5c] hover:bg-[#2d8f5f] text-white px-4 py-2 rounded-lg text-sm transition-colors"
                         >
                           Evet, ses ve görüntü analizi yapılmasına izin veriyorum
                         </button>
@@ -483,9 +483,9 @@ function AIInteraction({ doctorMode = false }) {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#18181b]/50 text-gray-300 border border-[#3CB97F]/20 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
+                  <div className="bg-[#18181b]/50 text-gray-300 border border-[#265d5c]/20 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
                     <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#3CB97F]"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#265d5c]"></div>
                       <span className="text-sm">AI düşünüyor...</span>
                     </div>
                   </div>
@@ -494,14 +494,14 @@ function AIInteraction({ doctorMode = false }) {
             </div>
 
             {/* Modern Mesaj Girişi */}
-            <div className="p-4 border-t border-[#3CB97F]/20 bg-white/80 flex-shrink-0">
+            <div className="p-4 border-t border-[#265d5c]/20 bg-white/80 flex-shrink-0">
               <div className="flex items-end space-x-3">
                 <div className="flex-1 relative">
                   {/* Emoji Butonu - yukarı hizalı */}
                 <button
                     type="button"
                   onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-gray-100"
+                    className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#265d5c] transition-colors rounded-lg hover:bg-gray-100"
                   title="Emoji ekle"
                     style={{ zIndex: 2 }}
                 >
@@ -512,7 +512,7 @@ function AIInteraction({ doctorMode = false }) {
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Mesajınızı yazın... (Enter ile gönder)"
-                    className="w-full bg-white/90 text-gray-800 placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/10 hover:border-[#3CB97F]/30 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
+                    className="w-full bg-white/90 text-gray-800 placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#265d5c]/50 border-2 border-[#265d5c]/10 hover:border-[#265d5c]/30 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
                     rows="1"
                     style={{ minHeight: '44px', maxHeight: '128px', overflowY: 'auto' }}
                   />
@@ -531,7 +531,7 @@ function AIInteraction({ doctorMode = false }) {
                   disabled={!inputMessage.trim() || isLoading}
                   className={`p-3 rounded-xl transition-all duration-200 ${
                     inputMessage.trim() && !isLoading
-                      ? 'bg-[#3CB97F] hover:bg-[#2d8f5f] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                      ? 'bg-[#265d5c] hover:bg-[#2d8f5f] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
                       : 'bg-gray-300 text-gray-400 cursor-not-allowed'
                   }`}
                 >
@@ -541,7 +541,7 @@ function AIInteraction({ doctorMode = false }) {
 
               {/* Emoji Picker */}
               {showEmojiPicker && (
-                <div className="absolute bottom-20 left-4 bg-[#232325] border border-[#3CB97F]/20 rounded-lg p-3 shadow-xl z-[9999]">
+                <div className="absolute bottom-20 left-4 bg-[#232325] border border-[#265d5c]/20 rounded-lg p-3 shadow-xl z-[9999]">
                   <div className="grid grid-cols-8 gap-2">
                     {['😊', '😂', '❤️', '👍', '🎉', '🔥', '😎', '🤔', '😢', '😡', '😴', '🤗', '👋', '💪', '🎯', '✨'].map((emoji) => (
                       <button
@@ -560,9 +560,9 @@ function AIInteraction({ doctorMode = false }) {
               {isTyping && (
                 <div className="mt-2 text-xs text-gray-400 flex items-center space-x-2">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                   <span>Yazıyor...</span>
                 </div>

@@ -13,7 +13,7 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function KumarSonucGrafik({ score }) {
   const { riskLevel, color } = useMemo(() => {
-    if (score < 5) return { riskLevel: "Düşük Risk", color: "#3CB97F" };
+    if (score < 5) return { riskLevel: "Düşük Risk", color: "#265d5c" };
     if (score < 9.5) return { riskLevel: "Orta Risk", color: "#facc15" };
     return { riskLevel: "Yüksek Risk", color: "#f43f5e" };
   }, [score]);

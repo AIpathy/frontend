@@ -11,10 +11,10 @@ function HeroInteractive() {
     <section className="flex flex-col items-center justify-center gap-4 py-10">
       {/* Yönlendirici Metin + Ok */}
       <div className="text-center max-w-sm mb-6 flex flex-col items-center gap-4">
-        <p className="text-[#3CB97F] text-xl sm:text-2xl font-semibold">
+        <p className="text-[#265d5c] text-xl sm:text-2xl font-semibold">
           Günlük ruh halini analiz etmek için
         </p>
-        <span className="text-6xl text-[#3CB97F] animate-bounce shadow-[0_10px_10px_0_#30614F70] rounded-full px-3">
+        <span className="text-6xl text-[#265d5c] animate-bounce shadow-[0_10px_10px_0_#30614F70] rounded-full px-3">
           ↓
         </span>
       </div>

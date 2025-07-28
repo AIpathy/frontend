@@ -103,7 +103,7 @@ function AlertManager({ onAlertClick }) {
       case 'inactivity':
         return 'border-yellow-500/30 bg-yellow-500/10';
       case 'score_change':
-        return 'border-green-500/30 bg-green-500/10';
+        return 'border-[#265d5c]/30 bg-[#265d5c]/10';
       default:
         return 'border-blue-500/30 bg-blue-500/10';
     }
@@ -128,7 +128,7 @@ function AlertManager({ onAlertClick }) {
       {/* Zil */}
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="relative p-2 text-[#3CB97F] hover:text-[#2d8f5f]"
+        className="relative p-2 text-[#265d5c] hover:text-[#2d8f5f]"
       >
         <Bell className="w-6 h-6" />
         {unreadCount > 0 && (
@@ -156,7 +156,7 @@ function AlertManager({ onAlertClick }) {
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllAsRead}
-                    className="text-[#3CB97F] text-xs hover:underline"
+                    className="text-[#265d5c] text-xs hover:underline"
                   >
                     Tümünü okundu yap
                   </button>

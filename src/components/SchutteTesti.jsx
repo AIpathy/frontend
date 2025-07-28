@@ -55,13 +55,13 @@ export default function SchutteTesti() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] relative">
-      <Link to={backPath} className="absolute top-6 left-6 text-gray-700 hover:text-[#3CB97F] text-2xl flex items-center gap-2">
+      <Link to={backPath} className="absolute top-6 left-6 text-gray-700 hover:text-[#265d5c] text-2xl flex items-center gap-2">
         <ArrowLeft className="w-6 h-6" />
         <span className="hidden sm:inline">Dashboard</span>
       </Link>
 
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-md mt-20">
-        <h2 className="text-2xl font-bold text-[#3CB97F] mb-4 text-center">Schutte Duygusal Zeka Testi</h2>
+        <h2 className="text-2xl font-bold text-[#265d5c] mb-4 text-center">Schutte Duygusal Zeka Testi</h2>
 
         <form onSubmit={handleSubmit}>
           {QUESTIONS.map((q, idx) => (
@@ -87,7 +87,7 @@ export default function SchutteTesti() {
           {!submitted && (
             <button
               type="submit"
-              className="bg-[#3CB97F] text-white w-full py-2 px-4 rounded hover:bg-[#267a56] disabled:opacity-50"
+              className="bg-[#265d5c] text-white w-full py-2 px-4 rounded hover:bg-[#267a56] disabled:opacity-50"
               disabled={!allAnswered}
             >
               Sonuçları Göster
@@ -98,7 +98,7 @@ export default function SchutteTesti() {
         {submitted && (
           <div className="mt-8 border-t pt-6">
             <div className="text-center">
-              <div className="text-xl font-bold text-[#3CB97F]">Toplam Puan: {totalScore}</div>
+              <div className="text-xl font-bold text-[#265d5c]">Toplam Puan: {totalScore}</div>
               <div className="text-lg mt-2 text-gray-800">{resultText}</div>
             </div>
             <SchutteSonucGrafik score={totalScore} />

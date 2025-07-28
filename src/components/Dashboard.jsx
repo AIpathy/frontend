@@ -4,7 +4,7 @@ import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
-import dashboardLogo from "../assets/dashboardLogo.png";
+import dashboardLogoNew from "../assets/dashboardLogoNew.png";
 import { useNavigate } from "react-router-dom";
 
 const TEST_CATEGORIES = [
@@ -122,7 +122,7 @@ const TEST_CATEGORIES = [
         key: "zeka-gelisim-testi",
         title: "Zeka ve Gelişim Testi",
         desc: "10 sorudan oluşan çoktan seçmeli sözel zeka değerlendirme testi",
-        icon: "BrainCircuit", 
+        icon: "BrainCircuit",
         route: "/zeka-gelisim-testi"
       }
     ]
@@ -131,26 +131,26 @@ const TEST_CATEGORIES = [
     key: "ozguven-duygusal-zeka",
     label: "Özgüven, Duygusal Zeka ve Empati Ölçekleri",
     tests: [
-    {
-      key: "schutte-testi",
-      title: "Schutte Duygusal Zeka Testi",
-      desc: "Duygusal zekanızı ölçen 10 maddelik uluslararası test",
-      icon: "FileText",
-      route: "/schutte-testi"
-    }
+      {
+        key: "schutte-testi",
+        title: "Schutte Duygusal Zeka Testi",
+        desc: "Duygusal zekanızı ölçen 10 maddelik uluslararası test",
+        icon: "FileText",
+        route: "/schutte-testi"
+      }
     ]
   },
   {
     key: "kiskanclik-takinti-okb",
     label: "Kıskançlık, Takıntı, OKB ve İlgili Testler",
     tests: [
-    {
-      key: "okb-testi",
-      title: "OKB (Obsesif Kompülsif Bozukluk) Testi",
-      desc: "Takıntı, kontrol ve temizlik davranışlarına dair 10 testlik ölçek",
-      icon: "FileText",
-      route: "/okb-testi"
-    }
+      {
+        key: "okb-testi",
+        title: "OKB (Obsesif Kompülsif Bozukluk) Testi",
+        desc: "Takıntı, kontrol ve temizlik davranışlarına dair 10 testlik ölçek",
+        icon: "FileText",
+        route: "/okb-testi"
+      }
     ]
   },
   {
@@ -216,7 +216,7 @@ function Dashboard() {
       try {
         setLoading(true);
         const token = localStorage.getItem('token');
-        
+
         if (!token) {
           window.location.hash = '#/auth';
           return;
@@ -265,19 +265,26 @@ function Dashboard() {
       style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
     >
       {/* Header */}
-      <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)', minHeight: 56 }}>
+      <header className="backdrop-blur-md border-b border-[#265d5c]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)', minHeight: 56 }}>
         <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
+            <img src={dashboardLogoNew} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
-          <div className="flex items-center space-x-4">
-            <Button onClick={() => { window.location.hash = '#/settings'; }}>
-              <Settings className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
-            <Button onClick={handleLogout}>
-              <LogOut className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
-          </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+  <button
+    onClick={() => { window.location.hash = '#/settings'; }}
+    className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+  >
+    <Settings className="w-5 h-5 text-[#265d5c]" />
+  </button>
+  <button
+    onClick={handleLogout}
+    className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+  >
+    <LogOut className="w-5 h-5 text-[#265d5c]" />
+  </button>
+</div>
+
         </div>
       </header>
 
@@ -289,8 +296,8 @@ function Dashboard() {
         >
           <div className={`p-6 transition-opacity duration-300 ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none select-none'}`}>
             {/* Kullanıcı Profili */}
-            <div className="bg-white/80 rounded-full px-2 py-1.5 mb-6 shadow-lg shadow-[#3CB97F]/10 overflow-hidden w-full flex items-center space-x-4">
-              <div className="w-12 h-12 bg-[#3CB97F] rounded-full flex items-center justify-center">
+            <div className="bg-white/80 rounded-full px-2 py-1.5 mb-6 shadow-lg shadow-[#265d5c]/10 overflow-hidden w-full flex items-center space-x-4">
+              <div className="w-12 h-12 bg-[#265d5c] rounded-full flex items-center justify-center">
                 <User className="w-7 h-7 text-white" />
               </div>
               <span className="text-base font-semibold text-[#696969] leading-tight">{capitalizeName(user.name)}</span>
@@ -299,11 +306,10 @@ function Dashboard() {
             <nav className="space-y-2">
               <button
                 onClick={() => setActiveTab("overview")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "overview"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "overview"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Activity className="w-5 h-5" />
                 <span className={activeTab === "overview" ? "" : "text-gray-800"}>Genel Bakış</span>
@@ -311,11 +317,10 @@ function Dashboard() {
 
               <button
                 onClick={() => setActiveTab("ai-assistant")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "ai-assistant"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "ai-assistant"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Bot className="w-5 h-5" />
                 <span className={activeTab === "ai-assistant" ? "" : "text-gray-800"}>AI Asistan</span>
@@ -323,11 +328,10 @@ function Dashboard() {
 
               <button
                 onClick={() => setActiveTab("tests")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "tests"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "tests"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <FileText className="w-5 h-5" />
                 <span className={activeTab === "tests" ? "" : "text-gray-800"}>Testler</span>
@@ -338,7 +342,7 @@ function Dashboard() {
         {/* Sidebar toggle button */}
         <button
           onClick={() => setSidebarOpen((v) => !v)}
-          className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
+          className="fixed z-30 flex items-center justify-center text-[#265d5c] hover:text-[#267a56] transition"
           style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
           aria-label="Sidebar'ı gizle/göster"
         >
@@ -349,7 +353,7 @@ function Dashboard() {
           {loading && (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3CB97F] mx-auto mb-4"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#265d5c] mx-auto mb-4"></div>
                 <p className="text-gray-400">Veriler yükleniyor...</p>
               </div>
             </div>
@@ -363,33 +367,33 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "overview" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Genel Bakış</h2>
-              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-2">Genel Bakış</h2>
+              <div className="h-1 w-16 bg-[#265d5c] rounded-full mb-4" />
               {/* İstatistik Kartları */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">Bu Hafta</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">{stats.weeklyAnalyses || analyses.length} Analiz</p>
+                      <p className="text-2xl font-bold text-[#265d5c]">{stats.weeklyAnalyses || analyses.length} Analiz</p>
                     </div>
-                    <Activity className="w-8 h-8 text-[#3CB97F]" />
+                    <Activity className="w-8 h-8 text-[#265d5c]" />
                   </div>
                 </div>
                 <div className="bg-white/90 rounded-xl p-6 shadow-md">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">Ortalama Skor</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">
-                        {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ? 
-                          `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` : 
+                      <p className="text-2xl font-bold text-[#265d5c]">
+                        {stats.averageScore ? `${stats.averageScore}/10` : analyses.length > 0 ?
+                          `${(analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1)}/10` :
                           '0/10'}
                       </p>
                     </div>
-                    <div className="w-8 h-8 bg-[#3CB97F] rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-[#265d5c] rounded-full flex items-center justify-center">
                       <span className="text-white text-sm font-bold">
-                        {stats.averageScore || (analyses.length > 0 ? 
-                          (analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1) : 
+                        {stats.averageScore || (analyses.length > 0 ?
+                          (analyses.reduce((sum, analysis) => sum + analysis.score, 0) / analyses.length).toFixed(1) :
                           '0')}
                       </span>
                     </div>
@@ -399,13 +403,13 @@ function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-500 text-sm">Son Güncelleme</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">
-                        {stats.lastUpdate || (analyses.length > 0 ? 
-                          formatTimestamp(analyses[0].timestamp) : 
+                      <p className="text-2xl font-bold text-[#265d5c]">
+                        {stats.lastUpdate || (analyses.length > 0 ?
+                          formatTimestamp(analyses[0].timestamp) :
                           'Henüz analiz yok')}
                       </p>
                     </div>
-                    <Activity className="w-8 h-8 text-[#3CB97F]" />
+                    <Activity className="w-8 h-8 text-[#265d5c]" />
                   </div>
                 </div>
               </div>
@@ -415,16 +419,16 @@ function Dashboard() {
                 <div className="space-y-4">
                   {analyses.slice(0, 5).map((analysis) => (
                     <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-white/70 rounded-lg">
-                      {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#3CB97F]" /> :
-                       analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#3CB97F]" /> :
-                       <FileText className="w-5 h-5 text-[#3CB97F]" />}
+                      {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#265d5c]" /> :
+                        analysis.type === 'facial' ? <Camera className="w-5 h-5 text-[#265d5c]" /> :
+                          <FileText className="w-5 h-5 text-[#265d5c]" />}
                       <div className="flex-1">
                         <p className="text-gray-800 font-medium">
                           {getAnalysisTypeName(analysis.type)} Tamamlandı
                         </p>
                         <p className="text-gray-500 text-sm">{formatTimestamp(analysis.timestamp)}</p>
                       </div>
-                      <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
+                      <span className="text-[#265d5c] font-semibold">{analysis.score}/10</span>
                     </div>
                   ))}
                   {analyses.length === 0 && (
@@ -445,15 +449,15 @@ function Dashboard() {
 
           {!loading && !error && activeTab === "tests" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
-              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
+              <h2 className="text-3xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-2">Psikolojik Testler</h2>
+              <div className="h-1 w-16 bg-[#265d5c] rounded-full mb-4" />
               {/* Kategori Seçimi */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {TEST_CATEGORIES.map(cat => (
                   <button
                     key={cat.key}
                     onClick={() => setSelectedCategory(cat.key)}
-                    className={`px-4 py-2 rounded-full font-semibold border transition-colors ${selectedCategory === cat.key ? 'bg-[#3CB97F] text-white border-[#3CB97F]' : 'bg-white text-[#3CB97F] border-[#3CB97F]/30 hover:bg-[#3CB97F]/10'}`}
+                    className={`px-4 py-2 rounded-full font-semibold border transition-colors ${selectedCategory === cat.key ? 'bg-[#265d5c] text-white border-[#265d5c]' : 'bg-white text-[#265d5c] border-[#265d5c]/30 hover:bg-[#265d5c]/10'}`}
                   >
                     {cat.label}
                   </button>
@@ -463,14 +467,14 @@ function Dashboard() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {TEST_CATEGORIES.find(cat => cat.key === selectedCategory).tests.map(test => (
                   <div key={test.key} className="bg-white/90 rounded-xl p-6 shadow-md">
-                  <div className="text-center space-y-4">
-                      {test.icon === "Activity" ? <Activity className="w-12 h-12 text-[#3CB97F] mx-auto" /> : <FileText className="w-12 h-12 text-[#3CB97F] mx-auto" />}
+                    <div className="text-center space-y-4">
+                      {test.icon === "Activity" ? <Activity className="w-12 h-12 text-[#265d5c] mx-auto" /> : <FileText className="w-12 h-12 text-[] mx-auto" />}
                       <h3 className="text-lg font-semibold text-gray-800">{test.title}</h3>
                       <p className="text-gray-500 text-sm">{test.desc}</p>
-                      <Button className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate(test.route)}>
-                      Testi Başlat
-                    </Button>
-                  </div>
+                      <Button className="bg-[#265d5c] hover:bg-[#2d8f5f] text-white px-6 py-2 rounded-lg" onClick={() => navigate(test.route)}>
+                        Testi Başlat
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
