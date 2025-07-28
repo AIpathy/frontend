@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { LogOut, User, Activity, Camera, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock, Bot, ChevronLeft, ChevronRight } from "lucide-react";
+import { LogOut, User, Activity, Mic, FileText, Settings, Search, Users, TrendingUp, AlertCircle, Clock, Bot, ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "./Button";
 import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
@@ -83,7 +83,6 @@ function DoctorDashboard() {
   const getAnalysisIcon = (type) => {
     switch (type) {
       case 'voice': return <Mic className="w-4 h-4" />;
-      case 'facial': return <Camera className="w-4 h-4" />;
       case 'phq9': return <FileText className="w-4 h-4" />;
       case 'beck_anxiety': return <Activity className="w-4 h-4" />;
       default: return <Activity className="w-4 h-4" />;

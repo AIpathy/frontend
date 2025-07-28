@@ -48,13 +48,12 @@ export const getStatusColor = (status) => {
 
 /**
  * Analiz tipi için ikon döndürür
- * @param {string} type - Analiz tipi ('voice', 'facial', 'phq9', 'beck_anxiety')
+ * @param {string} type - Analiz tipi ('voice', 'phq9', 'beck_anxiety')
  * @returns {string} İkon adı
  */
 export const getAnalysisIconType = (type) => {
   switch (type) {
     case 'voice': return 'Mic';
-    case 'facial': return 'Camera';
     case 'phq9': return 'FileText';
     case 'beck_anxiety': return 'Activity';
     default: return 'Activity';
@@ -69,7 +68,6 @@ export const getAnalysisIconType = (type) => {
 export const getAnalysisTypeName = (type) => {
   switch (type) {
     case 'voice': return 'Ses Analizi';
-    case 'facial': return 'Mimik Analizi';
     case 'phq9': return 'PHQ-9 Testi';
     case 'beck_anxiety': return 'Beck Anksiyete Ölçeği';
     default: return 'Analiz';
