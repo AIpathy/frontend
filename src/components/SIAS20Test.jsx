@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import SIAS20SonucGrafik from "./SIAS20SonucGrafik";
 
 const QUESTIONS = [
   "Yeni insanlarla tanışmaktan çekinirim.",
@@ -108,9 +109,13 @@ export default function SIAS20Test() {
           )}
         </form>
         {submitted && (
-          <div className="mt-8 text-center">
-            <div className="text-xl font-bold text-[#3CB97F]">Toplam Puan: {totalScore}</div>
-            <div className="text-lg mt-2">{getResultText(totalScore)}</div>
+          <div className="mt-8 border-t pt-6">
+            <div className="text-center">
+              <div className="text-xl font-bold text-[#3CB97F]">Toplam Puan: {totalScore}</div>
+              <div className="text-lg mt-2 text-gray-800">{getResultText(totalScore)}</div>
+            </div>
+
+            <SIAS20SonucGrafik score={totalScore} />
           </div>
         )}
       </div>

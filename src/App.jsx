@@ -19,6 +19,14 @@ import SIAS20Test from "./components/SIAS20Test";
 import PCL5Test from "./components/PCL5Test";
 import ICG5Test from "./components/ICG5Test";
 import SosyalFobiTesti from "./components/SosyalFobiTesti";
+import AlkolTesti from "./components/AlkolTesti";
+import DikkatTesti from "./components/DikkatTesti";
+import SchutteTesti from "./components/SchutteTesti";
+import OKBTesti from "./components/OKBTesti";
+import ToksikIliskiTesti from "./components/ToksikIliskiTesti";
+import TerkEdilmeTesti from "./components/TerkEdilmeTesti";
+import KumarTesti from "./components/KumarTesti";
+import ZekaGelisimTesti from "./components/ZekaGelisimTesti";
 
 
 function App() {
@@ -48,6 +56,14 @@ function App() {
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
         <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
+        <Route path="/alkol-testi" element={<AlkolTesti />} />
+        <Route path="/dikkat-testi" element={<DikkatTesti />} />
+        <Route path="/schutte-testi" element={<SchutteTesti />} />
+        <Route path="/okb-testi" element={<OKBTesti />} />
+        <Route path="/toksik-iliski-testi" element={<ToksikIliskiTesti />} />
+        <Route path="/terk-edilme-testi" element={<TerkEdilmeTesti />} />
+        <Route path="/kumar-testi" element={<KumarTesti />} />
+        <Route path="/zeka-gelisim-testi" element={<ZekaGelisimTesti />} />
       </Routes>
     </Router>
   );

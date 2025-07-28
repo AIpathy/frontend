@@ -91,42 +91,106 @@ const TEST_CATEGORIES = [
   {
     key: "madde-bagimliligi",
     label: "Madde ve Alkol Bağımlılığı Testleri",
-    tests: []
+    tests: [
+      {
+        key: "alkol-testi",
+        title: "Alkol Bağımlılığı Testi",
+        desc: "Alkol kullanım düzeyinizi ölçen 10 soruluk test",
+        icon: "FileText",
+        route: "/alkol-testi"
+      }
+    ]
   },
   {
     key: "dikkat-hiperaktivite",
     label: "Dikkat Eksikliği, Hiperaktivite ve Nörogelişimsel Bozukluklar",
-    tests: []
+    tests: [
+      {
+        key: "dikkat-testi",
+        title: "Dikkat Eksikliği Hiperaktivite Bozukluğu (DEHB) Testi",
+        desc: "Dikkat eksikliği ve dürtüsellik belirtilerini ölçen 10 maddelik test",
+        icon: "FileText",
+        route: "/dikkat-testi"
+      }
+    ]
   },
   {
     key: "zeka-gelisim",
     label: "Zeka ve Gelişim Testleri",
-    tests: []
+    tests: [
+      {
+        key: "zeka-gelisim-testi",
+        title: "Zeka ve Gelişim Testi",
+        desc: "10 sorudan oluşan çoktan seçmeli sözel zeka değerlendirme testi",
+        icon: "BrainCircuit", 
+        route: "/zeka-gelisim-testi"
+      }
+    ]
   },
   {
     key: "ozguven-duygusal-zeka",
     label: "Özgüven, Duygusal Zeka ve Empati Ölçekleri",
-    tests: []
+    tests: [
+    {
+      key: "schutte-testi",
+      title: "Schutte Duygusal Zeka Testi",
+      desc: "Duygusal zekanızı ölçen 10 maddelik uluslararası test",
+      icon: "FileText",
+      route: "/schutte-testi"
+    }
+    ]
   },
   {
     key: "kiskanclik-takinti-okb",
     label: "Kıskançlık, Takıntı, OKB ve İlgili Testler",
-    tests: []
+    tests: [
+    {
+      key: "okb-testi",
+      title: "OKB (Obsesif Kompülsif Bozukluk) Testi",
+      desc: "Takıntı, kontrol ve temizlik davranışlarına dair 10 testlik ölçek",
+      icon: "FileText",
+      route: "/okb-testi"
+    }
+    ]
   },
   {
     key: "cinsel-saglik-iliski",
     label: "Cinsel Sağlık ve İlişki Testleri",
-    tests: []
+    tests: [
+      {
+        key: "toksik-iliski-testi",
+        title: "Toksik İlişki Testi",
+        desc: "İlişkinizde sağlıksız dinamikler olup olmadığını anlamanıza yardımcı olur",
+        icon: "FileText",
+        route: "/toksik-iliski-testi"
+      }
+    ]
   },
   {
     key: "cocuk-ergen",
     label: "Çocuk ve Ergen Testleri",
-    tests: []
+    tests: [
+      {
+        key: "terk-edilme-testi",
+        title: "Terk Edilme Değerlendirme Ölçeği",
+        desc: "Çocuklarda ayrılık kaygısını ölçen 14 maddelik test",
+        icon: "FileText",
+        route: "/terk-edilme-testi"
+      }
+    ]
   },
   {
     key: "diger",
     label: "Diğer Testler ve Ölçekler",
-    tests: []
+    tests: [
+      {
+        key: "kumar-testi",
+        title: "Kumar Risk Tarama Ölçeği",
+        desc: "Kumar oynama alışkanlığınıza dair risk seviyesini ölçen 10 soruluk test",
+        icon: "FileText",
+        route: "/kumar-testi"
+      }
+    ]
   }
 ];
 
