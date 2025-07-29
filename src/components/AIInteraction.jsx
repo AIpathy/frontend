@@ -23,7 +23,7 @@ function AIInteraction({ doctorMode = false }) {
     {
       id: 2,
       type: 'ai',
-      content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
+      content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim. Veya metin mesajı göndererek de sohbet edebiliriz.',
       timestamp: new Date(),
       showConsentButton: true
     }
@@ -97,8 +97,8 @@ function AIInteraction({ doctorMode = false }) {
     setIsLoading(true);
 
     try {
-      // Audio blob'unu backend'e gönder
-      const response = await ApiService.submitVoiceAnalysis(audioData.blob, token);
+
+      const response = await ApiService.submitVoiceAnalysis(audioData, token);
       
       const aiResponse = {
         id: messages.length + 2,
@@ -127,7 +127,9 @@ function AIInteraction({ doctorMode = false }) {
   const handlePermissionChange = (hasPermission) => {
     setPermissions(prev => ({ ...prev, audio: hasPermission }));
     if (!hasPermission) {
-      // İzin reddedildi, hata mesajı ekle
+
+      // İzin reddedildi, metin tabanlı sohbeti aktif hale getir
+
       const errorMessage = {
         id: messages.length + 1,
         type: 'user',
@@ -141,6 +143,9 @@ function AIInteraction({ doctorMode = false }) {
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage, aiResponse]);
+      
+      // Metin tabanlı sohbeti aktif hale getir
+      setIsRecording(false); // Ses kaydını kapat
     }
   };
 
@@ -162,11 +167,30 @@ function AIInteraction({ doctorMode = false }) {
     setMessages(prev => [...prev, newMessage]);
     setInputMessage("");
     setIsLoading(true);
-    
-    // TODO: Text message API entegrasyonu
-    setTimeout(() => {
+    try {
+      // Text mesajı için AI yanıtı al
+      const response = await ApiService.sendTextMessage(inputMessage, token);
+      
+      const aiResponse = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: response.message || 'Üzgünüm, şu anda yanıt veremiyorum. Lütfen tekrar deneyin.',
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error('Text message error:', error);
+      const errorMessage = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: 'Mesajınızı işlerken bir hata oluştu. Lütfen tekrar deneyin.',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   // Enter tuşu ile mesaj gönder
@@ -207,7 +231,7 @@ function AIInteraction({ doctorMode = false }) {
       {
         id: 2,
         type: 'ai',
-        content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
+        content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim. Veya metin mesajı göndererek de sohbet edebiliriz.',
         timestamp: new Date(),
         showConsentButton: true
       }
@@ -278,6 +302,7 @@ function AIInteraction({ doctorMode = false }) {
                     message.type === 'user'
                       ? 'bg-[#265d5c] text-white'
                       : 'bg-white/80 text-gray-800 border border-[#265d5c]/10'
+
                   }`}
                 >
                   <p className="text-sm">{message.content}</p>
@@ -343,6 +368,7 @@ function AIInteraction({ doctorMode = false }) {
                 <div className="bg-[#18181b]/50 text-gray-300 border border-[#265d5c]/20 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#265d5c]"></div>
+
                     <span className="text-sm">AI işliyor...</span>
                   </div>
                 </div>
@@ -351,14 +377,18 @@ function AIInteraction({ doctorMode = false }) {
           </div>
 
           {/* Modern Mesaj Girişi */}
+
           <div className="p-4 border-t border-[#265d5c]/20 bg-white/80 flex-shrink-0">
+
             <div className="flex items-end space-x-3">
               <div className="flex-1 relative">
                 {/* Emoji Butonu - yukarı hizalı */}
               <button
                   type="button"
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+
                   className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#265d5c] transition-colors rounded-lg hover:bg-gray-100"
+
                 title="Emoji ekle"
                   style={{ zIndex: 2 }}
               >
@@ -399,6 +429,7 @@ function AIInteraction({ doctorMode = false }) {
             {/* Emoji Picker */}
             {showEmojiPicker && (
               <div className="absolute bottom-20 left-4 bg-[#232325] border border-[#265d5c]/20 rounded-lg p-3 shadow-xl z-[9999]">
+
                 <div className="grid grid-cols-8 gap-2">
                   {['😊', '😂', '❤️', '👍', '🎉', '🔥', '😎', '🤔', '😢', '😡', '😴', '🤗', '👋', '💪', '🎯', '✨'].map((emoji) => (
                     <button
@@ -417,9 +448,11 @@ function AIInteraction({ doctorMode = false }) {
             {isTyping && (
               <div className="mt-2 text-xs text-gray-400 flex items-center space-x-2">
                 <div className="flex space-x-1">
+
                   <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                   <div className="w-2 h-2 bg-[#265d5c] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+
                 </div>
                 <span>Yazıyor...</span>
               </div>

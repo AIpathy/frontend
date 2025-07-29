@@ -131,9 +131,26 @@ class ApiService {
   }
 
   // Submit voice analysis
-  static async submitVoiceAnalysis(audioBlob, token) {
+  static async submitVoiceAnalysis(audioData, token) {
     const formData = new FormData();
-    formData.append('audio', audioBlob, 'voice-recording.webm');
+    
+    // MIME type'a göre dosya uzantısını belirle
+    let fileExtension = '.webm'; // default
+    if (audioData.mimeType) {
+      if (audioData.mimeType.includes('mpeg') || audioData.mimeType.includes('mp3')) {
+        fileExtension = '.mp3';
+      } else if (audioData.mimeType.includes('wav')) {
+        fileExtension = '.wav';
+      } else if (audioData.mimeType.includes('mp4')) {
+        fileExtension = '.mp4';
+      } else if (audioData.mimeType.includes('webm')) {
+        fileExtension = '.webm';
+      }
+    }
+    
+    const fileName = `voice-recording${fileExtension}`;
+    formData.append('audio', audioData.blob, fileName);
+
 
     const response = await fetch(`${API_BASE_URL}/analyses/voice`, {
       method: 'POST',
@@ -279,6 +296,19 @@ class ApiService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(profileData),
+    });
+    return handleResponse(response);
+  }
+
+  // Send text message to AI
+  static async sendTextMessage(message, token) {
+    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
     });
     return handleResponse(response);
   }

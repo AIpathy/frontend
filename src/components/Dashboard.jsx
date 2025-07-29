@@ -419,14 +419,8 @@ function Dashboard() {
                 <div className="space-y-4">
                   {analyses.slice(0, 5).map((analysis) => (
                     <div key={analysis.id} className="flex items-center space-x-4 p-3 bg-white/70 rounded-lg">
-                      {analysis.type === 'voice' ? (
-                        <Mic className="w-5 h-5 text-[#265d5c]" />
-                      ) : analysis.type === 'facial' ? (
-                        <Camera className="w-5 h-5 text-[#265d5c]" />
-                      ) : (
-                        <FileText className="w-5 h-5 text-[#265d5c]" />
-                      )}
-
+                      {analysis.type === 'voice' ? <Mic className="w-5 h-5 text-[#3CB97F]" /> :
+                       <FileText className="w-5 h-5 text-[#3CB97F]" />}
                       <div className="flex-1">
                         <p className="text-gray-800 font-medium">
                           {getAnalysisTypeName(analysis.type)} Tamamlandı
