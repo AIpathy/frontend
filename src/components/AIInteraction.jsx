@@ -23,7 +23,7 @@ function AIInteraction({ doctorMode = false }) {
     {
       id: 2,
       type: 'ai',
-      content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
+      content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim. Veya metin mesajı göndererek de sohbet edebiliriz.',
       timestamp: new Date(),
       showConsentButton: true
     }
@@ -127,7 +127,7 @@ function AIInteraction({ doctorMode = false }) {
   const handlePermissionChange = (hasPermission) => {
     setPermissions(prev => ({ ...prev, audio: hasPermission }));
     if (!hasPermission) {
-      // İzin reddedildi, hata mesajı ekle
+      // İzin reddedildi, metin tabanlı sohbeti aktif hale getir
       const errorMessage = {
         id: messages.length + 1,
         type: 'user',
@@ -137,10 +137,13 @@ function AIInteraction({ doctorMode = false }) {
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
+        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim? Metin mesajı gönderebilirsiniz.',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage, aiResponse]);
+      
+      // Metin tabanlı sohbeti aktif hale getir
+      setIsRecording(false); // Ses kaydını kapat
     }
   };
 
@@ -163,10 +166,30 @@ function AIInteraction({ doctorMode = false }) {
     setInputMessage("");
     setIsLoading(true);
     
-    // TODO: Text message API entegrasyonu
-    setTimeout(() => {
+    try {
+      // Text mesajı için AI yanıtı al
+      const response = await ApiService.sendTextMessage(inputMessage, token);
+      
+      const aiResponse = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: response.message || 'Üzgünüm, şu anda yanıt veremiyorum. Lütfen tekrar deneyin.',
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error('Text message error:', error);
+      const errorMessage = {
+        id: messages.length + 2,
+        type: 'ai',
+        content: 'Mesajınızı işlerken bir hata oluştu. Lütfen tekrar deneyin.',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   // Enter tuşu ile mesaj gönder
@@ -207,7 +230,7 @@ function AIInteraction({ doctorMode = false }) {
       {
         id: 2,
         type: 'ai',
-        content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim.',
+        content: 'Sesinizin analiz edilmesine izin veriyor musunuz? Bu sayede konuşmanızı analiz ederek size daha iyi yardımcı olabilirim. Veya metin mesajı göndererek de sohbet edebiliriz.',
         timestamp: new Date(),
         showConsentButton: true
       }

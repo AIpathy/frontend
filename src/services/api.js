@@ -282,6 +282,19 @@ class ApiService {
     });
     return handleResponse(response);
   }
+
+  // Send text message to AI
+  static async sendTextMessage(message, token) {
+    const response = await fetch(`${API_BASE_URL}/ai/chat`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    });
+    return handleResponse(response);
+  }
 }
 
 export default ApiService; 
