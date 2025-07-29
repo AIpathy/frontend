@@ -100,10 +100,25 @@ function AIInteraction({ doctorMode = false }) {
       // Audio verilerini backend'e gönder
       const response = await ApiService.submitVoiceAnalysis(audioData, token);
       
+      console.log('Voice analysis response:', response);
+      console.log('Analysis fields:', {
+        transcription: response.analysis?.transcription,
+        emotion_analysis: response.analysis?.emotion_analysis,
+        ai_comment: response.analysis?.ai_comment
+      });
+      
+      // Gemini analizini göster (ai_comment varsa), yoksa transcription
+      const aiContent = response.analysis?.ai_comment || 
+                       response.analysis?.emotion_analysis || 
+                       response.analysis?.transcription || 
+                       'Ses analizi tamamlandı.';
+      
+      console.log('Selected AI content:', aiContent);
+      
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: response.analysis.transcription,
+        content: aiContent,
         timestamp: new Date(),
         analysisId: response.analysis.id
       };
