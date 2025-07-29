@@ -97,8 +97,8 @@ function AIInteraction({ doctorMode = false }) {
     setIsLoading(true);
 
     try {
-      // Audio blob'unu backend'e gönder
-      const response = await ApiService.submitVoiceAnalysis(audioData.blob, token);
+      // Audio verilerini backend'e gönder
+      const response = await ApiService.submitVoiceAnalysis(audioData, token);
       
       const aiResponse = {
         id: messages.length + 2,
@@ -137,7 +137,7 @@ function AIInteraction({ doctorMode = false }) {
       const aiResponse = {
         id: messages.length + 2,
         type: 'ai',
-        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim? Metin mesajı gönderebilirsiniz.',
+        content: 'Anlıyorum. Sadece metin tabanlı sohbet yapabiliriz. Size nasıl yardımcı olabilirim?',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage, aiResponse]);
