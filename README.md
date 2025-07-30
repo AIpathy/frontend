@@ -1,69 +1,79 @@
 # AIpathy Frontend
 
-## Proje Özeti
 
-AIpathy, ses ve yüz mimiklerinden duygu analizi ile psikolojik test sonuçlarını birleştirerek ruh hali değerlendirmesi yapan; hem danışanlara hem de doktorlara özel arayüzler sunan bir psikolojik destek platformudur.
+## 🛠️ Kullanılan Teknolojiler ve Araçlar
 
-## Kullanılan Teknolojiler
+### **Diller:**
+- **JavaScript (ES6+)**
+- **JSX**
+- **CSS3**
 
-- React.js 19.1.0
-- Vite 7.0.0
-- Tailwind CSS 4.1.11
-- React Router DOM 7.6.3
-- Lucide React 0.525.0
-- Jest + React Testing Library
-- GitHub Actions (CI/CD, otomatik deploy)
-- GitHub Pages (statik hosting)
+### **Framework ve Kütüphaneler:**
+- **React** - UI framework
+- **React Router DOM** - Client-side routing
+- **Lucide React** - Icon library
 
-## Kurulum ve Geliştirme
+### **Build Tools ve Development:**
+- **Vite** - Build tool ve development server
+- **PostCSS** - CSS processing
+- **Autoprefixer** - CSS vendor prefixing
 
-### Gereksinimler
-- Node.js 18+
-- npm veya yarn
+### **Styling:**
+- **Tailwind CSS**
+- **CSS3**
 
-### Kurulum
+### **Testing:**
+- **Vitest** - Test runner
+- **@testing-library/react** - React testing utilities
+- **@testing-library/jest-dom** - DOM testing utilities
 
-```bash
-npm install
+### **Deployment/Containerization:**
+- **Docker** - Containerization
+- **Docker Compose** - Multi-container orchestration
+
+### **CI/CD:**
+- **Github Actions**
+- **Deploy to Server**
+
+### **Domain/Hosting/Server**
+- **Domain: https://aipathy.xyz**
+- **Provider: Sercan Arga (Teşekkürler)**
+
+### **Control Panel:**
+- **Plesk** - Web hosting kontrol paneli
+
+## Proje Mimarisi ve Kod Yapısı
+
+### **Component-Based Architecture:**
+- **Functional Components** - React hooks
+- **Custom Hooks** - Reusable logic
+- **Context API** - State management
+- **React Router** - Client-side routing
+
+### **Kod Yapısı:**
 ```
 
-### Geliştirme Sunucusu
+### **State Management:**
+- **React Context API** - Global state management
+- **useState/useEffect** - Local state management
+- **Custom Hooks** - Reusable state logic
 
-```bash
-npm run dev
-```
+### **Routing Yapısı:**
+- **React Router DOM** - Client-side routing
+- **Protected Routes** - Authentication-based routing
+- **Nested Routes** - Component hierarchy
 
-- Localde çalışırken uygulama `http://localhost:5173/` adresinde açılır.
+### **UI/UX Özellikleri:**
+- **Responsive Design** - Mobile-first approach
+- **Tailwind CSS** - Utility-first styling
+- **Modern UI Components** - Reusable component library
+- **Form Validation** - Client-side validation
+- **Loading States** - User feedback
+- **Error Handling** - User-friendly error messages
 
-### Production Build
-
-```bash
-npm run build
-```
-
-- Build edilen dosyalar `dist/` klasörüne çıkar.
-- Vite base path otomatik olarak localde `/`, productionda `/frontend/` olur.
-
-### Build Önizleme
-
-```bash
-npm run preview
-```
-
-## Router ve Base Path Ayarı
-
-- Vite config dosyasında base path dinamik olarak ayarlanır:
-  ```js
-  base: process.env.NODE_ENV === 'production' ? '/frontend/' : '/',
+### **Performance Optimizations:**
+- **Code Splitting** - Lazy loading
+- **Vite Build** - Fast development ve production builds
+- **Image Optimization** - Optimized assets
+- **Bundle Analysis** - Build optimization
   ```
-- React Router'da basename ayarı yapılmalı:
-  ```jsx
-  <Router basename={import.meta.env.BASE_URL}>
-  ```
-
-## Otomatik Deploy (GitHub Pages)
-
-- `.github/workflows/deploy.yml` ile GitHub Actions üzerinden otomatik build ve deploy yapılır.
-- GitHub Pages ayarlarında **Source: GitHub Actions** seçili olmalı.
-- Main branch'e push sonrası otomatik olarak site güncellenir.
-- Canlı demo: [https://aipathy.github.io/frontend/](https://aipathy.github.io/frontend/)
