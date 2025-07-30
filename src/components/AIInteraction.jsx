@@ -107,13 +107,19 @@ function AIInteraction({ doctorMode = false }) {
         ai_comment: response.analysis?.ai_comment
       });
       
-      // Gemini analizini göster (ai_comment varsa), yoksa transcription
+      // Gemini analizini göster (ai_comment veya emotion_analysis), yoksa transcription
       const aiContent = response.analysis?.ai_comment || 
                        response.analysis?.emotion_analysis || 
                        response.analysis?.transcription || 
                        'Ses analizi tamamlandı.';
       
       console.log('Selected AI content:', aiContent);
+      console.log('Full analysis response:', response.analysis);
+      
+      // Eğer Gemini analizi yoksa kullanıcıya bilgi ver
+      if (!response.analysis?.ai_comment && !response.analysis?.emotion_analysis) {
+        console.warn('Gemini analysis not available, showing transcription only');
+      }
       
       const aiResponse = {
         id: messages.length + 2,
