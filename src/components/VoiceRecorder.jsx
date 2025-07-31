@@ -244,6 +244,7 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
       blob,
       audioURL,
       duration: recordingDuration,
+
       formattedDuration: formatDuration(recordingDuration),
       mimeType: mimeType
     });

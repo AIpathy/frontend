@@ -6,9 +6,9 @@ export default {
   ],
   safelist: [
     'bg-gradient-to-r',
-    'from-[#3CB97F]',
+    'from-[#265d5c]',
     'via-[#1c1c1e]',
-    'to-[#3CB97F]',
+    'to-[#265d5c]',
     'from-[#ececec]',
     'to-[#e0e7ef]',
     'from-indigo-900',
@@ -17,6 +17,10 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#265d5c',       // Logonun yeşili
+        primaryDark: '#1f4d4c',   // Hover rengi
+      },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],

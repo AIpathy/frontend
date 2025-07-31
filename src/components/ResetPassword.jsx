@@ -84,7 +84,7 @@ function ResetPassword() {
           </p>
           <button
             onClick={() => window.location.hash = '#/auth'}
-            className="bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-[#265d5c] hover:bg-[#2d8f5f] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
           >
             Giriş Yap
           </button>
@@ -102,7 +102,7 @@ function ResetPassword() {
       <div className="bg-[#232325] rounded-xl shadow-lg p-8 w-full max-w-md">
         <button
           onClick={() => window.location.hash = '#/auth'}
-          className="flex items-center gap-2 text-green-400 hover:text-green-300 mb-4 transition-colors"
+          className="flex items-center gap-2 text-[#265d5c] hover:text-[#1f4d4c] mb-4 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Giriş ekranına dön
@@ -131,7 +131,7 @@ function ResetPassword() {
               autoComplete="new-password"
               value={form.newPassword}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-[#18181b] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3CB97F] ${
+              className={`w-full px-4 py-3 bg-[#18181b] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#265d5c] ${
                 errors.newPassword ? 'border-red-500' : 'border-gray-600'
               }`}
             />
@@ -157,7 +157,7 @@ function ResetPassword() {
               autoComplete="new-password"
               value={form.confirmPassword}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-[#18181b] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3CB97F] ${
+              className={`w-full px-4 py-3 bg-[#18181b] border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#265d5c] ${
                 errors.confirmPassword ? 'border-red-500' : 'border-gray-600'
               }`}
             />

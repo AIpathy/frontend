@@ -5,7 +5,7 @@ import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName, formatDoctorName } from "../utils/helpers";
 import AIInteraction from "./AIInteraction";
-import dashboardLogo from "../assets/dashboardLogo.png";
+import dashboardLogoNew from "../assets/dashboardLogoNew.png";
 
 function DoctorDashboard() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -13,8 +13,8 @@ function DoctorDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-    // hasta verileri
+
+  // hasta verileri
   const [patients, setPatients] = useState([]);
   const [alerts, setAlerts] = useState([]);
   const [stats, setStats] = useState({});
@@ -100,7 +100,7 @@ function DoctorDashboard() {
       const token = localStorage.getItem('token');
       const patientData = await ApiService.getPatientById(patientId, token);
       const analysesData = await ApiService.getPatientAnalyses(patientId, token);
-      
+
       setSelectedPatient({
         ...patientData,
         analyses: analysesData
@@ -117,30 +117,45 @@ function DoctorDashboard() {
       style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
     >
       {/* Header */}
-      <header
-        className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10"
-        style={{ background: 'linear-gradient(135deg, #ececec 60%, #e0e7ef 100%)', minHeight: 56 }}
-      >
+      <header className="bg-white/70 shadow-md rounded-b-xl">
         <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
+            <img src={dashboardLogoNew} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
-          <div className="flex items-center space-x-4">
-            <AlertManager onAlertClick={(alert) => {
-              // Alert'e tıklandığında hasta detaylarını göster
-              if (alert.patientId) {
-                loadPatientDetails(alert.patientId);
-              }
-            }} />
-            <Button onClick={() => { window.location.hash = '#/settings'; }}>
-              <Settings className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
-            <Button onClick={handleLogout}>
-              <LogOut className="w-5 h-5 text-[#3CB97F]" />
-            </Button>
+          <div className="flex items-center gap-2 sm:gap-3">
+
+            <button
+              onClick={() => { }}
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition w-9 h-9 flex items-center justify-center"
+            >
+              <AlertManager
+                onAlertClick={(alert) => {
+                  if (alert.patientId) {
+                    loadPatientDetails(alert.patientId);
+                  }
+                }}
+                className="w-5 h-5 text-[#265d5c]"
+              />
+            </button>
+
+            <button
+              onClick={() => { window.location.hash = '#/settings'; }}
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+            >
+              <Settings className="w-5 h-5 text-[#265d5c]" />
+            </button>
+
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-full bg-[#d4d4d4] hover:bg-[#c7c7c7] transition"
+            >
+              <LogOut className="w-5 h-5 text-[#265d5c]" />
+            </button>
           </div>
         </div>
       </header>
+
+
 
       <div className="flex relative">
         {/* Sidebar */}
@@ -152,7 +167,7 @@ function DoctorDashboard() {
             {/* Doktor Profili */}
             <div className="bg-white/80 rounded-lg p-4 mb-6 shadow-md">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-[#265d5c] rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -165,11 +180,10 @@ function DoctorDashboard() {
             <nav className="space-y-2">
               <button
                 onClick={() => setActiveTab("patients")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "patients"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "patients"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Users className="w-5 h-5" />
                 <span className={activeTab === "patients" ? "" : "text-gray-800"}>Hastalar</span>
@@ -177,11 +191,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("analytics")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "analytics"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "analytics"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <TrendingUp className="w-5 h-5" />
                 <span className={activeTab === "analytics" ? "" : "text-gray-800"}>Analitik</span>
@@ -189,11 +202,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("ai-assistant")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "ai-assistant"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "ai-assistant"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <Bot className="w-5 h-5" />
                 <span className={activeTab === "ai-assistant" ? "" : "text-gray-800"}>AI Asistan</span>
@@ -201,11 +213,10 @@ function DoctorDashboard() {
 
               <button
                 onClick={() => setActiveTab("alerts")}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeTab === "alerts"
-                    ? "bg-[#3CB97F] text-white"
-                    : "text-gray-300 hover:bg-[#18181b]/50"
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${activeTab === "alerts"
+                  ? "bg-[#265d5c] text-white"
+                  : "text-gray-300 hover:bg-[#18181b]/50"
+                  }`}
               >
                 <AlertCircle className="w-5 h-5" />
                 <span className={activeTab === "alerts" ? "" : "text-gray-800"}>Uyarılar</span>
@@ -216,7 +227,7 @@ function DoctorDashboard() {
         {/* Sidebar toggle button */}
         <button
           onClick={() => setSidebarOpen((v) => !v)}
-          className="fixed z-30 flex items-center justify-center text-[#3CB97F] hover:text-[#267a56] transition"
+          className="fixed z-30 flex items-center justify-center text-[#265d5c] hover:text-[#267a56] transition"
           style={{ width: 20, height: 30, top: 72, left: sidebarOpen ? 256 : 0, background: 'none', border: 'none', boxShadow: 'none', padding: 0, transition: 'left 0.3s, color 0.2s' }}
           aria-label="Sidebar'ı gizle/göster"
         >
@@ -227,7 +238,7 @@ function DoctorDashboard() {
           {loading && (
             <div className="flex items-center justify-center h-64">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3CB97F] mx-auto mb-4"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#265d5c] mx-auto mb-4"></div>
                 <p className="text-gray-400">Veriler yükleniyor...</p>
               </div>
             </div>
@@ -242,8 +253,8 @@ function DoctorDashboard() {
           {!loading && !error && activeTab === "patients" && (
             <div className="space-y-6">
               <div className="mb-6">
-                <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
-                <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
+                <h2 className="text-3xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
+                <div className="h-1 w-16 bg-[#265d5c] rounded-full mb-4" />
                 <div className="relative mt-2">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
@@ -251,7 +262,7 @@ function DoctorDashboard() {
                     placeholder="Hasta ara..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 bg-[#f5f5f5] rounded-lg text-gray-800 placeholder-gray-400 border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#3CB97F] transition-colors"
+                    className="pl-10 pr-4 py-2 bg-[#f5f5f5] rounded-lg text-gray-800 placeholder-gray-400 border border-[#e0e7ef] focus:outline-none focus:ring-2 focus:ring-[#265d5c] transition-colors"
                   />
                 </div>
               </div>
@@ -277,10 +288,10 @@ function DoctorDashboard() {
                       <p>Son aktivite: {formatTimestamp(patient.lastActivity)}</p>
                       <p>Analiz sayısı: {patient.analyses.length}</p>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-[#3CB97F]/20">
+                    <div className="mt-4 pt-4 border-t border-[#265d5c]/20">
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-gray-500">Ortalama skor:</span>
-                        <span className="text-[#3CB97F] font-semibold">
+                        <span className="text-[#265d5c] font-semibold">
                           {(patient.analyses.reduce((sum, analysis) => sum + analysis.score, 0) / patient.analyses.length).toFixed(1)}/10
                         </span>
                       </div>
@@ -303,14 +314,14 @@ function DoctorDashboard() {
                     <div>
                       <h4 className="text-lg font-semibold text-white mb-4">Hasta Bilgileri</h4>
                       <div className="space-y-2 text-gray-300">
-                        <p><span className="text-[#3CB97F]">E-posta:</span> {selectedPatient.email}</p>
-                        <p><span className="text-[#3CB97F]">Yaş:</span> {selectedPatient.age}</p>
-                                                 <p><span className="text-[#3CB97F]">Risk Seviyesi:</span> 
-                           <span className={`ml-2 ${getRiskLevelColor(selectedPatient.riskLevel)}`}>
-                             {getRiskLevelName(selectedPatient.riskLevel)}
-                           </span>
-                         </p>
-                        <p><span className="text-[#3CB97F]">Son Aktivite:</span> {formatTimestamp(selectedPatient.lastActivity)}</p>
+                        <p><span className="text-[#265d5c]">E-posta:</span> {selectedPatient.email}</p>
+                        <p><span className="text-[#265d5c]">Yaş:</span> {selectedPatient.age}</p>
+                        <p><span className="text-[#265d5c]">Risk Seviyesi:</span>
+                          <span className={`ml-2 ${getRiskLevelColor(selectedPatient.riskLevel)}`}>
+                            {getRiskLevelName(selectedPatient.riskLevel)}
+                          </span>
+                        </p>
+                        <p><span className="text-[#265d5c]">Son Aktivite:</span> {formatTimestamp(selectedPatient.lastActivity)}</p>
                       </div>
                     </div>
 
@@ -322,11 +333,11 @@ function DoctorDashboard() {
                             <div className="flex items-center justify-between mb-2">
                               <div className="flex items-center space-x-2">
                                 {getAnalysisIcon(analysis.type)}
-                                                                 <span className="text-white font-medium">
-                                   {getAnalysisTypeName(analysis.type)}
-                                 </span>
+                                <span className="text-white font-medium">
+                                  {getAnalysisTypeName(analysis.type)}
+                                </span>
                               </div>
-                              <span className="text-[#3CB97F] font-semibold">{analysis.score}/10</span>
+                              <span className="text-[#265d5c] font-semibold">{analysis.score}/10</span>
                             </div>
                             <p className="text-gray-400 text-sm mb-2">{analysis.details}</p>
                             <p className="text-gray-500 text-xs flex items-center">
@@ -345,17 +356,17 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "analytics" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Analitik</h2>
-              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
-              
+              <h2 className="text-3xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-2">Analitik</h2>
+              <div className="h-1 w-16 bg-[#265d5c] rounded-full mb-4" />
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Toplam Hasta</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">{stats.totalPatients || patients.length}</p>
+                      <p className="text-2xl font-bold text-[#265d5c]">{stats.totalPatients || patients.length}</p>
                     </div>
-                    <Users className="w-8 h-8 text-[#3CB97F]" />
+                    <Users className="w-8 h-8 text-[#265d5c]" />
                   </div>
                 </div>
 
@@ -363,11 +374,11 @@ function DoctorDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Bu Hafta Analiz</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">
+                      <p className="text-2xl font-bold text-[#265d5c]">
                         {stats.weeklyAnalyses || patients.reduce((sum, patient) => sum + (patient.analyses?.length || 0), 0)}
                       </p>
                     </div>
-                    <Activity className="w-8 h-8 text-[#3CB97F]" />
+                    <Activity className="w-8 h-8 text-[#265d5c]" />
                   </div>
                 </div>
 
@@ -375,17 +386,17 @@ function DoctorDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-400 text-sm">Yüksek Risk</p>
-                      <p className="text-2xl font-bold text-[#3CB97F]">
+                      <p className="text-2xl font-bold text-[#265d5c]">
                         {stats.highRiskPatients || patients.filter(p => p.riskLevel === 'high').length}
                       </p>
                     </div>
-                    <AlertCircle className="w-8 h-8 text-[#3CB97F]" />
+                    <AlertCircle className="w-8 h-8 text-[#265d5c]" />
                   </div>
                 </div>
               </div>
 
               <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
-                <h3 className="text-xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
+                <h3 className="text-xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-4">Hasta Aktivite Özeti</h3>
                 <div className="space-y-4">
                   {patients.map((patient) => (
                     <div key={patient.id} className="flex items-center justify-between p-3 bg-white/70 rounded-lg">
@@ -413,9 +424,9 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "alerts" && (
             <div className="space-y-6">
-              <h2 className="text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
-              <div className="h-1 w-16 bg-[#3CB97F] rounded-full mb-4" />
-              
+              <h2 className="text-3xl font-extrabold text-[#265d5c] tracking-wide drop-shadow-sm mb-2">Uyarılar</h2>
+              <div className="h-1 w-16 bg-[#265d5c] rounded-full mb-4" />
+
               <div className="bg-white/90 rounded-xl p-6 shadow-md transition-colors duration-200 hover:bg-white">
                 <div className="space-y-4">
                   {alerts.map((alert) => (
@@ -426,7 +437,7 @@ function DoctorDashboard() {
                         <p className="text-gray-300">{alert.message}</p>
                         <p className="text-gray-400 text-sm">Oluşturulma: {formatTimestamp(alert.createdAt)}</p>
                       </div>
-                      <Button 
+                      <Button
                         className="bg-red-500 hover:bg-red-600 text-white px-4 py-2"
                         onClick={() => setSelectedPatient(alert.patient)}
                       >
@@ -434,7 +445,7 @@ function DoctorDashboard() {
                       </Button>
                     </div>
                   ))}
-                  
+
                   {alerts.length === 0 && (
                     <div className="text-center py-8">
                       <AlertCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />

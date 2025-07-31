@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import BorderlineSonucGrafik from "./BorderlineSonucGrafik";
 
 const QUESTIONS = [
   "Sık sık panik nöbetleri geçiririm.",
@@ -183,21 +184,21 @@ export default function BorderlineKisilikTesti() {
       {/* Sol üst geri ok */}
       <Link
         to={backPath}
-        className="absolute top-6 left-6 text-gray-700 hover:text-[#3CB97F] transition-colors text-2xl flex items-center gap-2"
+        className="absolute top-6 left-6 text-gray-700 hover:text-[#265d5c] transition-colors text-2xl flex items-center gap-2"
         title="Dashboard'a Dön"
       >
         <ArrowLeft className="w-6 h-6" />
         <span className="hidden sm:inline">Dashboard</span>
       </Link>
       <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md mt-16">
-        <h2 className="text-2xl font-bold text-[#3CB97F] mb-4">Borderline Kişilik Bozukluğu Testi</h2>
+        <h2 className="text-2xl font-bold text-[#265d5c] mb-4">Borderline Kişilik Bozukluğu Testi</h2>
         <p className="mb-4 text-gray-700">Talimatlar: Lütfen aşağıdaki her bir ifadeyi okuyun ve son iki hafta içinde bu ifadenin sizi ne kadar iyi tanımladığını düşünerek size en uygun seçeneği işaretleyin. Her soru için "Hayır yaşamadım" (0) veya "Evet yaşadım" (1) seçeneğini işaretleyin.</p>
         <form onSubmit={handleSubmit}>
           {renderQuestions()}
           {!submitted && (
             <button
               type="submit"
-              className="bg-[#3CB97F] hover:bg-[#267a56] text-white px-6 py-2 rounded-lg font-semibold w-full disabled:opacity-50"
+              className="bg-[#265d5c] hover:bg-[#267a56] text-white px-6 py-2 rounded-lg font-semibold w-full disabled:opacity-50"
               disabled={!allAnswered}
             >
               Sonuçları Göster
@@ -205,9 +206,13 @@ export default function BorderlineKisilikTesti() {
           )}
         </form>
         {submitted && (
-          <div className="mt-8 text-center">
-            <div className="text-xl font-bold text-[#3CB97F]">Toplam Puan: {totalScore}</div>
-            <div className="text-lg mt-2">{getResultText(totalScore)}</div>
+          <div className="mt-8 border-t pt-6">
+            <div className="text-center">
+              <div className="text-xl font-bold text-[#265d5c]">Toplam Puan: {totalScore}</div>
+              <div className="text-lg mt-2 text-gray-800">{getResultText(totalScore)}</div>
+            </div>
+
+            <BorderlineSonucGrafik score={totalScore} />
           </div>
         )}
       </div>

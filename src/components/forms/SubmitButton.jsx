@@ -10,7 +10,7 @@ function SubmitButton({
   return (
     <button
       type="submit"
-      className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded transition-colors flex items-center justify-center gap-2"
+      className="bg-[#265d5c] hover:bg-[#1f4d4c] text-white font-semibold py-2 rounded transition-colors flex items-center justify-center gap-2"
     >
       {loading ? (
         <>

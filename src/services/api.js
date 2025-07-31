@@ -151,6 +151,7 @@ class ApiService {
     const fileName = `voice-recording${fileExtension}`;
     formData.append('audio', audioData.blob, fileName);
 
+
     const response = await fetch(`${API_BASE_URL}/analyses/voice`, {
       method: 'POST',
       headers: {

@@ -151,7 +151,7 @@ function Auth() {
         {showForgotPassword && (
           <button
             onClick={handleBackToLogin}
-            className="flex items-center gap-2 text-green-400 hover:text-green-300 mb-4 transition-colors"
+            className="flex items-center gap-2 text-[#265d5c] hover:text-[#1f4d4c] mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Giriş ekranına dön
@@ -284,7 +284,7 @@ function Auth() {
         <div className="text-center mt-4 space-y-2">
           {!showForgotPassword && isLogin && (
             <button
-              className="text-green-400 hover:underline text-sm block w-full"
+              className="text-primary hover:underline text-sm block w-full"
               onClick={handleForgotPassword}
             >
               Şifremi unuttum
@@ -293,7 +293,7 @@ function Auth() {
           
           {!showForgotPassword && (
             <button
-              className="text-green-400 hover:underline text-sm block w-full"
+              className="text-primary hover:underline text-sm block w-full"
               onClick={handleToggleMode}
             >
               {isLogin ? "Hesabın yok mu? Kayıt Ol" : "Zaten hesabın var mı? Giriş Yap"}

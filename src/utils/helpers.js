@@ -39,7 +39,7 @@ export const getRiskLevelColor = (level) => {
  */
 export const getStatusColor = (status) => {
   switch (status) {
-    case 'active': return 'bg-green-500';
+    case 'active': return 'bg-[#265d5c]';
     case 'warning': return 'bg-yellow-500';
     case 'inactive': return 'bg-gray-500';
     default: return 'bg-gray-500';

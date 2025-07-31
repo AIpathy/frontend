@@ -33,7 +33,7 @@ function AlertDetail() {
       <div className="bg-[#232325] text-white rounded-xl p-8 w-full max-w-lg">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-[#3CB97F] mb-4 hover:underline"
+          className="flex items-center gap-2 text-[#265d5c] mb-4 hover:underline"
         >
           <ArrowLeft className="w-4 h-4" /> Geri
         </button>
