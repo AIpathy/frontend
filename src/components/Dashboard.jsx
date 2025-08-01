@@ -28,6 +28,19 @@ const TEST_CATEGORIES = [
     ]
   },
   {
+    key: "kiskanclik-takinti-okb",
+    label: "Kıskançlık, Takıntı, OKB ve İlgili Testler",
+    tests: [
+      {
+        key: "okb-test",
+        title: "OKB Testi",
+        desc: "Obsesif kompulsif bozukluk belirtilerini ölçen 37 maddelik test",
+        icon: "FileText",
+        route: "/okb-test"
+      }
+    ]
+  },
+  {
     key: "anksiyete",
     label: "Anksiyete ve Kaygı Bozuklukları",
     tests: [
