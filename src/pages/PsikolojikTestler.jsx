@@ -16,7 +16,7 @@ const PsychologicalTests = () => {
       id: 1,
       title: "Anksiyete Testi",
       subtitle: "GAD-7",
-      description: "Anksiyete düzeyinizi ölçen kısa bir test. Doğanın huzuru eşliğinde kendinizi keşfedin.",
+      description: "Anksiyete düzeyinizi ölçen kısa bir test. Yapay zeka eşliğinde kendinizi keşfedin.",
       duration: "5-7 dk",
       questions: "7 soru",
       completed: "2.5M+",

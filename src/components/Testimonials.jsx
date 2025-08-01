@@ -173,7 +173,7 @@ function AIpathyForestTestimonials() {
 
         {/* Alt başlık */}
         <p className={`text-gray-700 mb-16 max-w-3xl text-lg leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          Doğanın sakinliği eşliğinde, zihinsel sağlığınız için güvenli bir alan. Yüzlerce kullanıcının tercihi AIpathy, her zaman yanınızda!
+          Zihinsel sağlığınız için güvenli bir alan. Yüzlerce kullanıcının tercihi AIpathy, her zaman yanınızda!
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -241,7 +241,7 @@ function AIpathyForestTestimonials() {
         <div className={`text-center mt-20 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="flex flex-col items-center gap-4">
             <p className="text-lg mb-4 font-medium text-gray-700 drop-shadow-sm">
-              Doğanın huzuru eşliğinde zihinsel sağlığınıza adım atın
+              Yapay zeka eşliğinde zihinsel sağlığınıza adım atın
             </p>
             <button className="bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-600 hover:via-emerald-600 hover:to-green-700 text-white font-bold py-4 px-10 rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl animate-pulse relative overflow-hidden group">
               <span className="relative z-10 flex items-center gap-2">
