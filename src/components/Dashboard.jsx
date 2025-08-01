@@ -123,7 +123,15 @@ const TEST_CATEGORIES = [
   {
     key: "dikkat-hiperaktivite",
     label: "Dikkat Eksikliği, Hiperaktivite ve Nörogelişimsel Bozukluklar",
-    tests: []
+    tests: [
+      {
+        key: "dehb-test",
+        title: "DEHB Testi",
+        desc: "Dikkat eksikliği ve hiperaktivite bozukluğu belirtilerini ölçen 36 maddelik test",
+        icon: "FileText",
+        route: "/dehb-test"
+      }
+    ]
   },
   {
     key: "zeka-gelisim",
