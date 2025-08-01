@@ -542,7 +542,7 @@ function AIInteraction({ doctorMode = false }) {
               
               <button 
                 onClick={stopMediaStream}
-                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#267a56] text-white rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl"
+                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#267a56] text-gray-800 rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl"
               >
                 Oturumu Sonlandır
               </button>
@@ -579,7 +579,7 @@ function AIInteraction({ doctorMode = false }) {
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 ${
                     message.type === 'user'
-                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] text-white'
+                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] text-gray-800'
                       : 'bg-white/60 backdrop-blur-md text-gray-800 border border-white/40 shadow-lg'
                   }`}
                 >
@@ -693,7 +693,7 @@ function AIInteraction({ doctorMode = false }) {
                   disabled={!inputMessage.trim() || isLoading}
                   className={`p-3 rounded-xl transition-all duration-200 ${
                     inputMessage.trim() && !isLoading
-                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-gray-800 shadow-lg hover:shadow-xl transform hover:scale-105'
                       : 'bg-gray-300 text-gray-400 cursor-not-allowed'
                   }`}
                 >
