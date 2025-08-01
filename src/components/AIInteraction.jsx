@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Bot, Smile, SendHorizontal } from "lucide-react";
+import { Bot, SendHorizontal } from "lucide-react";
 import Button from "./Button";
 import VoiceRecorder from "./VoiceRecorder";
 import ApiService from "../services/api";
@@ -31,7 +31,6 @@ function AIInteraction({ doctorMode = false }) {
   
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
   const chatContainerRef = useRef(null);
@@ -177,10 +176,14 @@ function AIInteraction({ doctorMode = false }) {
   // Mesaj gönder
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
+    
+    // Emoji dönüşümünü uygula
+    const convertedMessage = convertTextToEmoji(inputMessage);
+    
     const newMessage = {
       id: messages.length + 1,
       type: 'user',
-      content: inputMessage,
+      content: convertedMessage,
       timestamp: new Date()
     };
     setMessages(prev => [...prev, newMessage]);
@@ -227,16 +230,95 @@ function AIInteraction({ doctorMode = false }) {
     setInputMessage(value);
     setIsTyping(value.length > 0);
     
+    // Emoji dönüşümünü gerçek zamanlı uygula
+    const convertedValue = convertTextToEmoji(value);
+    if (convertedValue !== value) {
+      // Cursor pozisyonunu kaydet
+      const cursorPosition = e.target.selectionStart;
+      const cursorEnd = e.target.selectionEnd;
+      
+      // Textarea'yı güncelle
+      e.target.value = convertedValue;
+      setInputMessage(convertedValue);
+      
+      // Cursor pozisyonunu geri yükle (emoji dönüşümünden sonra)
+      setTimeout(() => {
+        e.target.setSelectionRange(cursorPosition, cursorEnd);
+      }, 0);
+    }
+    
     // Mesaj uzunluğuna göre textarea yüksekliğini ayarla
     const textarea = e.target;
     textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 128) + 'px';
+    textarea.style.height = Math.min(textarea.scrollHeight, 160) + 'px';
   };
 
-  // Emoji ekle
-  const addEmoji = (emoji) => {
-    setInputMessage(prev => prev + emoji);
-    setShowEmojiPicker(false);
+  // Otomatik emoji dönüşümü
+  const convertTextToEmoji = (text) => {
+    const emojiMap = {
+      ':)': '😊',
+      ':-)': '😊',
+      ':(': '😢',
+      ':-(': '😢',
+      ';)': '😉',
+      ';-)': '😉',
+      ':D': '😃',
+      ':-D': '😃',
+      ':P': '😛',
+      ':-P': '😛',
+      ':p': '😛',
+      ':-p': '😛',
+      'xD': '😆',
+      'XD': '😆',
+      'x)': '😆',
+      'X)': '😆',
+      ':|': '😐',
+      ':-|': '😐',
+      ':O': '😮',
+      ':-O': '😮',
+      ':o': '😮',
+      ':-o': '😮',
+      ':*': '😘',
+      ':-*': '😘',
+      '<3': '❤️',
+      '</3': '💔',
+      ':heart:': '❤️',
+      ':love:': '❤️',
+      ':thumbsup:': '👍',
+      ':thumbsdown:': '👎',
+      ':ok:': '👌',
+      ':fire:': '🔥',
+      ':star:': '⭐',
+      ':sparkles:': '✨',
+      ':clap:': '👏',
+      ':wave:': '👋',
+      ':pray:': '🙏',
+      ':thinking:': '🤔',
+      ':sunglasses:': '😎',
+      ':crown:': '👑',
+      ':rocket:': '🚀',
+      ':tada:': '🎉',
+      ':muscle:': '💪',
+      ':brain:': '🧠',
+      ':heart_eyes:': '😍',
+      ':joy:': '😂',
+      ':sob:': '😭',
+      ':rage:': '😡',
+      ':sleepy:': '😴',
+      ':hug:': '🤗',
+      ':high_five:': '🙌',
+      ':peace:': '✌️',
+      ':v:': '✌️',
+      ':V:': '✌️'
+    };
+
+    let convertedText = text;
+    Object.entries(emojiMap).forEach(([pattern, emoji]) => {
+      const regex = new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      convertedText = convertedText.replace(regex, emoji);
+    });
+    
+    return convertedText;
   };
 
   // Yeni konuşma başlat
@@ -263,22 +345,182 @@ function AIInteraction({ doctorMode = false }) {
 
   return (
     <div className="h-full relative z-0">
-      <div
-        className="rounded-xl border border-[#3CB97F]/20 overflow-hidden h-full flex flex-col"
-        style={{ background: 'linear-gradient(135deg, #f5faff 60%, #e0e7ef 100%)' }}
-      >
+      <style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slide-down {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes float-magic {
+          0%, 100% { 
+            transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+          }
+          25% { 
+            transform: translateY(-8px) translateX(4px) rotate(45deg) scale(1.05);
+          }
+          50% { 
+            transform: translateY(-4px) translateX(-2px) rotate(90deg) scale(0.95);
+          }
+          75% { 
+            transform: translateY(-12px) translateX(2px) rotate(135deg) scale(1.02);
+          }
+        }
+        
+        @keyframes organic-flow {
+          0%, 100% { 
+            transform: translateX(0%) translateY(0%) rotate(0deg);
+          }
+          33% { 
+            transform: translateX(1%) translateY(-0.5%) rotate(0.5deg);
+          }
+          66% { 
+            transform: translateX(-0.5%) translateY(1%) rotate(-0.5deg);
+          }
+        }
+        
+        .animate-fade-in-up {
+          animation: fade-in-up 0.5s ease-out;
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+        
+        .animate-slide-down {
+          animation: slide-down 0.6s ease-out;
+        }
+        
+        .animate-slide-up {
+          animation: slide-up 0.6s ease-out;
+        }
+        
+        .animate-float-magic {
+          animation: float-magic 8s ease-in-out infinite;
+        }
+      `}</style>
+              <div
+          className="rounded-xl border border-green-200/30 overflow-hidden h-full flex flex-col animate-fade-in relative"
+          style={{ 
+            background: `
+              linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(240, 253, 244, 0.9) 25%, 
+                rgba(220, 252, 231, 0.85) 50%, 
+                rgba(187, 247, 208, 0.8) 75%, 
+                rgba(134, 239, 172, 0.75) 100%
+              )
+            `,
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+        {/* Ultra-premium forest atmosphere overlay */}
+        <div className="absolute inset-0 opacity-20">
+          {/* Depth layer 1 - Far forest */}
+          <div className="absolute inset-0 opacity-10">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={`far-tree-${i}`}
+                className="absolute opacity-30"
+                style={{
+                  left: `${10 + i * 12}%`,
+                  top: `${15 + Math.sin(i * 0.7) * 10}%`,
+                  transform: `scale(${0.4 + Math.sin(Date.now() * 0.001 + i) * 0.1})`,
+                  filter: 'blur(1px)'
+                }}
+              >
+                <div className="text-4xl text-green-600">🌲</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Depth layer 2 - Mid forest */}
+          <div className="absolute inset-0 opacity-15">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={`mid-tree-${i}`}
+                className="absolute opacity-40"
+                style={{
+                  left: `${15 + i * 15}%`,
+                  top: `${20 + Math.sin(i * 1.2) * 15}%`,
+                  transform: `scale(${0.6 + Math.sin(Date.now() * 0.0008 + i) * 0.15})`,
+                  filter: 'blur(0.5px)'
+                }}
+              >
+                <div className="text-5xl text-emerald-600">🌳</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Floating magical elements */}
+          <div className="absolute inset-0">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={`magic-${i}`}
+                className="absolute animate-float-magic"
+                style={{
+                  left: `${20 + (i * 6) % 60}%`,
+                  top: `${25 + (i * 7) % 50}%`,
+                  animationDelay: `${i * 0.4}s`,
+                  animationDuration: `${8 + (i % 3) * 2}s`,
+                  transform: `scale(${0.3 + Math.sin(Date.now() * 0.002 + i) * 0.2})`
+                }}
+              >
+                <div className="text-2xl opacity-40">
+                  {i % 4 === 0 ? '✨' : i % 4 === 1 ? '🍃' : i % 4 === 2 ? '🌿' : '💫'}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         {/* Header */}
-        <div className="bg-white/90 border-b border-[#3CB97F]/20 p-4 flex-shrink-0">
+        <div className="bg-white/40 backdrop-blur-xl border-b border-white/30 p-6 flex-shrink-0 shadow-lg animate-slide-down">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-[#3CB97F] rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#3CB97F] to-[#267a56] rounded-full flex items-center justify-center shadow-lg">
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-800">
+                <h1 className="text-xl font-bold text-white">
                   {doctorMode ? 'AI Klinik Asistan' : 'AI Psikolojik Asistan'}
                 </h1>
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-600 text-sm">
                   {doctorMode
                     ? 'Doktorlara özel psikolojik destek'
                     : 'Ses analizi ile ruh halinizi analiz ediyorum'}
@@ -290,7 +532,7 @@ function AIInteraction({ doctorMode = false }) {
             <div className="flex items-center space-x-3">
               <button
                 onClick={startNewConversation}
-                className="p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-[#18181b]/50"
+                className="p-2 text-[#3CB97F] hover:text-[#267a56] transition-colors rounded-lg hover:bg-[#3CB97F]/10"
                 title="Yeni Konuşma"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -300,7 +542,7 @@ function AIInteraction({ doctorMode = false }) {
               
               <button 
                 onClick={stopMediaStream}
-                className="px-4 py-2 bg-gray-500 hover:bg-red-500 text-white rounded-lg transition-colors font-medium"
+                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#267a56] text-white rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl"
               >
                 Oturumu Sonlandır
               </button>
@@ -311,17 +553,34 @@ function AIInteraction({ doctorMode = false }) {
         {/* Ana İçerik - Sadece Sohbet Alanı */}
         <div className="flex-1 flex flex-col min-h-0">
           {/* Mesajlar */}
-          <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto space-y-4">
-            {messages.map((message) => (
+          <div ref={chatContainerRef} className="flex-1 p-4 overflow-y-auto overflow-x-hidden space-y-4 bg-white/40 backdrop-blur-xl rounded-t-2xl relative">
+            {/* Subtle forest pattern overlay */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `
+                  radial-gradient(circle at 25% 75%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 75% 25%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 50%, rgba(134, 239, 172, 0.04) 0%, transparent 50%)
+                `,
+                backgroundSize: '300px 300px, 400px 400px, 500px 500px',
+                animation: 'organic-flow 15s ease-in-out infinite'
+              }} />
+            </div>
+            {messages.map((message, index) => (
               <div
                 key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                className="flex justify-center animate-fade-in-up"
+                style={{ 
+                  animationDelay: `${index * 0.1}s`,
+                  animationDuration: '0.5s',
+                  animationFillMode: 'both'
+                }}
               >
                 <div
-                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-md ${
+                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 ${
                     message.type === 'user'
-                      ? 'bg-[#3CB97F] text-white'
-                      : 'bg-white/80 text-gray-800 border border-[#3CB97F]/10'
+                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] text-white'
+                      : 'bg-white/60 backdrop-blur-md text-gray-800 border border-white/40 shadow-lg'
                   }`}
                 >
                   <p className="text-sm">{message.content}</p>
@@ -347,10 +606,10 @@ function AIInteraction({ doctorMode = false }) {
                   
                   {/* Onay Butonları */}
                   {message.showConsentButton && (
-                    <div className="mt-3 space-y-2">
+                    <div className="mt-3 space-y-2 animate-fade-in-up">
                       <button
                         onClick={handleConsent}
-                        className="w-full bg-[#3CB97F] hover:bg-[#2d8f5f] text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                        className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                       >
                         Evet, ses analizi yapılmasına izin veriyorum
                       </button>
@@ -372,7 +631,7 @@ function AIInteraction({ doctorMode = false }) {
                           
                           setMessages(prev => [...prev, declineMessage, aiResponse]);
                         }}
-                        className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                        className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                       >
                         Hayır, sadece metin tabanlı sohbet yapalım
                       </button>
@@ -383,11 +642,11 @@ function AIInteraction({ doctorMode = false }) {
             ))}
             
             {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-[#18181b]/50 text-gray-300 border border-[#3CB97F]/20 max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
+              <div className="flex justify-center animate-fade-in-up">
+                <div className="bg-white/60 backdrop-blur-md text-[#3CB97F] border border-white/40 max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#3CB97F]"></div>
-                    <span className="text-sm">AI işliyor...</span>
+                    <span className="text-sm font-medium">AI işliyor...</span>
                   </div>
                 </div>
               </div>
@@ -395,79 +654,65 @@ function AIInteraction({ doctorMode = false }) {
           </div>
 
           {/* Modern Mesaj Girişi */}
-          <div className="p-4 border-t border-[#3CB97F]/20 bg-white/80 flex-shrink-0">
-            <div className="flex items-end space-x-3">
-              <div className="flex-1 relative">
-                {/* Emoji Butonu - yukarı hizalı */}
-              <button
-                  type="button"
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className="absolute left-3 top-2 p-2 text-gray-400 hover:text-[#3CB97F] transition-colors rounded-lg hover:bg-gray-100"
-                title="Emoji ekle"
-                  style={{ zIndex: 2 }}
-              >
-                <Smile className="w-5 h-5" />
-              </button>
-                <textarea
-                  value={inputMessage}
-                  onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Mesajınızı yazın... (Enter ile gönder)"
-                  className="w-full bg-white/90 text-gray-800 placeholder-gray-400 rounded-xl pl-12 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-[#3CB97F]/10 hover:border-[#3CB97F]/30 transition-all duration-200 min-h-[44px] max-h-32 text-sm"
-                  rows="1"
-                  style={{ minHeight: '44px', maxHeight: '128px', overflowY: 'auto' }}
-                />
-                
-                {/* Karakter Sayacı */}
-                {isTyping && (
-                  <div className="absolute bottom-2 right-3 text-xs text-gray-500">
-                    {inputMessage.length}/1000
-                  </div>
-                )}
-              </div>
-
-              {/* Gönder Butonu */}
-              <button
-                onClick={sendMessage}
-                disabled={!inputMessage.trim() || isLoading}
-                className={`p-3 rounded-xl transition-all duration-200 ${
-                  inputMessage.trim() && !isLoading
-                    ? 'bg-[#3CB97F] hover:bg-[#2d8f5f] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                    : 'bg-gray-300 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                <SendHorizontal className="w-5 h-5" />
-              </button>
+          <div className="p-4 pb-8 border-t border-green-200/30 bg-white/50 backdrop-blur-xl flex-shrink-0 shadow-lg animate-slide-up overflow-hidden rounded-b-2xl relative">
+            {/* Subtle forest pattern overlay for input area */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `
+                  radial-gradient(circle at 30% 70%, rgba(34, 197, 94, 0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(16, 185, 129, 0.04) 0%, transparent 50%)
+                `,
+                backgroundSize: '200px 200px, 300px 300px',
+                animation: 'organic-flow 12s ease-in-out infinite'
+              }} />
             </div>
-
-            {/* Emoji Picker */}
-            {showEmojiPicker && (
-              <div className="absolute bottom-20 left-4 bg-[#232325] border border-[#3CB97F]/20 rounded-lg p-3 shadow-xl z-[9999]">
-                <div className="grid grid-cols-8 gap-2">
-                  {['😊', '😂', '❤️', '👍', '🎉', '🔥', '😎', '🤔', '😢', '😡', '😴', '🤗', '👋', '💪', '🎯', '✨'].map((emoji) => (
-                    <button
-                      key={emoji}
-                      onClick={() => addEmoji(emoji)}
-                      className="p-2 hover:bg-[#18181b]/50 rounded-lg transition-colors text-lg"
-                    >
-                      {emoji}
-                    </button>
-                  ))}
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-end space-x-3">
+                <div className="flex-1 relative max-w-full">
+                  <textarea
+                    value={inputMessage}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Mesajınızı yazın..."
+                    className="w-full max-w-full bg-white/60 backdrop-blur-sm text-gray-800 placeholder-gray-500 rounded-xl px-4 py-4 resize-none focus:outline-none focus:ring-2 focus:ring-[#3CB97F]/50 border-2 border-white/30 hover:border-white/50 transition-all duration-300 min-h-[56px] max-h-40 text-sm shadow-lg transform hover:scale-[1.01]"
+                    rows="2"
+                    style={{ minHeight: '56px', maxHeight: '160px', overflowY: 'auto', wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+                  />
+                  
+                  {/* Karakter Sayacı */}
+                  {isTyping && (
+                    <div className="absolute bottom-2 right-3 text-xs text-gray-500">
+                      {inputMessage.length}/1000
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
 
-            {/* Yazıyor Göstergesi */}
-            {isTyping && (
-              <div className="mt-2 text-xs text-gray-400 flex items-center space-x-2">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
-                <span>Yazıyor...</span>
+                {/* Gönder Butonu */}
+                <button
+                  onClick={sendMessage}
+                  disabled={!inputMessage.trim() || isLoading}
+                  className={`p-3 rounded-xl transition-all duration-200 ${
+                    inputMessage.trim() && !isLoading
+                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                      : 'bg-gray-300 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
+                  <SendHorizontal className="w-5 h-5" />
+                </button>
               </div>
-            )}
+
+              {/* Yazıyor Göstergesi */}
+              {isTyping && (
+                <div className="mt-2 text-xs text-gray-400 flex items-center space-x-2 animate-fade-in-up">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  </div>
+                  <span className="animate-pulse">Yazıyor...</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Ses Kontrol Barı - Mesaj Alanının Altında */}

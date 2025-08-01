@@ -274,24 +274,24 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
   }
 
   return (
-    <div>
+    <div className="relative z-50">
       {/* Kompakt Ses Kontrol Barı */}
-      <div className="border-t border-[#3CB97F]/20 bg-white/95 p-3">
-        <div className="flex items-center space-x-3">
+      <div className="border-t border-green-200/30 p-3 relative z-10">
+        <div className="max-w-md mx-auto flex items-center justify-center space-x-4">
           {/* Ana Kayıt Butonu */}
           <button
             onClick={toggleRecording}
-            className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
+            className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer ${
               isRecordingActive
                 ? 'bg-red-500 hover:bg-red-600 animate-pulse'
-                : 'bg-[#3CB97F] hover:bg-[#2d8f5f]'
-            } text-white shadow-lg hover:shadow-xl`}
+                : 'bg-green-600 hover:bg-green-700'
+            } text-white shadow-lg hover:shadow-xl relative z-20`}
           >
             {isRecordingActive ? <Square className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
           </button>
 
           {/* Durum ve Süre Bilgisi */}
-          <div className="flex-1">
+          <div className="flex flex-col items-center space-y-1">
             <div className="flex items-center space-x-2">
               <span className="text-sm font-medium text-gray-700">
                 {isRecordingActive ? 'Kayıt yapılıyor...' : audioURL ? 'Kayıt hazır' : 'Ses kaydı'}
@@ -305,7 +305,7 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
             
             {/* Ses Wave Animasyonu (sadece kayıt sırasında) */}
             {isRecordingActive && (
-              <div className="flex items-center space-x-1 mt-1">
+              <div className="flex items-center space-x-1">
                 {[...Array(5)].map((_, i) => (
                   <div
                     key={i}
@@ -326,7 +326,7 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
               {/* Dinle */}
               <button
                 onClick={togglePlayback}
-                className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer relative z-20"
                 title="Dinle"
               >
                 <Volume2 className="w-4 h-4" />
@@ -335,7 +335,7 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
               {/* Sil */}
               <button
                 onClick={resetRecording}
-                className="p-2 text-orange-500 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors"
+                className="p-2 text-orange-500 hover:text-orange-700 hover:bg-orange-50 rounded-lg transition-colors cursor-pointer relative z-20"
                 title="Sil"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -344,7 +344,7 @@ function VoiceRecorder({ isRecording, onSendAudio, onPermissionChange, autoStart
               {/* Gönder */}
               <button
                 onClick={sendAudioRecording}
-                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#2d8f5f] text-white rounded-lg flex items-center space-x-1 transition-colors text-sm"
+                className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center space-x-1 transition-colors text-sm cursor-pointer relative z-20"
               >
                 <Send className="w-4 h-4" />
                 <span>Gönder</span>

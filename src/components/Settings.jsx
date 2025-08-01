@@ -41,6 +41,29 @@ function Settings() {
     setLoading(true);
     setError("");
     setSuccess("");
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Lütfen geçerli bir e-posta adresi giriniz.");
+      setLoading(false);
+      return;
+    }
+    
+    // Domain validation - check for common email providers
+    const validDomains = [
+      'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com',
+      'yandex.com', 'mail.ru', 'protonmail.com', 'tutanota.com', 'zoho.com',
+      'aol.com', 'live.com', 'msn.com', 'me.com', 'mac.com'
+    ];
+    
+    const emailDomain = form.email.split('@')[1]?.toLowerCase();
+    if (!validDomains.includes(emailDomain)) {
+      setError("Lütfen geçerli bir e-posta sağlayıcısı kullanınız (Gmail, Yahoo, Hotmail vb.).");
+      setLoading(false);
+      return;
+    }
+    
     try {
       const token = localStorage.getItem("token");
       await ApiService.updateUserProfile({ name: form.name, email: form.email }, token);
@@ -103,7 +126,7 @@ function Settings() {
   const backPath = userType === "doctor" ? "/doctor" : "/dashboard";
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-10" style={{ background: 'linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%)' }}>
+    <div className="min-h-screen flex items-center justify-center py-10" style={{ background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 244, 0.9) 25%, rgba(220, 252, 231, 0.85) 50%, rgba(187, 247, 208, 0.8) 75%, rgba(134, 239, 172, 0.75) 100%)' }}>
     {/* Sol üst geri ok */}
     <Link
       to={backPath}
