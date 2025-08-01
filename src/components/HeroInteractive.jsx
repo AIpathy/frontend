@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Sparkles, Brain, Heart, MessageCircle, Mic, Eye, FileText, ArrowRight, Star, Shield, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function HeroInteractive() {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [ripples, setRipples] = useState([]);
   const [floatingElements, setFloatingElements] = useState([]);
@@ -47,6 +49,9 @@ function HeroInteractive() {
     setTimeout(() => {
       setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
     }, 800);
+    
+    // Navigate to auth page
+    navigate('/auth');
   };
 
   return (
