@@ -514,10 +514,10 @@ function AIInteraction({ doctorMode = false }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-[#3CB97F] to-[#267a56] rounded-full flex items-center justify-center shadow-lg">
-                <Bot className="w-6 h-6 text-white" />
+                <Bot className="w-6 h-6 text-gray-800" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">
+                <h1 className="text-xl font-bold text-gray-800">
                   {doctorMode ? 'AI Klinik Asistan' : 'AI Psikolojik Asistan'}
                 </h1>
                 <p className="text-gray-600 text-sm">
@@ -609,7 +609,7 @@ function AIInteraction({ doctorMode = false }) {
                     <div className="mt-3 space-y-2 animate-fade-in-up">
                       <button
                         onClick={handleConsent}
-                        className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                       >
                         Evet, ses analizi yapılmasına izin veriyorum
                       </button>
@@ -631,7 +631,7 @@ function AIInteraction({ doctorMode = false }) {
                           
                           setMessages(prev => [...prev, declineMessage, aiResponse]);
                         }}
-                        className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                       >
                         Hayır, sadece metin tabanlı sohbet yapalım
                       </button>
