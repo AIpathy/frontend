@@ -4,6 +4,14 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import HeroInteractive from "./components/HeroInteractive";
 import HeroDemo from "./components/HeroDemo";
+import OverviewLanding from "./components/OverviewLanding";
+import Hastaliklar from "./pages/Hastaliklar";
+import Testimonials from "./components/Testimonials";
+import Faq from "./pages/Faq";
+import About from "./pages/About";
+import NasilCalisir from "./pages/NasilCalisir";
+import Blog from "./pages/Blog";
+import PsikolojikTestler from "./pages/PsikolojikTestler";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
 import ResetPassword from "./components/ResetPassword";
@@ -30,6 +38,8 @@ function App() {
             <Header />
             <HeroInteractive />
             <Hero />
+            <OverviewLanding />
+            <Testimonials />
             <HeroDemo />
             <Footer />
           </>
@@ -48,6 +58,23 @@ function App() {
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
         <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
+<<<<<<< Updated upstream
+=======
+        <Route path="/alkol-testi" element={<AlkolTesti />} />
+        <Route path="/dikkat-testi" element={<DikkatTesti />} />
+        <Route path="/schutte-testi" element={<SchutteTesti />} />
+        <Route path="/okb-testi" element={<OKBTesti />} />
+        <Route path="/toksik-iliski-testi" element={<ToksikIliskiTesti />} />
+        <Route path="/terk-edilme-testi" element={<TerkEdilmeTesti />} />
+        <Route path="/kumar-testi" element={<KumarTesti />} />
+        <Route path="/zeka-gelisim-testi" element={<ZekaGelisimTesti />} />
+        <Route path="/hastaliklar" element={<Hastaliklar />} />
+        <Route path="/sss" element={<Faq />} />
+        <Route path="/hakkimizda" element={<About />} />
+        <Route path="/nasil-calisir" element={<NasilCalisir />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/psikolojik-testler" element={<PsikolojikTestler />} />
+>>>>>>> Stashed changes
       </Routes>
     </Router>
   );
