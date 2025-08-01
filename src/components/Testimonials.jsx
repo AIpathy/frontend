@@ -147,7 +147,7 @@ function AIpathyForestTestimonials() {
               </div>
             </div>
             <div className="relative inline-block">
-              <h2 className="relative text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-green-700 to-emerald-800 bg-clip-text text-transparent text-center lg:text-left drop-shadow-sm">
+              <h2 className="relative text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-green-700 to-emerald-800 bg-clip-text text-transparent text-center lg:text-left drop-shadow-sm leading-tight py-2">
                 Doğanın Huzuruyla Büyüyen Hikayeler
               </h2>
             </div>
