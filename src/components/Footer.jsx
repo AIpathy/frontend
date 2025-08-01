@@ -121,7 +121,7 @@ function Footer() {
                 <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Instagram className="w-4 h-4" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
+                <a href="https://www.linkedin.com/company/aipathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
