@@ -58,8 +58,6 @@ function App() {
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
         <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
-<<<<<<< Updated upstream
-=======
         <Route path="/alkol-testi" element={<AlkolTesti />} />
         <Route path="/dikkat-testi" element={<DikkatTesti />} />
         <Route path="/schutte-testi" element={<SchutteTesti />} />
@@ -74,7 +72,6 @@ function App() {
         <Route path="/nasil-calisir" element={<NasilCalisir />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/psikolojik-testler" element={<PsikolojikTestler />} />
->>>>>>> Stashed changes
       </Routes>
     </Router>
   );
