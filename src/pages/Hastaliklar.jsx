@@ -394,8 +394,20 @@ function Hastaliklar() {
 
   const filteredDisorders = disorders.filter(disorder => {
     const categoryMatch = activeCategory === 'all' || disorder.category === activeCategory;
-    const searchMatch = disorder.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       disorder.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Arama terimini normalize et (Türkçe karakterler ve büyük/küçük harf)
+    const normalizedSearchTerm = searchTerm.toLowerCase()
+      .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c');
+    
+    const normalizedTitle = disorder.title.toLowerCase()
+      .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c');
+    
+    const normalizedDescription = disorder.description.toLowerCase()
+      .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c');
+    
+    const searchMatch = normalizedTitle.includes(normalizedSearchTerm) ||
+                       normalizedDescription.includes(normalizedSearchTerm);
+    
     return categoryMatch && searchMatch;
   });
 
