@@ -160,6 +160,19 @@ const TEST_CATEGORIES = [
     ]
   },
   {
+    key: "duygusal-duzenleme",
+    label: "Duygusal Düzenleme ve Öfke Yönetimi",
+    tests: [
+      {
+        key: "ofke-testi",
+        title: "Öfke Testi",
+        desc: "Öfke düzeyini ve kontrolünü ölçen 34 maddelik test",
+        icon: "FileText",
+        route: "/ofke-testi"
+      }
+    ]
+  },
+  {
     key: "ozguven-duygusal-zeka",
     label: "Özgüven, Duygusal Zeka ve Empati Ölçekleri",
     tests: []

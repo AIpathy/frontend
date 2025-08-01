@@ -33,6 +33,7 @@ import OKBTest from "./components/OKBTest";
 import CokluZekaTesti from "./components/CokluZekaTesti";
 import DEHBTest from "./components/DEHBTest";
 import GolombokTest from "./components/GolombokTest";
+import OfkeTesti from "./components/OfkeTesti";
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
         <Route path="/coklu-zeka-testi" element={<CokluZekaTesti />} />
         <Route path="/dehb-test" element={<DEHBTest />} />
         <Route path="/golombok-test" element={<GolombokTest />} />
+        <Route path="/ofke-testi" element={<OfkeTesti />} />
 
         <Route path="/hastaliklar" element={<Hastaliklar />} />
         <Route path="/sss" element={<Faq />} />
