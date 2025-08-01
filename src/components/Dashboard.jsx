@@ -97,7 +97,15 @@ const TEST_CATEGORIES = [
   {
     key: "madde-bagimliligi",
     label: "Madde ve Alkol Bağımlılığı Testleri",
-    tests: []
+    tests: [
+      {
+        key: "alkol-testi",
+        title: "Alkol Kullanım Testi",
+        desc: "Alkol kullanım alışkanlıklarını değerlendiren 36 maddelik test",
+        icon: "FileText",
+        route: "/alkol-testi"
+      }
+    ]
   },
   {
     key: "dikkat-hiperaktivite",

@@ -28,6 +28,7 @@ import PCL5Test from "./components/PCL5Test";
 import ICG5Test from "./components/ICG5Test";
 import SosyalFobiTesti from "./components/SosyalFobiTesti";
 import TSBETest from "./components/TSBETest";
+import AlkolTesti from "./components/AlkolTesti";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path="/icg5-test" element={<ICG5Test />} />
         <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
         <Route path="/tsbe-test" element={<TSBETest />} />
+        <Route path="/alkol-testi" element={<AlkolTesti />} />
 
         <Route path="/hastaliklar" element={<Hastaliklar />} />
         <Route path="/sss" element={<Faq />} />
