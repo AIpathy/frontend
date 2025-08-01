@@ -95,7 +95,7 @@ function Footer() {
               <div className="space-y-1 text-xs">
                 <div className="flex items-center justify-center lg:justify-start gap-2 text-slate-600">
                   <Mail className="w-3 h-3 text-teal-700" />
-                  <span>info@aipathy.com</span>
+                  <span>info@aipathy.xyz</span>
                 </div>
                 <div className="flex items-center justify-center lg:justify-start gap-2 text-slate-600">
                   <Phone className="w-3 h-3 text-teal-700" />
@@ -112,13 +112,13 @@ function Footer() {
             <div className="text-center lg:text-left">
               <h3 className="text-sm font-semibold text-teal-700 mb-2">Takip Edin</h3>
               <div className="flex items-center justify-center lg:justify-start gap-3">
-                <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
+                <a href="https://www.facebook.com/profile.php?id=61578951092137" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
+                <a href="https://x.com/ai_pathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Twitter className="w-4 h-4" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
+                <a href="https://www.instagram.com/ai_pathy/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a href="https://www.linkedin.com/company/aipathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
