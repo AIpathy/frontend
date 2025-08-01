@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 function Hero() {
+  const navigate = useNavigate();
   
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -119,7 +121,10 @@ function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group relative bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-gray-800 font-bold px-8 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
+              <button 
+                onClick={() => navigate('/auth')}
+                className="group relative bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-gray-800 font-bold px-8 py-4 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden"
+              >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>Ücretsiz Deneyin</span>
                   <span className="text-lg">→</span>
@@ -406,7 +411,10 @@ function Hero() {
               Yapay zeka destekli analiz ve uzman psikolog desteği ile
               kişiselleştirilmiş mental sağlık yolculuğunuza bugün başlayın.
             </p>
-            <button className="bg-white border-2 border-teal-500 text-teal-700 font-semibold px-12 py-5 rounded-2xl hover:bg-teal-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl text-lg">
+            <button 
+              onClick={() => navigate('/auth')}
+              className="bg-white border-2 border-teal-500 text-teal-700 font-semibold px-12 py-5 rounded-2xl hover:bg-teal-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl text-lg"
+            >
               AIpathy ile Başlayın - Ücretsiz Deneyin
             </button>
           </div>

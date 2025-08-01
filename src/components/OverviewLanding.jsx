@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const GlobeIcon = () => (
@@ -86,6 +87,7 @@ const cards = [
 ];
 
 function OverviewLanding() {
+  const navigate = useNavigate();
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -300,7 +302,10 @@ function OverviewLanding() {
 
         
             <div className="flex items-center gap-6">
-              <button className="group relative inline-flex items-center gap-4 px-16 py-6 bg-gradient-to-r from-green-800 via-emerald-700 to-teal-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-700 hover:scale-110 font-bold text-xl overflow-hidden">
+              <button 
+                onClick={() => navigate('/auth')}
+                className="group relative inline-flex items-center gap-4 px-16 py-6 bg-gradient-to-r from-green-800 via-emerald-700 to-teal-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-700 hover:scale-110 font-bold text-xl overflow-hidden"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-green-700 via-emerald-600 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 <div className="relative z-10 animate-pulse-gentle">
