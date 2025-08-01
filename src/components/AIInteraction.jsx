@@ -611,7 +611,11 @@ function AIInteraction({ doctorMode = false }) {
                       <button
                         onClick={handleConsent}
                         className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] !text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                        style={{ color: '#1f2937' }}
+                        style={{ 
+                          color: '#1f2937 !important',
+                          backgroundColor: 'rgb(60, 185, 127)',
+                          backgroundImage: 'linear-gradient(to right, rgb(60, 185, 127), rgb(38, 122, 86))'
+                        }}
                       >
                         Evet, ses analizi yapılmasına izin veriyorum
                       </button>
@@ -634,7 +638,11 @@ function AIInteraction({ doctorMode = false }) {
                           setMessages(prev => [...prev, declineMessage, aiResponse]);
                         }}
                         className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] !text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                        style={{ color: '#1f2937' }}
+                        style={{ 
+                          color: '#1f2937 !important',
+                          backgroundColor: 'rgb(248, 113, 113)',
+                          backgroundImage: 'linear-gradient(to right, rgb(248, 113, 113), rgb(239, 68, 68))'
+                        }}
                       >
                         Hayır, sadece metin tabanlı sohbet yapalım
                       </button>
