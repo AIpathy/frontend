@@ -403,7 +403,7 @@ function OverviewLanding() {
                     
                     <div className="space-y-6 relative z-10">
                       <h3 className={`text-6xl font-black transition-all duration-500 ${
-                        isHovered ? `text-${card.accentColor}-700 scale-110` : 'text-green-600'
+                        isHovered ? `text-${card.accentColor}-700 scale-105` : 'text-green-600'
                       }`}>
                         {card.title}
                       </h3>
