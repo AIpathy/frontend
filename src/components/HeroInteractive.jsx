@@ -47,22 +47,9 @@ function HeroInteractive() {
     setTimeout(() => {
       setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
     }, 800);
-
-    alert("Yapay zeka arayüzü burada açılacak!");
   };
 
   return (
-<<<<<<< Updated upstream
-    <section className="flex flex-col items-center justify-center gap-4 py-10">
-      {/* Yönlendirici Metin + Ok */}
-      <div className="text-center max-w-sm mb-6 flex flex-col items-center gap-4">
-        <p className="text-[#3CB97F] text-xl sm:text-2xl font-semibold">
-          Günlük ruh halini analiz etmek için
-        </p>
-        <span className="text-6xl text-[#3CB97F] animate-bounce shadow-[0_10px_10px_0_#30614F70] rounded-full px-3">
-          ↓
-        </span>
-=======
     <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-emerald-950 to-gray-900 overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-600/15 to-green-600/15 rounded-full blur-3xl animate-pulse"></div>
@@ -81,10 +68,9 @@ function HeroInteractive() {
             }}
           />
         ))}
->>>>>>> Stashed changes
-      </div>
 
-      {/* Ana İçerik */}
+        {/* Ana İçerik */}
+      </div>
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
         <header className="pt-8 px-6">
@@ -240,7 +226,7 @@ function HeroInteractive() {
         </div>
       </div>
 
-      <style jsx>{`
+        <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           33% { transform: translateY(-20px) rotate(1deg); }
@@ -249,9 +235,9 @@ function HeroInteractive() {
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
-      `}</style>
-    </div>
-  );
-}
-
-export default HeroInteractive;
+        `}</style>
+      </div>
+    );
+  }
+  
+  export default HeroInteractive;

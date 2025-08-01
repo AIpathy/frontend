@@ -1,32 +1,10 @@
 import React from "react";
-<<<<<<< Updated upstream
-import logo from "../assets/logo.svg";
-import Button from "./Button";
-import { Home, User } from "lucide-react";
-=======
-import { Home, User, BookOpen, HelpCircle, Info, Brain, PenLine, ClipboardList	 } from "lucide-react";
->>>>>>> Stashed changes
+import { Home, User, BookOpen, HelpCircle, Info, Brain, PenLine, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
   return (
-<<<<<<< Updated upstream
-    <header className="z-10 w-full flex items-center justify-between px-6 h-[64px]">
-      <div className="flex items-center">
-        <img src={logo} alt="AIpathy Logo" className="w-[100px] h-[100px] mt-10" />
-      </div>
-      <div className="flex gap-4 sm:gap-8 lg:gap-10 items-center">
-        {/* Anasayfa butonu */}
-        <Button onClick={() => navigate("/")}>
-          <Home className="w-6 h-6 text-[#3CB97F]" />
-        </Button>
-
-        {/* Giriş / Kayıt tek ikonlu buton */}
-        <Button onClick={() => navigate("/auth")}>
-          <User className="w-6 h-6 text-[#3CB97F]" />
-        </Button>
-=======
     <header className="z-10 w-full flex items-center justify-between px-8 py-6 bg-gradient-to-r from-slate-50/80 via-white to-slate-50/80 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-slate-100/50">
 
       {/* Logo */}
@@ -133,8 +111,6 @@ function Header() {
           </div>
         </button>
 
-
-
         {/* Psikolojik Testler */}
         <button
           onClick={() => navigate("/psikolojik-testler")}
@@ -146,7 +122,6 @@ function Header() {
             Psikolojik Testler
           </div>
         </button>
-
 
         {/* Blog */}
         <button
@@ -170,7 +145,6 @@ function Header() {
             Giriş Yap
           </div>
         </button>
->>>>>>> Stashed changes
       </div>
     </header>
   );

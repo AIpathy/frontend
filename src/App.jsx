@@ -58,14 +58,7 @@ function App() {
         <Route path="/pcl5-test" element={<PCL5Test />} />
         <Route path="/icg5-test" element={<ICG5Test />} />
         <Route path="/sosyal-fobi-testi" element={<SosyalFobiTesti />} />
-        <Route path="/alkol-testi" element={<AlkolTesti />} />
-        <Route path="/dikkat-testi" element={<DikkatTesti />} />
-        <Route path="/schutte-testi" element={<SchutteTesti />} />
-        <Route path="/okb-testi" element={<OKBTesti />} />
-        <Route path="/toksik-iliski-testi" element={<ToksikIliskiTesti />} />
-        <Route path="/terk-edilme-testi" element={<TerkEdilmeTesti />} />
-        <Route path="/kumar-testi" element={<KumarTesti />} />
-        <Route path="/zeka-gelisim-testi" element={<ZekaGelisimTesti />} />
+
         <Route path="/hastaliklar" element={<Hastaliklar />} />
         <Route path="/sss" element={<Faq />} />
         <Route path="/hakkimizda" element={<About />} />
