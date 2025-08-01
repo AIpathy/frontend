@@ -147,9 +147,17 @@ const TEST_CATEGORIES = [
     ]
   },
   {
-    key: "zeka-gelisim",
-    label: "Zeka ve Gelişim Testleri",
-    tests: []
+    key: "cinsel-saglik",
+    label: "Cinsel Sağlık ve İlişki Testleri",
+    tests: [
+      {
+        key: "golombok-test",
+        title: "Golombok Testi",
+        desc: "Cinsel memnuniyet ölçeği 28 maddelik test",
+        icon: "FileText",
+        route: "/golombok-test"
+      }
+    ]
   },
   {
     key: "ozguven-duygusal-zeka",
@@ -159,11 +167,6 @@ const TEST_CATEGORIES = [
   {
     key: "kiskanclik-takinti-okb",
     label: "Kıskançlık, Takıntı, OKB ve İlgili Testler",
-    tests: []
-  },
-  {
-    key: "cinsel-saglik-iliski",
-    label: "Cinsel Sağlık ve İlişki Testleri",
     tests: []
   },
   {
