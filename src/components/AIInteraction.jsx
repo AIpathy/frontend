@@ -514,7 +514,7 @@ function AIInteraction({ doctorMode = false }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-[#3CB97F] to-[#267a56] rounded-full flex items-center justify-center shadow-lg">
-                <Bot className="w-6 h-6 text-gray-800" />
+                <Bot className="w-6 h-6 !text-white" style={{ color: '#ffffff !important' }} />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-800">
