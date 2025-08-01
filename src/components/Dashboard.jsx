@@ -84,6 +84,13 @@ const TEST_CATEGORIES = [
         desc: "Karmaşık yas belirtilerini tarayan 5 maddelik test",
         icon: "FileText",
         route: "/icg5-test"
+      },
+      {
+        key: "tsbe-test",
+        title: "TSBE Testi",
+        desc: "Travma sonrası bilişler envanteri 36 maddelik test",
+        icon: "FileText",
+        route: "/tsbe-test"
       }
     ]
   },
