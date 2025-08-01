@@ -128,6 +128,19 @@ const TEST_CATEGORIES = [
   {
     key: "zeka-gelisim",
     label: "Zeka ve Gelişim Testleri",
+    tests: [
+      {
+        key: "coklu-zeka-testi",
+        title: "Çoklu Zeka Testi",
+        desc: "8 farklı zeka alanını ölçen 80 maddelik test",
+        icon: "FileText",
+        route: "/coklu-zeka-testi"
+      }
+    ]
+  },
+  {
+    key: "zeka-gelisim",
+    label: "Zeka ve Gelişim Testleri",
     tests: []
   },
   {
