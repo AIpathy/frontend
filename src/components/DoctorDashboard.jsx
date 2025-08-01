@@ -5,7 +5,6 @@ import AlertManager from "./AlertManager";
 import ApiService from "../services/api";
 import { formatTimestamp, getRiskLevelColor, getStatusColor, getAnalysisTypeName, getRiskLevelName, capitalizeName, formatDoctorName } from "../utils/helpers";
 import AIInteraction from "./AIInteraction";
-import dashboardLogo from "../assets/dashboardLogo.png";
 
 function DoctorDashboard() {
   const [activeTab, setActiveTab] = useState("patients");
@@ -123,7 +122,6 @@ function DoctorDashboard() {
       >
         <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
           <div className="flex items-center space-x-4">
             <AlertManager onAlertClick={(alert) => {

@@ -4,7 +4,6 @@ import Button from "./Button";
 import AIInteraction from "./AIInteraction";
 import ApiService from "../services/api";
 import { formatTimestamp, getAnalysisTypeName, capitalizeName } from "../utils/helpers";
-import dashboardLogo from "../assets/dashboardLogo.png";
 import { useNavigate } from "react-router-dom";
 
 const TEST_CATEGORIES = [
@@ -204,7 +203,6 @@ function Dashboard() {
       <header className="backdrop-blur-md border-b border-[#3CB97F]/20 relative z-10" style={{ background: 'linear-gradient(135deg,rgb(255, 255, 255) 60%, #e0e7ef 100%)', minHeight: 56 }}>
         <div className="flex items-center justify-between px-6 py-2">
           <div className="flex items-center space-x-4">
-            <img src={dashboardLogo} alt="AIpathy Logo" className="w-20 h-auto" />
           </div>
           <div className="flex items-center space-x-4">
             <Button onClick={() => { window.location.hash = '#/settings'; }}>
