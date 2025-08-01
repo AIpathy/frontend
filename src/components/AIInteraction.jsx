@@ -542,7 +542,8 @@ function AIInteraction({ doctorMode = false }) {
               
               <button 
                 onClick={stopMediaStream}
-                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#267a56] text-gray-800 rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl"
+                className="px-4 py-2 bg-[#3CB97F] hover:bg-[#267a56] !text-gray-800 rounded-lg transition-colors font-medium shadow-lg hover:shadow-xl"
+                style={{ color: '#1f2937' }}
               >
                 Oturumu Sonlandır
               </button>
@@ -609,7 +610,8 @@ function AIInteraction({ doctorMode = false }) {
                     <div className="mt-3 space-y-2 animate-fade-in-up">
                       <button
                         onClick={handleConsent}
-                        className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] !text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        style={{ color: '#1f2937' }}
                       >
                         Evet, ses analizi yapılmasına izin veriyorum
                       </button>
@@ -631,7 +633,8 @@ function AIInteraction({ doctorMode = false }) {
                           
                           setMessages(prev => [...prev, declineMessage, aiResponse]);
                         }}
-                        className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        className="w-full bg-gradient-to-r from-[#f87171] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] !text-gray-800 px-4 py-2 rounded-lg text-sm transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        style={{ color: '#1f2937' }}
                       >
                         Hayır, sadece metin tabanlı sohbet yapalım
                       </button>
@@ -693,9 +696,10 @@ function AIInteraction({ doctorMode = false }) {
                   disabled={!inputMessage.trim() || isLoading}
                   className={`p-3 rounded-xl transition-all duration-200 ${
                     inputMessage.trim() && !isLoading
-                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] text-gray-800 shadow-lg hover:shadow-xl transform hover:scale-105'
+                      ? 'bg-gradient-to-r from-[#3CB97F] to-[#267a56] hover:from-[#267a56] hover:to-[#3CB97F] !text-gray-800 shadow-lg hover:shadow-xl transform hover:scale-105'
                       : 'bg-gray-300 text-gray-400 cursor-not-allowed'
                   }`}
+                  style={inputMessage.trim() && !isLoading ? { color: '#1f2937' } : {}}
                 >
                   <SendHorizontal className="w-5 h-5" />
                 </button>
