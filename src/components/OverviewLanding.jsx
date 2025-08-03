@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 const GlobeIcon = () => (
   <div className="w-16 h-16 flex items-center justify-center text-4xl font-bold">
-    🌍
+    🇹🇷
   </div>
 );
 
 const TreeIcon = () => (
   <div className="w-16 h-16 flex items-center justify-center text-4xl font-bold">
-    🌲
+    🧠
   </div>
 );
 
@@ -28,7 +28,7 @@ const BotIcon = () => (
 
 const LeafIcon = () => (
   <div className="w-8 h-8 flex items-center justify-center text-2xl">
-    🍃
+    🎤
   </div>
 );
 
@@ -40,50 +40,25 @@ const HeartPulseIcon = () => (
 
 const cards = [
   {
-    icon: <GlobeIcon />,
-    title: "970M+",
-    subtitle: "Dünya çapında ruhsal sorun yaşayan birey",
-    description: "Global ruh sağlığı krizi her geçen gün büyüyor ve milyonlarca insan desteğe ihtiyaç duyuyor.",
-    source: "WHO",
-    gradient: "from-green-800 via-emerald-700 to-teal-600",
-    accentColor: "green",
+    text: "Türkiye'de %30-40 erişkin nüfus depresyon belirtileri gösteriyor",
+    source: "TÜİK"
   },
   {
-    icon: <TreeIcon />,
-    title: "75%",
-    subtitle: "Gelişmekte olan ülkelerde yardım almıyor",
-    description: "Kaynaklara erişim sorunu nedeniyle çoğu kişi gerekli desteği alamıyor.",
-    source: "WHO",
-    gradient: "from-emerald-800 via-green-700 to-teal-600",
-    accentColor: "emerald",
+    text: "Sadece %12'si profesyonel yardım alıyor",
+    source: "Sağlık Bakanlığı"
   },
   {
-    icon: <TreeIcon />,
-    title: "50%",
-    subtitle: "Gelişmiş ülkelerde yardım almıyor",
-    description: "Gelişmiş ekonomilerde bile ruh sağlığı hizmetlerine erişim yetersiz kalıyor.",
-    source: "WHO",
-    gradient: "from-teal-800 via-green-700 to-emerald-600",
-    accentColor: "teal",
+    text: "50.000+ analiz AIpathy ile gerçekleştirildi",
+    source: "AIpathy"
   },
   {
-    icon: <ShieldCheckIcon />,
-    title: "Vizyonumuz",
-    subtitle: "AI destekli erken müdahale ile herkesin korunması",
-    description: "Teknoloji ile ruh sağlığı hizmetlerini herkese ulaştırılabilir kılmak.",
-    source: "",
-    gradient: "from-green-900 via-emerald-800 to-green-600",
-    accentColor: "green",
+    text: "AI destekli erken müdahale ile herkesin korunması",
+    source: "Vizyonumuz"
   },
   {
-    icon: <BotIcon />,
-    title: "AIpathy",
-    subtitle: "Yapay zeka destekli ruh sağlığı platformu",
-    description: "Ses analizi, mimik tanıma ve gelişmiş algoritmarla kişiselleştirilmiş destek.",
-    source: "",
-    gradient: "from-emerald-900 via-green-800 to-teal-600",
-    accentColor: "emerald",
-  },
+    text: "Türkiye'nin ilk AI psikoloji platformu",
+    source: "AIpathy"
+  }
 ];
 
 function OverviewLanding() {
@@ -95,6 +70,7 @@ function OverviewLanding() {
   const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
@@ -116,12 +92,18 @@ function OverviewLanding() {
       setCurrentTime(prev => prev + 0.016); // ~60fps
     }, 16);
 
+    // Card rotation timer
+    const cardInterval = setInterval(() => {
+      setCurrentCardIndex(prev => (prev + 1) % cards.length);
+    }, 4000); // Her 4 saniyede bir kart değişir
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       clearTimeout(timer);
       clearInterval(timeInterval);
+      clearInterval(cardInterval);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -149,7 +131,7 @@ function OverviewLanding() {
                   filter: 'blur(1px)'
                 }}
               >
-                <div className="text-6xl text-green-600">🌲</div>
+                <div className="text-6xl text-green-600">🧠</div>
               </div>
             ))}
           </div>
@@ -167,7 +149,7 @@ function OverviewLanding() {
                   filter: 'blur(0.5px)'
                 }}
               >
-                <div className="text-7xl text-emerald-600">🌳</div>
+                <div className="text-7xl text-emerald-600">🎤</div>
               </div>
             ))}
           </div>
@@ -187,7 +169,7 @@ function OverviewLanding() {
                 }}
               >
                 <div className="text-3xl opacity-30">
-                  {i % 6 === 0 ? '✨' : i % 6 === 1 ? '🍃' : i % 6 === 2 ? '🌿' : i % 6 === 3 ? '💫' : i % 6 === 4 ? '🍀' : '⭐'}
+                  {i % 6 === 0 ? '✨' : i % 6 === 1 ? '🎤' : i % 6 === 2 ? '👁️' : i % 6 === 3 ? '💫' : i % 6 === 4 ? '🧠' : '⭐'}
                 </div>
               </div>
             ))}
@@ -253,8 +235,8 @@ function OverviewLanding() {
               <div className="animate-spin-slow">
                 <LeafIcon />
               </div>
-              <span className="text-green-800 font-bold text-base tracking-wide">
-                DOĞANIN GÜCÜ × YAPAY ZEKA
+              <span className="text-green-800 font-bold text-base tracking-wide pb-1">
+                TÜRKİYE'NİN İLK AI PSİKOLOJİ PLATFORMU
               </span>
               <div className="flex gap-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -267,17 +249,17 @@ function OverviewLanding() {
                 AIpathy
               </span>
               <span className="block text-5xl md:text-6xl font-light text-green-700 mt-4 tracking-wide">
-                Ruhsal Denge × Teknoloji
+                Ruh Sağlığı × Yapay Zeka
               </span>
             </h1>
             
  
             <p className="text-2xl text-gray-700 leading-relaxed mb-12 max-w-2xl">
-              Ormandaki her yaprağın kendine özgü hikayesi olduğu gibi, 
+              Türkiye'de ruh sağlığı sorunları giderek artıyor. 
               <span className="text-green-800 font-semibold bg-gradient-to-r from-green-100 to-emerald-100 px-3 py-1 rounded-lg mx-2 shadow-sm">
-                sizin de eşsiz ruhsal yolculuğunuz
+                AI destekli analiz
               </span>
-              için AI destekli, doğa ile uyumlu çözümler sunuyoruz.
+              ile erken teşhis ve müdahale ile bu sorunların üstesinden gelebiliriz.
             </p>
 
         
@@ -286,7 +268,7 @@ function OverviewLanding() {
                 { icon: '🎤', text: 'Ses Tonunuzu Analiz Eder', desc: 'Duygu durumunuzu ses tonunuzdan okur' },
                 { icon: '👁️', text: 'Yüz İfadelerinizi Okur', desc: 'Mimiklerinizdeki gizli mesajları çözer' },
                 { icon: '🧠', text: 'AI ile Öngörü Yapar', desc: '24/7 ruhsal durumunuzu takip eder' },
-                { icon: '🌿', text: 'Doğa Temelli Terapi', desc: 'Ormanın huzuru ile teknolojinin gücü' }
+                { icon: '🔐', text: 'Gizlilik', desc: 'Tüm verileriniz şifrelenerek korunuyor. Gizliliğiniz güvende!' }
               ].map((feature, i) => (
                 <div 
                   key={i}
@@ -312,10 +294,10 @@ function OverviewLanding() {
                   <HeartPulseIcon />
                 </div>
                 
-                <span className="relative z-10">Doğa ile Yolculuğa Başla</span>
+                <span className="relative z-10">AI Analizi Başlat</span>
                 
                 <div className="relative z-10 text-2xl transform group-hover:translate-x-2 group-hover:scale-125 transition-all duration-500">
-                  🌲
+                  🤖
                 </div>
                 
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -343,6 +325,7 @@ function OverviewLanding() {
           <div className="relative w-full max-w-2xl">
             {cards.map((card, index) => {
               const isHovered = hoveredCard === index;
+              const isActive = index === currentCardIndex;
               const stackOffset = index * 8;
               const rotateOffset = (index - 2) * 3;
               
@@ -350,7 +333,7 @@ function OverviewLanding() {
                 <div
                   key={index}
                   className={`absolute inset-0 transition-all duration-700 ease-out ${
-                    isVisible 
+                    isVisible && isActive
                       ? 'opacity-100 translate-y-0' 
                       : 'opacity-0 translate-y-24'
                   }`}
@@ -368,56 +351,15 @@ function OverviewLanding() {
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
-                  <div className={`relative bg-white/95 backdrop-blur-xl rounded-3xl p-10 border-2 border-green-200/50 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden min-h-[500px]`}>
+                  <div className={`relative bg-white/95 backdrop-blur-xl rounded-3xl p-12 border-2 border-green-200/50 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden min-h-[300px] flex items-center justify-center`}>
                     
-            
-                    <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 hover:opacity-10 transition-all duration-700 rounded-3xl`} />
-                    
-                 
-                    {isHovered && (
-                      <div className="absolute inset-0 rounded-3xl">
-                        <div className={`absolute inset-0 bg-gradient-to-r ${card.gradient} opacity-20 rounded-3xl animate-pulse-glow blur-sm`} />
-                      </div>
-                    )}
-
-                 
-                    <div className="relative mb-8">
-                      <div 
-                        className={`inline-flex p-8 rounded-3xl bg-gradient-to-br ${card.gradient} text-white shadow-2xl transition-all duration-700 relative overflow-hidden`}
-                        style={{
-                          transform: isHovered ? 'scale(1.15) rotate(8deg)' : 'scale(1) rotate(0deg)',
-                        }}
-                      >
-                        {card.icon}
-                        
-                   
-                        {isHovered && (
-                          <>
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shine" />
-                            <div className="absolute -inset-2 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-3xl blur-lg animate-pulse" />
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                    
-                    <div className="space-y-6 relative z-10">
-                      <h3 className={`text-6xl font-black transition-all duration-500 ${
-                        isHovered ? `text-${card.accentColor}-700 scale-105` : 'text-green-600'
-                      }`}>
-                        {card.title}
+                    <div className="text-center space-y-6 relative z-10">
+                      <h3 className="text-4xl md:text-5xl font-bold text-green-800 leading-tight transition-all duration-500">
+                        {card.text}
                       </h3>
                       
-                      <h4 className="text-2xl font-bold text-green-800 leading-tight">
-                        {card.subtitle}
-                      </h4>
-                      
-                      <p className="text-gray-700 leading-relaxed text-lg">
-                        {card.description}
-                      </p>
-                      
                       {card.source && (
-                        <div className={`inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-200 rounded-full hover:from-green-200 hover:to-emerald-200 hover:scale-110 transition-all duration-500 shadow-lg`}>
+                        <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-200 rounded-full hover:from-green-200 hover:to-emerald-200 hover:scale-110 transition-all duration-500 shadow-lg">
                           <span className="text-sm text-green-800 font-bold tracking-wider">
                             📊 {card.source}
                           </span>
@@ -425,38 +367,33 @@ function OverviewLanding() {
                       )}
                     </div>
 
-                  
-                    <div className={`absolute top-8 right-8 w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center border-2 border-green-200 shadow-lg transition-all duration-500 ${
+                    <div className={`absolute top-6 right-6 w-8 h-8 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center border-2 border-green-200 shadow-lg transition-all duration-500 ${
                       isHovered ? 'scale-125 shadow-xl' : ''
                     }`}>
-                      <span className="text-lg font-black text-green-700">
+                      <span className="text-sm font-black text-green-700">
                         {index + 1}
                       </span>
                     </div>
-
-                  
-                    {isHovered && (
-                      <div className="absolute inset-0 pointer-events-none">
-                        {[...Array(6)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="absolute animate-float-particle opacity-60"
-                            style={{
-                              left: `${20 + i * 15}%`,
-                              top: `${10 + i * 12}%`,
-                              animationDelay: `${i * 0.2}s`,
-                              animationDuration: '3s'
-                            }}
-                          >
-                            <div className="text-2xl">✨</div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </div>
               );
             })}
+          </div>
+          
+          {/* Kart Indicator */}
+          <div className="flex justify-center items-center gap-3 mt-8">
+            {cards.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentCardIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentCardIndex 
+                    ? 'bg-green-600 scale-125' 
+                    : 'bg-green-300 hover:bg-green-400'
+                }`}
+                aria-label={`Kart ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </div>
