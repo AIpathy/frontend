@@ -2,312 +2,210 @@ import React, { useState, useEffect } from "react";
 import { ArrowLeft, ChevronDown, Search, Filter, Leaf, TreePine } from "lucide-react";
 
 const disorders = [
-  // Test Sonuçları
+  // Depresyon
   {
-    title: "Depresyon Testi Sonrasında Ne Olur?",
-    description: "Depresyon testi sonucunuz değerlendirilir ve size uygun destek seçenekleri sunulur. Profesyonel yardım almanızı önerdiğimiz durumlar hakkında bilgi alırsınız.",
+    title: "Depresyon",
+    description: "Sürekli üzüntü, umutsuzluk, enerji kaybı ve günlük aktivitelerde zorlanma ile karakterize ruh sağlığı durumu. Tedavi edilebilir bir hastalıktır.",
     emoji: "🌱",
-    category: "test-sonuclari"
+    category: "depresyon"
   },
   {
-    title: "Anksiyete Testi Nasıl Değerlendirilir?",
-    description: "Anksiyete testi sonuçlarınızın anlamı ve bir sonraki adımlar. Skorunuza göre önerilen destek seçenekleri ve profesyonel yardım alma zamanı.",
-    emoji: "🍀",
-    category: "test-sonuclari"
-  },
-  {
-    title: "Test Sonuçlarım Güvenilir mi?",
-    description: "Online testlerin sınırları ve güvenilirliği. Hangi durumlarda profesyonel değerlendirme gerektiği ve testlerin doğru kullanımı.",
-    emoji: "🌿",
-    category: "test-sonuclari"
-  },
-  {
-    title: "ADHD Testi Sonuçları Nasıl Yorumlanır?",
-    description: "ADHD tarama testi sonuçlarınızın anlamı ve bir sonraki adımlar. Dikkat eksikliği belirtilerinin değerlendirilmesi ve profesyonel yardım süreci.",
-    emoji: "🌾",
-    category: "test-sonuclari"
-  },
-  {
-    title: "Kişilik Bozukluğu Testi Sonrasında Ne Yapılır?",
-    description: "Kişilik bozukluğu tarama testi sonuçlarınızın değerlendirilmesi. Hangi durumda uzman desteği alınmalı ve tedavi süreci nasıl başlar.",
-    emoji: "🌳",
-    category: "test-sonuclari"
-  },
-
-  // Ruh Sağlığı Bozuklukları
-  {
-    title: "Majör Depresif Bozukluk",
-    description: "Majör depresyonun belirtileri, nedenleri ve tedavi seçenekleri. Sürekli üzüntü, umutsuzluk, enerji kaybı ve günlük aktivitelerde zorlanma gibi semptomları tanıyın.",
-    emoji: "🌲",
-    category: "ruh-sagligi-bozukluklari"
-  },
-  {
-    title: "Bipolar Bozukluk (Manik Depresif)",
-    description: "Bipolar bozukluk, manik ve depresif dönemlerin ardışık yaşandığı bir ruh sağlığı durumudur. Tip 1 ve Tip 2 bipolar bozukluk arasındaki farklar ve tedavi yaklaşımları.",
+    title: "Bipolar Bozukluk",
+    description: "Manik ve depresif dönemlerin ardışık yaşandığı ruh sağlığı durumu. Tip 1 ve Tip 2 olarak sınıflandırılır.",
     emoji: "🍃",
-    category: "ruh-sagligi-bozukluklari"
+    category: "depresyon"
   },
   {
-    title: "Şizofreni",
-    description: "Şizofreninin pozitif ve negatif belirtileri. Halüsinasyonlar, delüzyonlar, düşünce bozuklukları ve sosyal geri çekilme gibi semptomların erken tanınması.",
-    emoji: "🌴",
-    category: "ruh-sagligi-bozukluklari"
-  },
-  {
-    title: "Borderline Kişilik Bozukluğu",
-    description: "Sınırda kişilik bozukluğunun belirtileri ve tedavisi. İlişkilerde istikrarsızlık, kimlik krizi, impulsivite ve terk edilme korkusu gibi semptomlar.",
-    emoji: "🌿",
-    category: "ruh-sagligi-bozukluklari"
-  },
-  {
-    title: "Antisosyal Kişilik Bozukluğu",
-    description: "Antisosyal kişilik bozukluğunun karakteristik özellikleri. Başkalarının haklarını hiçe sayma, manipülatif davranışlar ve empati eksikliği.",
-    emoji: "🍂",
-    category: "ruh-sagligi-bozukluklari"
-  },
-  {
-    title: "Narsisistik Kişilik Bozukluğu",
-    description: "Aşırı benmerkezcilik, empati eksikliği ve üstünlük kompleksi ile karakterize olan kişilik bozukluğu. Belirtileri ve başa çıkma stratejileri.",
-    emoji: "🌺",
-    category: "ruh-sagligi-bozukluklari"
+    title: "Distimi",
+    description: "Kronik depresyon olarak da bilinen, uzun süreli düşük ruh hali durumu. En az 2 yıl sürer.",
+    emoji: "🌲",
+    category: "depresyon"
   },
 
-  // Anksiyete Bozuklukları
+  // Anksiyete
   {
     title: "Yaygın Anksiyete Bozukluğu",
-    description: "Sürekli ve kontrol edilemeyen endişe durumu. Günlük yaşamı etkileyen aşırı kaygı, fiziksel gerginlik ve konsantrasyon zorluğu belirtileri.",
+    description: "Sürekli ve kontrol edilemeyen endişe durumu. Günlük yaşamı etkileyen aşırı kaygı ve gerginlik.",
     emoji: "🌱",
-    category: "anksiyete-bozukluklari"
+    category: "anksiyete"
   },
   {
-    title: "Sosyal Anksiyete Bozukluğu",
-    description: "Sosyal ortamlarda yaşanan yoğun korku ve kaygı durumu. Yargılanma korkusu, toplum önünde konuşma kaygısı ve sosyal kaçınma davranışları.",
+    title: "Sosyal Anksiyete",
+    description: "Sosyal ortamlarda yaşanan yoğun korku ve kaygı. Yargılanma korkusu ve sosyal kaçınma davranışları.",
     emoji: "🌸",
-    category: "anksiyete-bozukluklari"
+    category: "anksiyete"
   },
   {
     title: "Panik Bozukluk",
-    description: "Tekrarlayan panik ataklar ve bunlara bağlı yaşam tarzı değişiklikleri. Ani korku, kalp çarpıntısı, nefes darlığı ve ölüm korkusu semptomları.",
+    description: "Tekrarlayan panik ataklar ve bunlara bağlı yaşam tarzı değişiklikleri. Ani korku ve fiziksel belirtiler.",
     emoji: "🌻",
-    category: "anksiyete-bozukluklari"
+    category: "anksiyete"
   },
   {
     title: "Agorafobi",
-    description: "Açık alanlara veya kaçışın zor olduğu ortamlara karşı yoğun korku. Toplu taşıma, kalabalık yerler ve evden çıkma konusunda yaşanan zorluklar.",
+    description: "Açık alanlara veya kaçışın zor olduğu ortamlara karşı yoğun korku. Evden çıkma konusunda zorluklar.",
     emoji: "🌿",
-    category: "anksiyete-bozukluklari"
-  },
-  {
-    title: "Spesifik Fobiler",
-    description: "Belirli nesne veya durumlara karşı aşırı ve mantıksız korku. Hayvan fobisi, yükseklik korkusu, kan fobisi gibi yaygın fobi türleri.",
-    emoji: "🍀",
-    category: "anksiyete-bozukluklari"
-  },
-  {
-    title: "Sağlık Anksiyetesi (Hipokondri)",
-    description: "Ciddi hastalığa yakalanma konusunda aşırı endişe. Fiziksel belirtileri yanlış yorumlama ve sürekli tıbbi kontrol arama davranışları.",
-    emoji: "🌾",
-    category: "anksiyete-bozukluklari"
+    category: "anksiyete"
   },
 
-  // Obsesif Kompulsif Bozukluklar
+  // Kişilik Bozuklukları
+  {
+    title: "Borderline Kişilik Bozukluğu",
+    description: "İlişkilerde istikrarsızlık, kimlik krizi, impulsivite ve terk edilme korkusu ile karakterize bozukluk.",
+    emoji: "🌿",
+    category: "kisilik-bozukluklari"
+  },
+  {
+    title: "Narsisistik Kişilik Bozukluğu",
+    description: "Aşırı benmerkezcilik, empati eksikliği ve üstünlük kompleksi ile karakterize kişilik bozukluğu.",
+    emoji: "🌺",
+    category: "kisilik-bozukluklari"
+  },
+  {
+    title: "Antisosyal Kişilik Bozukluğu",
+    description: "Başkalarının haklarını hiçe sayma, manipülatif davranışlar ve empati eksikliği ile karakterize.",
+    emoji: "🍂",
+    category: "kisilik-bozukluklari"
+  },
+
+  // Obsesif Kompulsif
   {
     title: "Obsesif Kompulsif Bozukluk (OKB)",
-    description: "İstenmeyen düşünceler (obsesyonlar) ve tekrarlayan davranışlar (kompulsyonlar) ile karakterize bozukluk. Temizlik, sayma, kontrol etme ritüelleri.",
+    description: "İstenmeyen düşünceler (obsesyonlar) ve tekrarlayan davranışlar (kompulsyonlar) ile karakterize.",
     emoji: "🌿",
     category: "obsesif-kompulsif"
   },
   {
-    title: "Beden Dismorfik Bozukluğu",
-    description: "Görünüşle ilgili aşırı endişe ve algılanan kusurlarla sürekli meşguliyet. Aynaya bakma, groomıng ritüelleri ve sosyal kaçınma davranışları.",
+    title: "Beden Dismorfik Bozukluk",
+    description: "Görünüşle ilgili aşırı endişe ve algılanan kusurlarla sürekli meşguliyet.",
     emoji: "🌹",
     category: "obsesif-kompulsif"
   },
   {
-    title: "Saç Yolma Bozukluğu (Trikotillomani)",
-    description: "Saçları yolma isteğine karşı koyamama. Stres durumlarında artan davranış ve bunun sonucunda oluşan saç kaybı ile başa çıkma yöntemleri.",
-    emoji: "🌱",
-    category: "obsesif-kompulsif"
-  },
-  {
     title: "Biriktirme Bozukluğu",
-    description: "Eşyaları atmakta güçlük çekme ve aşırı biriktirme davranışı. Yaşam alanının kullanılamaz hale gelmesi ve sosyal izolasyon.",
+    description: "Eşyaları atmakta güçlük çekme ve aşırı biriktirme davranışı. Yaşam alanının kullanılamaz hale gelmesi.",
     emoji: "🌳",
     category: "obsesif-kompulsif"
   },
 
-  // Travma ve Stres Bozuklukları
+  // Travma ve Stres
   {
     title: "Travma Sonrası Stres Bozukluğu (TSSB)",
-    description: "Ciddi travmatik olaylar sonrası gelişen bozukluk. Flashback'ler, kabus görme, kaçınma davranışları ve aşırı uyarılmışlık belirtileri.",
+    description: "Ciddi travmatik olaylar sonrası gelişen bozukluk. Flashback'ler, kabuslar ve kaçınma davranışları.",
     emoji: "🌿",
     category: "travma-stres"
   },
   {
     title: "Akut Stres Bozukluğu",
-    description: "Travmatik olay sonrası ilk ay içinde gelişen semptomlar. Dissosiyatif belirtiler, yeniden yaşama ve kaçınma davranışları.",
+    description: "Travmatik olay sonrası ilk ay içinde gelişen semptomlar. Dissosiyatif belirtiler ve yeniden yaşama.",
     emoji: "🌾",
     category: "travma-stres"
   },
   {
     title: "Yas Bozukluğu",
-    description: "Sevilen birinin kaybı sonrası normal yas sürecinden farklı olarak uzayan ve işlevselliği bozan yas tepkileri. Karmaşık yas ve tedavi yaklaşımları.",
+    description: "Sevilen birinin kaybı sonrası normal yas sürecinden farklı olarak uzayan ve işlevselliği bozan yas tepkileri.",
     emoji: "🌸",
     category: "travma-stres"
   },
-  {
-    title: "Uyum Bozukluğu",
-    description: "Yaşam değişikliklerine uyum sağlamada yaşanan zorluklar. İş değişikliği, taşınma, ilişki sorunları gibi stres faktörlerine tepki.",
-    emoji: "🍃",
-    category: "travma-stres"
-  },
 
-  // Nörogelişimsel Bozukluklar
+  // Nörogelişimsel
   {
     title: "Dikkat Eksikliği Hiperaktivite Bozukluğu (DEHB)",
-    description: "Dikkat eksikliği, hiperaktivite ve dürtüsellik ile karakterize bozukluk. Çocukluk çağında başlayıp yetişkinliğe kadar devam edebilen semptomlar.",
+    description: "Dikkat eksikliği, hiperaktivite ve dürtüsellik ile karakterize. Çocuklukta başlayıp yetişkinliğe kadar devam edebilir.",
     emoji: "🌻",
     category: "norogelisimsel"
   },
   {
     title: "Otizm Spektrum Bozukluğu",
-    description: "Sosyal iletişim güçlükleri ve tekrarlayan davranış kalıpları ile karakterize bozukluk. Erken tanı ve müdahale programları.",
+    description: "Sosyal iletişim güçlükleri ve tekrarlayan davranış kalıpları ile karakterize. Erken tanı önemlidir.",
     emoji: "🌺",
     category: "norogelisimsel"
   },
   {
     title: "Öğrenme Bozuklukları",
-    description: "Okuma, yazma, matematik gibi akademik becerilerde yaşanan spesifik güçlükler. Disleksi, disgrafya ve diskalkuli türleri.",
+    description: "Okuma, yazma, matematik gibi akademik becerilerde yaşanan spesifik güçlükler. Disleksi, disgrafya ve diskalkuli.",
     emoji: "🌿",
-    category: "norogelisimsel"
-  },
-  {
-    title: "Tourette Sendromu",
-    description: "Motor ve vokal tiklerle karakterize nörolojik bozukluk. Ani, tekrarlayan hareketler ve sesler ile başa çıkma stratejileri.",
-    emoji: "🌱",
     category: "norogelisimsel"
   },
 
   // Yeme Bozuklukları
   {
     title: "Anoreksiya Nervoza",
-    description: "Vücut ağırlığını düşük tutma obsesyonu ve beden imajı bozukluğu. Aşırı diyet, egzersiz ve vücut ağırlığı korkusu ile ilgili semptomlar.",
+    description: "Vücut ağırlığını düşük tutma obsesyonu ve beden imajı bozukluğu. Aşırı diyet ve egzersiz.",
     emoji: "🌾",
     category: "yeme-bozukluklari"
   },
   {
     title: "Bulimiya Nervoza",
-    description: "Aşırı yeme nöbetleri ve telafi edici davranışlar. Kusma, laksatif kullanımı ve aşırı egzersiz gibi kompulsif davranışlar.",
+    description: "Aşırı yeme nöbetleri ve telafi edici davranışlar. Kusma, laksatif kullanımı ve aşırı egzersiz.",
     emoji: "🌿",
     category: "yeme-bozukluklari"
   },
   {
     title: "Aşırı Yeme Bozukluğu",
-    description: "Kontrol kaybı ile karakterize tekrarlayan aşırı yeme nöbetleri. Duygusal yeme, suçluluk hissi ve kilo alımı sorunları.",
+    description: "Kontrol kaybı ile karakterize tekrarlayan aşırı yeme nöbetleri. Duygusal yeme ve suçluluk hissi.",
     emoji: "🍃",
-    category: "yeme-bozukluklari"
-  },
-  {
-    title: "Pika",
-    description: "Besin olmayan maddeleri sürekli yeme davranışı. Çocukluk çağında daha yaygın olan bu bozukluğun nedenleri ve tedavi yaklaşımları.",
-    emoji: "🌱",
     category: "yeme-bozukluklari"
   },
 
   // Uyku Bozuklukları
   {
     title: "İnsomnia (Uykusuzluk)",
-    description: "Uyku başlatma, sürdürme veya erken uyanma sorunları. Kronik uykusuzluğun nedenleri ve uyku hijyeni teknikleri.",
+    description: "Uyku başlatma, sürdürme veya erken uyanma sorunları. Kronik uykusuzluk ve uyku hijyeni.",
     emoji: "🌙",
     category: "uyku-bozukluklari"
   },
   {
     title: "Narkolepsi",
-    description: "Gündüz aşırı uyku hali ve ani uyku atakları. Katapleksi, uyku felci ve hipnagojik halüsinasyonlar gibi eşlik eden semptomlar.",
+    description: "Gündüz aşırı uyku hali ve ani uyku atakları. Katapleksi ve uyku felci eşlik edebilir.",
     emoji: "🌟",
     category: "uyku-bozukluklari"
   },
   {
     title: "Uyku Apnesi",
-    description: "Uyku sırasında nefes alımının durması. Horlama, gündüz yorgunluğu ve dikkat sorunları ile ilişkili uyku bozukluğu.",
+    description: "Uyku sırasında nefes alımının durması. Horlama, gündüz yorgunluğu ve dikkat sorunları.",
     emoji: "🌛",
     category: "uyku-bozukluklari"
   },
+
+  // Bağımlılık
   {
-    title: "Uyku Yürüme (Somnambulizm)",
-    description: "Derin uyku sırasında yürüme ve aktivite gerçekleştirme. Güvenlik önlemleri ve aile yakınlarının alması gereken tedbirler.",
-    emoji: "🌜",
-    category: "uyku-bozukluklari"
+    title: "Alkol Bağımlılığı",
+    description: "Alkol kullanımını kontrol edememe ve alkol olmadan yaşayamama durumu. Fiziksel ve psikolojik bağımlılık.",
+    emoji: "🍷",
+    category: "bagimlilik"
+  },
+  {
+    title: "Madde Bağımlılığı",
+    description: "İlaç veya uyuşturucu kullanımını kontrol edememe. Fiziksel ve psikolojik bağımlılık belirtileri.",
+    emoji: "💊",
+    category: "bagimlilik"
+  },
+  {
+    title: "Kumar Bağımlılığı",
+    description: "Kumar oynamayı kontrol edememe ve kumar olmadan yaşayamama durumu. Finansal ve sosyal sorunlar.",
+    emoji: "🎰",
+    category: "bagimlilik"
   },
 
-  // Başa Çıkma Stratejileri
+  // Şizofreni ve Psikoz
   {
-    title: "Sosyal Anksiyete ile Başa Çıkma",
-    description: "Sosyal ortamlarda yaşanan anksiyeteyi yönetme stratejileri. Kendini ifade etme becerileri ve özgüven geliştirme teknikleri.",
-    emoji: "🌻",
-    category: "basa-cikma"
+    title: "Şizofreni",
+    description: "Halüsinasyonlar, delüzyonlar, düşünce bozuklukları ve sosyal geri çekilme ile karakterize.",
+    emoji: "🌴",
+    category: "sizofreni-psikoz"
   },
   {
-    title: "Stres Yönetimi Teknikleri",
-    description: "Günlük yaşamda stresle başa çıkma yöntemleri. Nefes egzersizleri, meditasyon, ilerleyici kas gevşemesi ve mindfulness teknikleri.",
-    emoji: "🧘‍♀️",
-    category: "basa-cikma"
-  },
-  {
-    title: "Öfke Kontrolü Stratejileri",
-    description: "Öfke nöbetlerini yönetme ve kontrol altına alma teknikleri. Bilişsel teknikler, gevşeme egzersizleri ve iletişim becerileri.",
+    title: "Kısa Psikotik Bozukluk",
+    description: "Kısa süreli psikotik belirtiler. Halüsinasyonlar, delüzyonlar ve düşünce bozuklukları.",
     emoji: "🌿",
-    category: "basa-cikma"
+    category: "sizofreni-psikoz"
   },
   {
-    title: "Uyku Hijyeni ve Ruh Sağlığı",
-    description: "Kaliteli uykunun ruh sağlığı üzerindeki etkisi. Uyku düzeninizi düzenleme ve uyku kalitesini artırma yöntemleri.",
-    emoji: "🌙",
-    category: "basa-cikma"
-  },
-  {
-    title: "Mindfulness ve Meditasyon",
-    description: "Şimdiki ana odaklanma teknikleri. Mindfulness meditasyonu, nefes farkındalığı ve günlük yaşamda farkındalık pratikleri.",
-    emoji: "🧘‍♀️",
-    category: "basa-cikma"
-  },
-  {
-    title: "Bilişsel Davranışçı Teknikler",
-    description: "Olumsuz düşünce kalıplarını değiştirme stratejileri. Düşünce kaydı, davranışsal deneyimler ve problem çözme becerileri.",
+    title: "Şizofreniform Bozukluk",
+    description: "Şizofreni benzeri belirtiler ancak daha kısa süreli. 1-6 ay arası süren psikotik belirtiler.",
     emoji: "🌱",
-    category: "basa-cikma"
-  },
-
-  // Acil Durum
-  {
-    title: "Panik Atak Sırasında Ne Yapmalı?",
-    description: "Panik atak yaşadığınızda uygulanabilecek nefes teknikleri ve sakinleşme yöntemleri. 4-7-8 nefes tekniği ve grounding egzersizleri.",
-    emoji: "🚨",
-    category: "acil-durum"
-  },
-  {
-    title: "İntihar Düşünceleri ile Başa Çıkma",
-    description: "İntihar düşünceleri yaşadığınızda nasıl yardım alacağınız ve acil durum hatları. Kendinizi veya sevdiklerinizi koruma stratejileri.",
-    emoji: "🆘",
-    category: "acil-durum"
-  },
-  {
-    title: "Maniak Dönem Acil Müdahale",
-    description: "Bipolar bozukluğun manik döneminde alınması gereken acil önlemler. Uyku, beslenme ve güvenlik tedbirleri.",
-    emoji: "⚡",
-    category: "acil-durum"
-  },
-  {
-    title: "Psikotik Belirtiler ve Acil Yardım",
-    description: "Halüsinasyon ve delüzyon yaşayan kişilere nasıl yaklaşılmalı. Acil psikiyatri servisleri ve müdahale süreci.",
-    emoji: "🚑",
-    category: "acil-durum"
-  },
-  {
-    title: "Aile İçi Şiddet Acil Durum",
-    description: "Aile içi şiddet durumunda alınması gereken acil önlemler. Güvenlik planı oluşturma ve destek hatları.",
-    emoji: "🛡️",
-    category: "acil-durum"
+    category: "sizofreni-psikoz"
   }
 ];
 
@@ -380,16 +278,16 @@ function Hastaliklar() {
 
   const categories = [
     { id: 'all', name: 'Tümü', color: 'bg-emerald-100 text-emerald-700 border-emerald-200', count: disorders.length },
-    { id: 'test-sonuclari', name: 'Test Sonuçları', color: 'bg-green-100 text-green-700 border-green-200', count: disorders.filter(d => d.category === 'test-sonuclari').length },
-    { id: 'ruh-sagligi-bozukluklari', name: 'Ruh Sağlığı', color: 'bg-teal-100 text-teal-700 border-teal-200', count: disorders.filter(d => d.category === 'ruh-sagligi-bozukluklari').length },
-    { id: 'anksiyete-bozukluklari', name: 'Anksiyete', color: 'bg-lime-100 text-lime-700 border-lime-200', count: disorders.filter(d => d.category === 'anksiyete-bozukluklari').length },
-    { id: 'obsesif-kompulsif', name: 'Obsesif Kompulsif', color: 'bg-emerald-100 text-emerald-700 border-emerald-200', count: disorders.filter(d => d.category === 'obsesif-kompulsif').length },
-    { id: 'travma-stres', name: 'Travma & Stres', color: 'bg-green-100 text-green-700 border-green-200', count: disorders.filter(d => d.category === 'travma-stres').length },
-    { id: 'norogelisimsel', name: 'Nörogelişimsel', color: 'bg-teal-100 text-teal-700 border-teal-200', count: disorders.filter(d => d.category === 'norogelisimsel').length },
-    { id: 'yeme-bozukluklari', name: 'Yeme Bozuklukları', color: 'bg-lime-100 text-lime-700 border-lime-200', count: disorders.filter(d => d.category === 'yeme-bozukluklari').length },
-    { id: 'uyku-bozukluklari', name: 'Uyku Bozuklukları', color: 'bg-emerald-100 text-emerald-700 border-emerald-200', count: disorders.filter(d => d.category === 'uyku-bozukluklari').length },
-    { id: 'basa-cikma', name: 'Başa Çıkma', color: 'bg-green-100 text-green-700 border-green-200', count: disorders.filter(d => d.category === 'basa-cikma').length },
-    { id: 'acil-durum', name: 'Acil Durum', color: 'bg-orange-100 text-orange-700 border-orange-200', count: disorders.filter(d => d.category === 'acil-durum').length }
+    { id: 'depresyon', name: 'Depresyon', color: 'bg-blue-100 text-blue-700 border-blue-200', count: disorders.filter(d => d.category === 'depresyon').length },
+    { id: 'anksiyete', name: 'Anksiyete', color: 'bg-yellow-100 text-yellow-700 border-yellow-200', count: disorders.filter(d => d.category === 'anksiyete').length },
+    { id: 'kisilik-bozukluklari', name: 'Kişilik Bozuklukları', color: 'bg-purple-100 text-purple-700 border-purple-200', count: disorders.filter(d => d.category === 'kisilik-bozukluklari').length },
+    { id: 'obsesif-kompulsif', name: 'Obsesif Kompulsif', color: 'bg-pink-100 text-pink-700 border-pink-200', count: disorders.filter(d => d.category === 'obsesif-kompulsif').length },
+    { id: 'travma-stres', name: 'Travma & Stres', color: 'bg-red-100 text-red-700 border-red-200', count: disorders.filter(d => d.category === 'travma-stres').length },
+    { id: 'norogelisimsel', name: 'Nörogelişimsel', color: 'bg-indigo-100 text-indigo-700 border-indigo-200', count: disorders.filter(d => d.category === 'norogelisimsel').length },
+    { id: 'yeme-bozukluklari', name: 'Yeme Bozuklukları', color: 'bg-orange-100 text-orange-700 border-orange-200', count: disorders.filter(d => d.category === 'yeme-bozukluklari').length },
+    { id: 'uyku-bozukluklari', name: 'Uyku Bozuklukları', color: 'bg-teal-100 text-teal-700 border-teal-200', count: disorders.filter(d => d.category === 'uyku-bozukluklari').length },
+    { id: 'bagimlilik', name: 'Bağımlılık', color: 'bg-gray-100 text-gray-700 border-gray-200', count: disorders.filter(d => d.category === 'bagimlilik').length },
+    { id: 'sizofreni-psikoz', name: 'Şizofreni & Psikoz', color: 'bg-rose-100 text-rose-700 border-rose-200', count: disorders.filter(d => d.category === 'sizofreni-psikoz').length }
   ];
 
   const filteredDisorders = disorders.filter(disorder => {
@@ -609,7 +507,7 @@ function Hastaliklar() {
               </h3>
               <p className="text-green-700 leading-relaxed mb-8 text-lg font-medium">
                 Bu bilgi ormanı size yol gösterir, ancak profesyonel bir rehberin 
-                deneyimi her zaman en değerli hazinedir. Doğanın gücü ile uzman desteğini birleştirin.
+                deneyimi her zaman en değerli hazinedir.
               </p>
               <div className="flex flex-wrap justify-center gap-6">
                 <div className="flex items-center gap-3 text-sm text-green-600 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 border border-green-300/50 shadow-lg">
