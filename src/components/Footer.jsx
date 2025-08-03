@@ -55,7 +55,7 @@ function Footer() {
                 Şirket
               </h3>
               <nav className="space-y-1">
-                <a href="#/hakkimizda" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
+                <a href="#/hakkimizda" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs pb-1">
                   Hakkımızda
                 </a>
                 <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
