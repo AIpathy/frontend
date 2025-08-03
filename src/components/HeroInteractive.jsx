@@ -10,9 +10,9 @@ function HeroInteractive() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const testimonials = [
-    { text: "Kendimi daha iyi anlıyorum", author: "Sarah K.", rating: 5 },
-    { text: "Günlük ruh halim çok daha stabil", author: "Mehmet A.", rating: 5 },
-    { text: "Profesyonel destek almaya karar verdim", author: "Ayşe T.", rating: 5 }
+    { text: "Ses analizi sayesinde depresyon belirtilerini erken fark ettim", author: "Elif K.", rating: 5 },
+    { text: "AIpathy ile günlük ruh halim takibi çok kolaylaştı", author: "Mehmet A.", rating: 5 },
+    { text: "Mimik analizi teknolojisi gerçekten etkileyici", author: "Ayşe T.", rating: 5 }
   ];
 
   useEffect(() => {
@@ -83,11 +83,11 @@ function HeroInteractive() {
             <div className="flex items-center gap-6 text-gray-300">
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm text-black">%100 Güvenli</span>
+                <span className="text-sm text-black">Gizlilik</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-black">7/24 Destek</span>
+                <span className="text-sm text-black">7/24 AI Destek</span>
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@ function HeroInteractive() {
           
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500/40 to-green-500/40 backdrop-blur-sm rounded-full border border-emerald-500/60 mb-8">
               <Sparkles className="w-5 h-5 text-emerald-400 animate-pulse" />
-              <span className="text-black font-medium">AI Destekli Psikolojik Analiz</span>
+              <span className="text-black font-medium">Türkiye'nin İlk AI Psikoloji Platformu</span>
               <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
@@ -108,23 +108,23 @@ function HeroInteractive() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight">
-              <span className="block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-                Ruh Halinizi
+            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-relaxed px-8 py-4" style={{ lineHeight: '1.2' }}>
+              <span className="block bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent pb-2">
+                Ruh Sağlığınızı
               </span>
-              <span className="block bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent animate-pulse">
-                Anlıyoruz
+              <span className="block bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent animate-pulse pb-2">
+                AI ile Koruyun
               </span>
-              <span className="block text-gray-300 text-4xl md:text-5xl mt-4">
-                İyileştiriyoruz ✨
+              <span className="block text-gray-300 text-4xl md:text-5xl mt-4 pb-2">
+                Ses + Mimik + Test Analizi ✨
               </span>
             </h1>
 
             {/* Alt başlık */}
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Ses, mimik ve test analizi ile günlük ruh halinizi takip edin.
+              Yapay zeka destekli ses tonu analizi, yüz ifadesi okuma ve klinik testler ile 
               <br />
-              <span className="text-emerald-300 font-semibold">Profesyonel destek</span> almaya hazır olduğunuzda size rehberlik edelim.
+              <span className="text-emerald-300 font-semibold">ruh sağlığınızı 7/24 takip ediyoruz</span>
             </p>
 
             <div className="relative mb-16">
@@ -143,7 +143,7 @@ function HeroInteractive() {
               <div className="absolute -bottom-20 left-16 animate-float" style={{ animationDelay: '2s' }}>
                 <div className="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl p-4 shadow-2xl backdrop-blur-sm border border-white/10">
                   <FileText className="w-8 h-8 text-white" />
-                  <div className="text-xs text-white mt-2 font-medium">PHQ-9 Test</div>
+                  <div className="text-xs text-white mt-2 font-medium">Klinik Testler</div>
                 </div>
               </div>
 
@@ -192,8 +192,8 @@ function HeroInteractive() {
                           <Sparkles className="w-4 h-4 text-yellow-800" />
                         </div>
                       </div>
-                      <h3 className="text-3xl font-black mb-3">Analiz Başlat</h3>
-                      <p className="text-lg opacity-90 px-6">Günlük durumunu anlayalım</p>
+                      <h3 className="text-3xl font-black mb-3">AI Analizi Başlat</h3>
+                      <p className="text-lg opacity-90 px-6">Ruh sağlığınızı analiz edelim</p>
                     </div>
                   </div>
 
