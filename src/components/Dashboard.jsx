@@ -352,7 +352,7 @@ function Dashboard() {
             {sidebarOpen ? <ChevronLeft className="w-8 h-8" strokeWidth={3} /> : <ChevronRight className="w-6 h-6" strokeWidth={3} />}
           </button>
           {/* Ana İçerik */}
-          <main className={`flex-1 p-4 md:p-6 relative z-0 transition-all duration-300 ${sidebarOpen ? 'ml-0 md:ml-64' : 'ml-0'}`}>
+          <main className={`flex-1 p-4 md:p-6 relative z-0 transition-all duration-300 ${sidebarOpen ? 'md:ml-0' : 'ml-0'}`}>
             {loading && (
               <div className="flex items-center justify-center h-64">
                 <div className="text-center">
@@ -410,13 +410,13 @@ function Dashboard() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 p-12">
+                  <div className="relative z-10 p-8 md:p-12">
                     <div className="text-center space-y-6">
-                      <div className="inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full border-2 border-green-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-500 backdrop-blur-sm">
+                      <div className="inline-flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full border-2 border-green-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-500 backdrop-blur-sm">
                         <div className="animate-spin-slow">
-                          <div className="w-8 h-8 flex items-center justify-center text-2xl">🍃</div>
+                          <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-xl md:text-2xl">🍃</div>
                         </div>
-                        <span className="text-[#3CB97F] font-bold text-base tracking-wide">
+                        <span className="text-[#3CB97F] font-bold text-sm md:text-base tracking-wide">
                           HOŞ GELDİNİZ, {capitalizeName(user.name)}
                         </span>
                         <div className="flex gap-1">
