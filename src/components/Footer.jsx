@@ -74,7 +74,7 @@ function Footer() {
                 Yasal
               </h3>
               <nav className="space-y-1">
-                <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
+                <a href="#/gizlilik-politikasi" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
                   Gizlilik Politikası
                 </a>
                 <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">

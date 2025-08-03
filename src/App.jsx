@@ -12,6 +12,7 @@ import About from "./pages/About";
 import NasilCalisir from "./pages/NasilCalisir";
 import Blog from "./pages/Blog";
 import PsikolojikTestler from "./pages/PsikolojikTestler";
+import GizlilikPolitikasi from "./pages/GizlilikPolitikasi";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./components/Auth";
 import ResetPassword from "./components/ResetPassword";
@@ -79,6 +80,7 @@ function App() {
         <Route path="/nasil-calisir" element={<NasilCalisir />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/psikolojik-testler" element={<PsikolojikTestler />} />
+        <Route path="/gizlilik-politikasi" element={<GizlilikPolitikasi />} />
       </Routes>
     </Router>
   );
