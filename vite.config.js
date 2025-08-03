@@ -3,5 +3,16 @@ import react from '@vitejs/plugin-react'
  
 export default defineConfig({
   plugins: [react()],
-  base: '/'
+  base: '/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    },
+    target: 'esnext'
+  },
+  optimizeDeps: {
+    include: ['chart.js', 'react', 'react-dom']
+  }
 }) 

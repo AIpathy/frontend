@@ -16,6 +16,9 @@
     "license": "ISC",
     "type": "module",
     "description": "",
+    "engines": {
+        "node": ">=18.0.0"
+    },
     "dependencies": {
         "chart.js": "^4.5.0",
         "framer-motion": "^12.23.11",
