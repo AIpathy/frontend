@@ -1,5 +1,5 @@
 import React from "react";
-import { Brain, Shield, Lock, Heart, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, Mail } from "lucide-react";
+import { Brain, Shield, Lock, Heart, Phone, MapPin, Facebook, X, Instagram, Linkedin, Youtube, Mail } from "lucide-react";
 
 function Footer() {
   return (
@@ -55,7 +55,7 @@ function Footer() {
                 Şirket
               </h3>
               <nav className="space-y-1">
-                <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
+                <a href="#/hakkimizda" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
                   Hakkımızda
                 </a>
                 <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
@@ -116,7 +116,7 @@ function Footer() {
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a href="https://x.com/ai_pathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
-                  <Twitter className="w-4 h-4" />
+                  <X className="w-4 h-4" />
                 </a>
                 <a href="https://www.instagram.com/ai_pathy/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Instagram className="w-4 h-4" />
@@ -124,7 +124,7 @@ function Footer() {
                 <a href="https://www.linkedin.com/company/aipathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Linkedin className="w-4 h-4" />
                 </a>
-                <a href="#" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
+                <a href="https://www.youtube.com/@ai_pathy" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-teal-700 transition-colors duration-300 hover:scale-110 transform">
                   <Youtube className="w-4 h-4" />
                 </a>
               </div>
