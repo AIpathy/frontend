@@ -111,13 +111,13 @@ function DoctorDashboard() {
   };
 
   return (
-    <div
-      className="min-h-screen"
-      style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
-    >
+    <>
+      <div
+        className="min-h-screen"
+        style={{ background: 'radial-gradient(circle at center,rgb(187, 221, 209) 0%,rgb(238, 246, 242) 40%,rgb(204, 228, 223) 100%)' }}
+      >
 
-
-              <div className="flex relative">
+        <div className="flex relative">
           {/* Sidebar */}
           <aside
             className={`min-h-screen transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-0 overflow-hidden'} fixed md:relative z-20 md:z-auto flex-shrink-0`}
@@ -155,7 +155,7 @@ function DoctorDashboard() {
                   <p className="text-gray-500 text-sm">{doctor.specialization}</p>
                 </div>
               </div>
-                          {/* Navigasyon */}
+              {/* Navigasyon */}
               <nav className="space-y-2">
                 <button
                   onClick={() => setActiveTab("patients")}
@@ -208,8 +208,8 @@ function DoctorDashboard() {
                   <span className={activeTab === "alerts" ? "" : "text-[#3CB97F]"}>Uyarılar</span>
                 </button>
               </nav>
-          </div>
-        </aside>
+            </div>
+          </aside>
         {/* Sidebar toggle button */}
         <button
           onClick={() => setSidebarOpen((v) => !v)}
@@ -238,17 +238,75 @@ function DoctorDashboard() {
 
           {!loading && !error && activeTab === "patients" && (
             <div className="space-y-6">
-              <div className="mb-6">
+              {/* Hero Section */}
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200/50 shadow-2xl">
+                {/* Background Effects */}
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0 opacity-10">
+                    {[...Array(8)].map((_, i) => (
+                      <div
+                        key={`bg-tree-${i}`}
+                        className="absolute opacity-20"
+                        style={{
+                          left: `${10 + i * 12}%`,
+                          top: `${20 + Math.sin(i * 0.7) * 10}%`,
+                          transform: `scale(${0.6 + Math.sin(Date.now() * 0.001 + i) * 0.1})`,
+                        }}
+                      >
+                        <div className="text-4xl text-green-600">🌲</div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Floating elements */}
+                  <div className="absolute inset-0">
+                    {[...Array(12)].map((_, i) => (
+                      <div
+                        key={`float-${i}`}
+                        className="absolute animate-pulse"
+                        style={{
+                          left: `${15 + (i * 6) % 70}%`,
+                          top: `${25 + (i * 4) % 60}%`,
+                          animationDelay: `${i * 0.3}s`,
+                        }}
+                      >
+                        <div className="text-2xl opacity-30">
+                          {i % 4 === 0 ? '✨' : i % 4 === 1 ? '🍃' : i % 4 === 2 ? '🌿' : '💫'}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="relative z-10 p-8 md:p-12">
+                  <div className="text-center space-y-6">
+                    <div className="inline-flex items-center gap-4 px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full border-2 border-green-200 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-500 backdrop-blur-sm">
+                      <div className="animate-spin-slow">
+                        <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-xl md:text-2xl">🍃</div>
+                      </div>
+                      <span className="text-[#3CB97F] font-bold text-sm md:text-base tracking-wide">
+                        HOŞ GELDİNİZ, {formatDoctorName(doctor.name, doctor.expertiseLevel)}
+                      </span>
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-[#3CB97F] rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-[#267a56] rounded-full animate-pulse" style={{animationDelay: '0.5s'}} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-6 text-center">
                 <h2 className="text-2xl md:text-3xl font-extrabold text-[#3CB97F] tracking-wide drop-shadow-sm mb-2">Hasta Listesi</h2>
-                <div className="h-1 w-12 md:w-16 bg-[#3CB97F] rounded-full mb-4" />
-                <div className="relative mt-2">
+                <div className="h-1 w-12 md:w-16 bg-[#3CB97F] rounded-full mb-4 mx-auto" />
+                <div className="relative mt-2 max-w-md mx-auto">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Hasta ara..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl text-gray-800 placeholder-gray-400 border border-[#3CB97F]/20 focus:outline-none focus:ring-2 focus:ring-[#3CB97F] transition-colors"
+                    className="pl-10 pr-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl text-gray-800 placeholder-gray-400 border border-[#3CB97F]/20 focus:outline-none focus:ring-2 focus:ring-[#3CB97F] transition-colors w-full"
                   />
                 </div>
               </div>
@@ -455,6 +513,22 @@ function DoctorDashboard() {
         </main>
       </div>
     </div>
+    
+    <style jsx>{`
+      @keyframes spin-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      .animate-spin-slow {
+        animation: spin-slow 12s linear infinite;
+      }
+      
+      .shadow-3xl {
+        box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
+      }
+    `}</style>
+  </>
   );
 }
 
