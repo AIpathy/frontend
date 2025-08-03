@@ -11,10 +11,10 @@ function Header() {
       <div className="flex items-center space-x-4 group cursor-pointer" onClick={() => navigate("/")}>
         <div className="relative transform hover:scale-105 transition-all duration-300">
           <svg
-            width="200"
+            width="240"
             height="150"
-            viewBox="0 0 200 150"
-            className="w-48 h-36 drop-shadow-lg"
+            viewBox="0 0 240 150"
+            className="w-32 h-24 drop-shadow-lg"
           >
             <g transform="translate(20, 20)">
               <path
@@ -33,7 +33,7 @@ function Header() {
               />
             </g>
             <text
-              x="20"
+              x="25"
               y="120"
               fontSize="48"
               fontWeight="bold"
