@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MentalHealthChart from "./MentalHealthChart";
+import MentalHealthChart from "./components/MentalHealthChart";
 
 
 function Hero() {
