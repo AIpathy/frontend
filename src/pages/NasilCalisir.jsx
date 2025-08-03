@@ -239,12 +239,12 @@ const AIpathyNasilCalisir = () => {
 
           <div className="flex justify-center">
             <a
-              href="https://www.youtube.com/watch?v=ZkTvw3usMw4&ab_channel=TEDxTalks"
+              href="https://www.youtube.com/@ai_pathy"
               target="_blank"
               rel="noopener noreferrer"
               className="border-2 border-green-600 text-green-700 px-12 py-4 rounded-full text-xl font-semibold hover:bg-green-600 hover:text-white transition-all duration-300"
             >
-              Demoyu İzle
+              AIpathy YouTube Kanalı
             </a>
           </div>
 
