@@ -68,7 +68,7 @@ function Hero() {
   const mentalHealthFacts = [
     {
       icon: "🇹🇷",
-      stat: "Türkiye'de %30-40",
+      stat: "Türkiye'de %30",
       description: "erişkin nüfus depresyon belirtileri gösteriyor"
     },
     {
