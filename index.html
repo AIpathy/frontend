@@ -5,13 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AIpathy</title>
 
-    <!-- Google Fonts: Montserrat -->
+    <!-- Google Fonts: Montserrat with Turkish character support -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700&display=swap&subset=latin,latin-ext"
       rel="stylesheet"
     />
+
+    <!-- Fallback font for Turkish characters -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      
+      body {
+        font-family: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        font-display: swap;
+      }
+      
+      /* Ensure Turkish characters render properly */
+      
+      * {
+        font-feature-settings: "liga" 1, "kern" 1;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
 
     <!-- Tailwind CDN sadece daktilo efekti için-->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,6 +38,9 @@
       tailwind.config = {
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['Montserrat', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'sans-serif'],
+            },
             keyframes: {
               typing: {
                 "0%": {
@@ -47,8 +69,8 @@
       }
     </script>
     <link rel="icon" type="image/x-icon" href="/frontend/favicon.ico" />
-    <script type="module" crossorigin src="/assets/index-pa-J01iW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DlpfC24k.css">
+    <script type="module" crossorigin src="/assets/index-CUdqTB7j.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-7BePaW-9.css">
   </head>
   <body class="font-sans" style="background: linear-gradient(135deg, #f5f5f5 60%, #e0e7ef 100%);">
     <div id="root"></div>
