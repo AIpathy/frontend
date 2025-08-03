@@ -77,10 +77,10 @@ function Footer() {
                 <a href="#/gizlilik-politikasi" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
                   Gizlilik Politikası
                 </a>
-                <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
+                <a href="#/gizlilik-politikasi" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
                   Kullanım Şartları
                 </a>
-                <a href="#" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
+                <a href="#/gizlilik-politikasi" className="block text-slate-600 hover:text-teal-700 transition-colors duration-300 text-xs">
                   Çerez Politikası
                 </a>
               </nav>
