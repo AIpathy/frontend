@@ -10,7 +10,10 @@ export default defineConfig({
         manualChunks: undefined
       }
     },
-    target: 'esnext'
+    target: 'esnext',
+    minify: 'esbuild',
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000
   },
   optimizeDeps: {
     include: ['chart.js', 'react', 'react-dom']
