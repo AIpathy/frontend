@@ -173,7 +173,7 @@ function AIpathyForestTestimonials() {
 
         {/* Alt başlık */}
         <p className={`text-gray-700 mb-16 max-w-3xl text-lg leading-relaxed transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          Zihinsel sağlığınız için güvenli bir alan. Yüzlerce kullanıcının tercihi AIpathy, her zaman yanınızda!
+          Zihinsel sağlığınız için güvenli bir alan. AIpathy, her zaman yanınızda!
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
