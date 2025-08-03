@@ -267,19 +267,19 @@ const About = () => {
                 { 
                   title: 'Backend & Database', 
                   icon: Database,
-                  items: ['Node.js + Express', 'MySQL Database', 'JWT Authentication'], 
+                  items: ['Node.js + Express', 'MySQL + mysql2', 'JWT Authentication', 'bcryptjs + Helmet'], 
                   color: 'emerald' 
                 },
                 { 
-                  title: 'Frontend & UI', 
+                  title: 'Frontend & UI/UX', 
                   icon: Monitor,
-                  items: ['React + TailwindCSS', 'Chart.js Grafikleri', 'i18n Çok Dilli Destek'], 
+                  items: ['React + Vite', 'Tailwind CSS + PostCSS', 'React Router DOM', 'Lucide React Icons', 'Vitest Testing', 'Docker Containerization'], 
                   color: 'green' 
                 },
                 { 
                   title: 'AI & Security', 
                   icon: Shield,
-                  items: ['NLP Duygu Analizi', 'HTTPS + End-to-End Şifreleme', 'Docker Mikroservis'], 
+                  items: ['FastAPI + Python', 'Google Gemini AI', 'ElevenLabs STT', 'Random Forest ML', 'Pydantic Validation'], 
                   color: 'emerald' 
                 }
               ].map((tech, index) => (
